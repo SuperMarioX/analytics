@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Target Prepare Macros">
+	
+	<!-- = = = = = = = = = = = = = = = = =
+          macrodef: get_dist          
+         = = = = = = = = = = = = = = = = = -->
+	<macrodef name="get.dist.lib">
+        <attribute name="id"/>
+    	<attribute name="version"/>
+    	<attribute name="server" default = "${ftp.server}"/>
+    	<attribute name="userid" default = "${ftp.userid}"/>
+    	<attribute name="password" default = "${ftp.password}"/>
+    	<attribute name="remote.dist.root" default = "${remote.dist.root}"/>
+    	<attribute name="target.platform.root"  default = "${target.platform.root}"/>
+        <sequential>
+        	<ftp password="@{password}" server="@{server}" userid="@{userid}" action="get"  passive="true" 
+				remotedir="@{remote.dist.root}/library/@{id}/versions/@{version}" verbose="true">
+				<fileset dir="@{target.platform.root}/target/plugins">
+					<include name="*.jar"/>
+				</fileset>
+			</ftp>
+        	<ftp password="@{password}" server="@{server}" userid="@{userid}" action="get"  passive="true" 
+				remotedir="@{remote.dist.root}/library/@{id}/versions/@{version}/ref" verbose="true">
+				<fileset dir="@{target.platform.root}/target/plugins">
+					<include name="**/*.jar"/>
+				</fileset>
+			</ftp>
+        </sequential>
+    </macrodef>
+	
+	<macrodef name="extract.bundle.lib">
+		<attribute name="bundle"/>
+		<attribute name="target.platform.root"  default = "${target.platform.root}"/>
+		 <sequential>
+		 	<mkdir dir="@{target.platform.root}/target/plugins/lib"/>
+		 	<mkdir dir="@{target.platform.root}/target/plugins/ziptemp"/>
+		 	
+			<unzip src="@{target.platform.root}/target/plugins/@{bundle}" 
+			      dest="@{target.platform.root}/target/plugins/ziptemp" >
+			</unzip> 
+		 	<copy todir="@{target.platform.root}/target/plugins/lib">
+		 		<fileset dir="@{target.platform.root}/target/plugins/ziptemp/lib">
+		 		       <include name="*.jar" />
+		 		 </fileset>
+		 	</copy>
+		 	<delete dir="@{target.platform.root}/target/plugins/ziptemp">
+		 	</delete>
+		 </sequential>
+	</macrodef>
+	
+	
+	<macrodef name="get.dist.build">
+	        <attribute name="id"/>
+	    	<attribute name="build"/>
+	    	<attribute name="server" default = "${ftp.server}"/>
+	    	<attribute name="userid" default = "${ftp.userid}"/>
+	    	<attribute name="password" default = "${ftp.password}"/>
+	    	<attribute name="remote.dist.root" default = "${remote.dist.root}"/>
+	    	<attribute name="target.platform.root"  default = "${target.platform.root}"/>
+	        <sequential>
+	        	<ftp password="@{password}" server="@{server}" userid="@{userid}" action="get"  passive="true" 
+					remotedir="@{remote.dist.root}/library/@{id}/build/@{build}" verbose="true">
+					<fileset dir="@{target.platform.root}/target/plugins">
+						<include name="*.jar"/>
+					</fileset>
+				</ftp>
+	        	<ftp password="@{password}" server="@{server}" userid="@{userid}" action="get"  passive="true" 
+					remotedir="@{remote.dist.root}/library/@{id}/build/@{build}/ref" verbose="true">
+					<fileset dir="@{target.platform.root}/target/plugins">
+						<include name="**/*.jar"/>
+					</fileset>
+				</ftp>
+	        </sequential>
+	    </macrodef>
+	
+	<macrodef name="get.lib.bundle">
+		        <attribute name="id"/>
+		    	<attribute name="version"/>
+		    	<attribute name="server" default = "${ftp.server}"/>
+
+		    	<attribute name="userid" default = "${ftp.userid}"/>
+		    	<attribute name="password" default = "${ftp.password}"/>
+		    	<attribute name="remote.dist.root" default = "${remote.dist.root}"/>
+		    	<attribute name="target.platform.root"  default = "${target.platform.root}"/>
+			    <attribute name="bundle.jar.name"/>
+		        <sequential>
+		        	<ftp password="@{password}" server="@{server}" userid="@{userid}" action="get"  passive="true" 
+						remotedir="@{remote.dist.root}/library/@{id}/versions/@{version}" verbose="true">
+						<fileset dir="@{target.platform.root}/target/plugins">
+							<include name="@{bundle.jar.name}"/>
+
+						</fileset>
+					</ftp>
+		        </sequential>
+		   </macrodef>
+
+	
+	<macrodef name="get.platform">
+    	<attribute name="server" default = "${ftp.server}"/>
+    	<attribute name="userid" default = "${ftp.userid}"/>
+    	<attribute name="password" default = "${ftp.password}"/>
+    	<attribute name="remote.dist.root" default = "${remote.dist.root}"/>
+    	<attribute name="target.platform.root"  default = "${target.platform.root}"/>
+		<attribute name="version"/>
+        <sequential>
+        	<ftp password="@{password}" server="@{server}" userid="@{userid}" action="get"  passive="true" 
+				remotedir="@{remote.dist.root}/platform/@{version}" verbose="true">
+				<fileset dir="@{target.platform.root}/target/plugins">
+					<include name="**/*.jar"/>
+				</fileset>
+			</ftp>
+        </sequential>
+    </macrodef>
+	
+	<macrodef name="get.platform.bundle">
+    	<attribute name="platform.version" default="1.0"/>
+    	<attribute name="server" default = "${ftp.server}"/>
+    	<attribute name="userid" default = "${ftp.userid}"/>
+    	<attribute name="password" default = "${ftp.password}"/>
+    	<attribute name="remote.dist.root" default = "${remote.dist.root}"/>
+    	<attribute name="target.platform.root"  default = "${target.platform.root}"/>
+		<attribute name="bundle.name"/>
+		<attribute name="suffix" default=""/>
+        <sequential>
+        	<ftp password="@{password}" server="@{server}" userid="@{userid}" action="get"  passive="true" 
+				remotedir="@{remote.dist.root}/platform/@{platform.version}" verbose="true">
+				<fileset dir="@{target.platform.root}/target/plugins">
+					<include name="@{bundle.name}*@{suffix}.jar"/>
+				</fileset>
+			</ftp>
+        </sequential>
+	
+	</macrodef>
+	
+	<macrodef name="init.local">
+		<attribute name="local.root"  default = "${local.root}"/>
+		<sequential>
+			
+			<delete dir="@{local.root}/build" failonerror="false"/>
+			<delete dir="@{local.root}/deploy" failonerror="false"/>
+			<delete dir="@{local.root}/dep" failonerror="false"/>
+			
+			<mkdir dir="@{local.root}/build"/>
+			<mkdir dir="@{local.root}/deploy"/>
+			<mkdir dir="@{local.root}/dep"/>
+			
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="init.target.platform">
+		<attribute name="target.platform.root"  default = "${target.platform.root}"/>
+		<sequential>
+			<mkdir dir="@{target.platform.root}/build"/>
+			<mkdir dir="@{target.platform.root}/ci"/>
+			<mkdir dir="@{target.platform.root}/deploy"/>
+			<mkdir dir="@{target.platform.root}/thirdparty"/>
+			<mkdir dir="@{target.platform.root}/target"/>
+			<mkdir dir="@{target.platform.root}/target/plugins"/>
+			<mkdir dir="@{target.platform.root}/drivers"/>
+		</sequential>
+	</macrodef>
+	
+	
+	<macrodef name="get.ci">
+			<attribute name="server" default = "${ftp.server}"/>
+	    	<attribute name="userid" default = "${ftp.userid}"/>
+	    	<attribute name="password" default = "${ftp.password}"/>
+	    	<attribute name="remote.dist.root" default = "${remote.dist.root}"/>
+	    	<attribute name="target.platform.root"  default = "${target.platform.root}"/>
+			<attribute name="version"/>
+			<sequential>
+				<echo>fetch ci files from @{remote.dist.root}/library/ci/versions/@{version}</echo>
+				<ftp password="@{password}" server="@{server}" userid="@{userid}" action="get"  passive="true" 
+					remotedir="@{remote.dist.root}/library/ci/versions/@{version}" verbose="true">
+					<fileset dir="@{target.platform.root}/ci">
+						<include name="**/*"/>
+					</fileset>
+				</ftp>
+				
+				<copy todir="@{target.platform.root}/deploy">
+									<fileset dir="@{target.platform.root}/ci/deployutil">
+										<include name="**/*"/>
+									</fileset>
+								</copy>
+				<copy todir="@{target.platform.root}/target/plugins">
+					<fileset dir="@{target.platform.root}/ci">
+						<include name="com.cnebula.junit*.jar"/>
+						<include name="com.cnebula.platform.admin*.jar"/>
+					</fileset>
+				</copy>
+			</sequential>
+	</macrodef>
+	
+    <macrodef name="get.bootstrap">
+		<attribute name="version"/>
+		<attribute name="server" default = "${ftp.server}"/>
+		<attribute name="userid" default = "${ftp.userid}"/>
+		<attribute name="password" default = "${ftp.password}"/>
+		<attribute name="remote.dist.root" default = "${remote.dist.root}"/>
+		<attribute name="target.platform.root"  default = "${target.platform.root}"/>
+	    <sequential>
+	    	<ftp password="@{password}" server="@{server}" userid="@{userid}" action="get"  passive="true" 
+				remotedir="@{remote.dist.root}/library/bootstrap/versions/@{version}" verbose="true">
+				<fileset dir="@{target.platform.root}/target">
+					<include name="*.jar"/>
+				</fileset>
+			</ftp>
+	    </sequential>
+    </macrodef>
+
+	<macrodef name="get.thirdparty.bundle">
+	    	<attribute name="server" default = "${ftp.server}"/>
+	    	<attribute name="userid" default = "${ftp.userid}"/>
+	    	<attribute name="password" default = "${ftp.password}"/>
+	    	<attribute name="remote.dist.root" default = "${remote.dist.root}"/>
+	    	<attribute name="target.platform.root"  default = "${target.platform.root}"/>
+			<attribute name="bundle.name"/>
+			<attribute name="version"/>
+	        <sequential>
+	        	<ftp password="@{password}" server="@{server}" userid="@{userid}" action="get"  passive="true" 
+					remotedir="@{remote.dist.root}/thirdparty/@{bundle.name}/@{version}" verbose="true">
+					<fileset dir="@{target.platform.root}/target/plugins">
+					</fileset>
+				</ftp>
+	        </sequential>
+	</macrodef>
+	
+	<macrodef name="get.thirdparty.library">
+    	<attribute name="server" default = "${ftp.server}"/>
+    	<attribute name="userid" default = "${ftp.userid}"/>
+    	<attribute name="password" default = "${ftp.password}"/>
+    	<attribute name="remote.dist.root" default = "${remote.dist.root}"/>
+    	<attribute name="target.platform.root"  default = "${target.platform.root}"/>
+		<attribute name="bundle.name"/>
+		<attribute name="version"/>
+        <sequential>
+        	<ftp password="@{password}" server="@{server}" userid="@{userid}" action="get"  passive="true" 
+				remotedir="@{remote.dist.root}/thirdparty/@{bundle.name}/@{version}" verbose="true">
+				<fileset dir="@{target.platform.root}/thirdparty">
+				</fileset>
+			</ftp>
+        </sequential>
+	</macrodef>
+	
+	<macrodef name="get.remote">
+    	<attribute name="server" default = "${ftp.server}"/>
+    	<attribute name="userid" default = "${ftp.userid}"/>
+    	<attribute name="password" default = "${ftp.password}"/>
+    	<attribute name="remote.dir"/>
+		<attribute name="local.dir"/>
+    	<attribute name="target.platform.root"  default = "${target.platform.root}"/>
+        <sequential>
+        	<ftp password="@{password}" server="@{server}" userid="@{userid}" action="get"  passive="true" 
+				remotedir="@{remote.dir}" verbose="true">
+				<fileset dir="@{target.platform.root}/@{local.dir}">
+				</fileset>
+			</ftp>
+        </sequential>
+	</macrodef>
+	
+	<macrodef name="inject.thirdparty">
+        <attribute name="target.platform.root" default="${target.platform.root}" />
+        <sequential>
+            <copy todir="@{target.platform.root}/target/plugins">
+            	<fileset dir="@{target.platform.root}/thirdparty"></fileset>
+            </copy>
+        </sequential>
+    </macrodef>
+	
+	<macrodef name="get.deploy.lib">
+			<attribute name="version"/>
+	    	<attribute name="server" default = "${ftp.server}"/>
+	    	<attribute name="userid" default = "${ftp.userid}"/>
+	    	<attribute name="password" default = "${ftp.password}"/>
+	    	<attribute name="remote.dist.root" default = "${remote.dist.root}"/>
+	    	<attribute name="target.platform.root"  default = "${target.platform.root}"/>
+	        <sequential>
+	        	<echo>get.deploy.lib is deprcated, its function is included into get.ci</echo>
+	        </sequential>
+	    </macrodef>
+	
+
+</project>

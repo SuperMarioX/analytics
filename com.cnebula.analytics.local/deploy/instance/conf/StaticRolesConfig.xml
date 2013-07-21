@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StaticRolesConfig>
+	<!--匿名用户角色 -->
+	<Role id="$anonymous_role" name="$anonymous_role" type="1"
+		enabled="true" blackRole="false">
+		<UMPermissionRules>
+			<PermissionRule id="$loginservice_pr" type="0"
+				enabled="true" entityLimitType="com.cnebula.common.security.auth.ILoginService" />
+			<PermissionRule id="$loginvalidatorservice_pr" type="0"
+				enabled="true" entityLimitType="com.cnebula.common.security.auth.ILoginValidateService" />
+			<PermissionRule id="$platformAdmin_pr" type="0"
+				enabled="true" entityLimitType="com.cnebula.platform.admin.IPlatformStatusService" />
+			<PermissionRule id="$IEasyBatchService_pr" type="0"
+				enabled="true" entityLimitType="com.cnebula.common.remote.batch.IEasyBatchService" />
+			<PermissionRule id="$remotediscover_pr" type="0"
+				enabled="true" entityLimitType="com.cnebula.common.remote.IRemoteServiceDiscoverer" />
+			<PermissionRule id="$IRCSDataQueryService_pr" type="0"
+				enabled="true" entityLimitType="com.cnebula.analytics.common.rd.IRCSDataQueryService" />
+			<PermissionRule id="$IMenuQueryService_pr" type="0"
+				enabled="true" entityLimitType="com.cnebula.analytics.common.IMenuQueryService" />
+			<PermissionRule id="$IRealTimeDataQueryService_pr" type="0"
+				enabled="true" entityLimitType="com.cnebula.analytics.logservice.IRealTimeDataQueryService" />
+			<PermissionRule id="$ICometService_pr" type="0"
+				enabled="true" entityLimitType="com.cnebula.common.remote.core.comet.ICometService" />
+			<PermissionRule id="$IChartService_pra" type="0"
+				enabled="true" entityLimitType="com.cnebula.analytics.reportservice.IChartService" >
+			</PermissionRule>
+			<PermissionRule id="$IDataTableService_pra" type="0"
+				enabled="true" entityLimitType="com.cnebula.analytics.reportservice.IDataTableService" >
+			</PermissionRule>
+			<PermissionRule id="$IReportorService_pra" type="0"
+				enabled="true" entityLimitType="com.cnebula.analytics.reportservice.IReportorService" >
+			</PermissionRule>
+			
+			<PermissionRule id="$ICAReportService_pra" type="0"
+				enabled="true" entityLimitType="com.cnebula.analytics.reportservice.ICAReportService">
+				<expression>
+					<![CDATA[
+						ops<={"getConfig"}
+					]]>
+				</expression>
+			</PermissionRule>	
+		</UMPermissionRules>
+		<UMUserRules>
+			<UserRule name="$anonymous_ur" type="0" enabled="true" expression="true" />
+		</UMUserRules>
+	</Role>
+	<!--超级管理员 -->
+	<Role id="$admin_role" name="admin_role" type="1" enabled="true"
+		blackRole="false">
+		<UMPermissionRules>
+			<PermissionRule id="$admin_tree_pr" name="admin_pr" type="0" enabled="true">
+				<expression><![CDATA[name="com.cnebula.analytics.reportservice.ICAReportAppTreeRuleService"]]></expression>
+			</PermissionRule>
+			<PermissionRule id="$ICAReportService_pr" type="0"
+				enabled="true" entityLimitType="com.cnebula.analytics.reportservice.ICAReportService" >
+			</PermissionRule>
+		</UMPermissionRules>
+		<UMUserRules>
+			<UserRule id="$admin_ur" name="admin_ur" enabled="true">
+				<expression><![CDATA[u.extAttributes.roles~="*cal.superManager*"]]></expression>
+			</UserRule>
+		</UMUserRules>
+	</Role>
+	<!--普通用户 -->
+	<Role id="$user_role" name="user_role" type="1" enabled="true"
+		blackRole="false">
+		<UMPermissionRules>
+			<PermissionRule id="$ICAReportService_pr" type="0"
+				enabled="true" entityLimitType="com.cnebula.analytics.reportservice.ICAReportService" >
+			</PermissionRule>
+		</UMPermissionRules>
+		<UMUserRules>
+			<UserRule id="$user_ur" name="user_ur" enabled="true">
+				<expression><![CDATA[u.extAttributes.roles~="*cal.libManager*" | u.extAttributes.roles~="*cal.reader*"]]></expression>
+			</UserRule>
+		</UMUserRules>
+	</Role>
+</StaticRolesConfig>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>1453</title>
+<style type="text/css"><!--
+/* @group RESET */
+/* --------------------------------------------------------------
+
+  Reset.css
+  * Resets default browser CSS styles.
+
+  Created by Erik Meyer:
+  * meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/
+-------------------------------------------------------------- */
+
+* html {
+  overflow-y: auto;
+}
+html, body {
+    height: 100%;
+}
+--></style>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/zyxwiki.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shThemeDefault.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shCore.css"/>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCpp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCSharp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCss.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushGroovy.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJavaFX.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJScript.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPerl.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPhp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPlain.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPowerShell.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPython.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushRuby.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushScala.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushSql.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushVb.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushXml.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJava.js"></script>
+<script type="text/javascript">
+SyntaxHighlighter.config.clipboardSwf = '_cssAndJsDir_/clipboard.swf'
+SyntaxHighlighter.all();
+</script>
+  </head>
+  <body>
+
+<div id="xwikimaincontainer">
+<div id="xwikimaincontainerinner">
+<h2><span id="bug1453">bug1453</span></h2>
+<h2><span id="1、重现步骤">1、重现步骤</span></h2>
+<p>以下描述的步骤只是引起此bug描述现象的部分原因：</p>
+<p>1、用户将浏览器设置为禁用cookie</p>
+<p>2、用户访问集成了日志系统跟踪代码的页面</p>
+<p>3、日志系统后台响应为：<br/>
+<a href="#警告" rel="nofollow">警告</a>2012-05-25 09:58:30               invalid  _caam<a href="#0" rel="nofollow">0</a><br/>
+<a href="#警告" rel="nofollow">警告</a>2012-05-25 09:58:30               
+uri=<a href="#/calog.gif?rsc=1&amp;rnc=1&amp;ssn=5963027466a487f5&amp;_caam=0&amp;lsr=1024x768&amp;oadm=ccc.calis.edu.cn&amp;ldev=pc&amp;los=Windows&amp;losv=XP&amp;lbt=MSIE&amp;lbv=6&amp;lbl=zh-cn&amp;lbpj=&amp;lbpf=9.0.28.0&amp;lfrm=http%3A%2F%2Fsearch.lib.bnu.edu.cn%3A8332%2FV%2FHKC9BFU4DEPFN9KPVALAIRJHQK7TIMLJVAALADSVT7FBIYE45G-08660%3Ffunc%3Dfind-ej-1&amp;op=v&amp;orid=%2Fresult.php%3Fat%3D%25E8%258B%2597%25E8%2597%258F%25E9%2593%25B6%25E9%25A5%25B0%25E5%25AF%25B9%25E6%25AF%2594%26from%3D0&amp;otil=%E8%A5%BF%E5%8C%97%E5%B8%88%E8%8C%83%E5%A4%A7%E5%AD%A6%E5%A4%96%E6%96%87%E6%9C%9F%E5%88%8A%E7%BD%91&amp;ort=p&amp;rvc=1&amp;sorg=630600&amp;sid=&amp;st=&amp;oaid=app%3A100000.ccc_000&amp;rrs=200&amp;v=114" rel="nofollow">/calog.gif?rsc=1&amp;rnc=1&amp;ssn=5963027466a487f5&amp;_caam=0&amp;lsr=1024x768&amp;oadm=ccc.calis.edu.cn&amp;ldev=pc&amp;los=Windows&amp;losv=XP&amp;lbt=MSIE&amp;lbv=6&amp;lbl=zh-cn&amp;lbpj=&amp;lbpf=9.0.28.0&amp;lfrm=http%3A%2F%2Fsearch.lib.bnu.edu.cn%3A8332%2FV%2FHKC9BFU4DEPFN9KPVALAIRJHQK7TIMLJVAALADSVT7FBIYE45G-08660%3Ffunc%3Dfind-ej-1&amp;op=v&amp;orid=%2Fresult.php%3Fat%3D%25E8%258B%2597%25E8%2597%258F%25E9%2593%25B6%25E9%25A5%25B0%25E5%25AF%25B9%25E6%25AF%2594%26from%3D0&amp;otil=%E8%A5%BF%E5%8C%97%E5%B8%88%E8%8C%83%E5%A4%A7%E5%AD%A6%E5%A4%96%E6%96%87%E6%9C%9F%E5%88%8A%E7%BD%91&amp;ort=p&amp;rvc=1&amp;sorg=630600&amp;sid=&amp;st=&amp;oaid=app%3A100000.ccc_000&amp;rrs=200&amp;v=114</a></p>
+<h3><span id="2、修复意见">2、修复意见</span></h3>
+<p>经日志项目组讨论，得出如下修改：</p>
+<h4><span id="2.1日志跟踪代码修改">2.1日志跟踪代码修改</span></h4>
+<p>判断用户浏览器是否禁用cookies，若“是”则将“_caam”字段值设置为“d”，若“不是”，按原来流程发送日志</p>
+<h4><span id="2.2日志服务修改">2.2日志服务修改</span></h4>
+<p>服务接收到一条日志，若“_caam”字段值为“d”，修改相关和会话相关的参数保证可以入库一条PV日志，若“_caam”为其他值
+按照原流程处理。</p>
+</div>
+</div>
+  </body>
+</html>

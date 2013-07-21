@@ -1,0 +1,16 @@
+问题：
+
+1) tlv, tss, oaten等为null
+
+SELECT *  FROM LV20120429 where oaid = 'app:100000.eduChina_000'  and oaten is null
+有可能是本地rcs信息服务有问题。
+
+2) sgsn 还是老的长的 5c1692ea-2396-411f-b089-64a9bd19edf4
+是会话过期，需重建时候，没有采用weekUUID，而是采用了严格的UUID
+
+3) rgsc > rsc
+似乎和2）有关，但是也有可能是local session没有超时单全局超时了。
+和原来rgsc =1， rgnc=1不一样，此种情况下rgnc=0，属于正常现象，即服务端30分钟和
+客户端30分钟会话超时（因为网络传输缘故）起点不同，出现客户端会话未超时但服务端超时现象。将服务端提高到31分钟，以减少这种情况发生。
+
+4) artifact password等敏感信息不应该采集

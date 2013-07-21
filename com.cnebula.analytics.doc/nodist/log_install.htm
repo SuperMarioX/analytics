@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>log_install</title>
+<style type="text/css"><!--
+/* @group RESET */
+/* --------------------------------------------------------------
+
+  Reset.css
+  * Resets default browser CSS styles.
+
+  Created by Erik Meyer:
+  * meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/
+-------------------------------------------------------------- */
+
+* html {
+  overflow-y: auto;
+}
+html, body {
+    height: 100%;
+}
+--></style>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/zyxwiki.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shThemeDefault.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shCore.css"/>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCpp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCSharp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCss.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushGroovy.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJavaFX.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJScript.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPerl.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPhp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPlain.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPowerShell.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPython.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushRuby.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushScala.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushSql.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushVb.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushXml.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJava.js"></script>
+<script type="text/javascript">
+SyntaxHighlighter.config.clipboardSwf = '_cssAndJsDir_/clipboard.swf'
+SyntaxHighlighter.all();
+</script>
+  </head>
+  <body>
+
+<div id="xwikimaincontainer">
+<div id="xwikimaincontainerinner">
+<h1><span id="日志统计与监控系统安装指南（V1.0）">日志统计与监控系统安装指南（V1.0）</span></h1>
+<p><img src="img/menual/log_calis.png" alt="" title="" /><br/>
+<strong>中国高等教育文献保障系统（CALIS）管理中心<br/></strong>
+<strong>Administrative Center for China Academic Library &amp; Information System<br/></strong></p>
+
+<div class="xwikiToc"><ul>
+<li class="toc_level_1"><a href="#日志统计与监控系统安装指南（V1.0）"><span class="toctext">日志统计与监控系统安装指南（V1.0）</span></a></li>
+<li class="toc_level_2"><a href="#1__概述"><span class="toctext">1  概述</span></a></li>
+<li class="toc_level_3"><a href="#1.1_系统简介"><span class="toctext">1.1 系统简介</span></a></li>
+<li class="toc_level_3"><a href="#1.2_手册说明"><span class="toctext">1.2 手册说明</span></a></li>
+<li class="toc_level_4"><a href="#1.2.1_目的"><span class="toctext">1.2.1 目的</span></a></li>
+<li class="toc_level_4"><a href="#1.2.2_读者对象"><span class="toctext">1.2.2 读者对象</span></a></li>
+<li class="toc_level_2"><a href="#2_名词解释"><span class="toctext">2 名词解释</span></a></li>
+<li class="toc_level_2"><a href="#3__安装前准备"><span class="toctext">3  安装前准备</span></a></li>
+<li class="toc_level_3"><a href="#3.1_硬件环境"><span class="toctext">3.1 硬件环境</span></a></li>
+<li class="toc_level_3"><a href="#3.2_软件环境"><span class="toctext">3.2 软件环境</span></a></li>
+<li class="toc_level_3"><a href="#3.3_其他环境要求"><span class="toctext">3.3 其他环境要求</span></a></li>
+<li class="toc_level_2"><a href="#4__基础组件安装"><span class="toctext">4  基础组件安装</span></a></li>
+<li class="toc_level_3"><a href="#4.1_JDK"><span class="toctext">4.1 JDK</span></a></li>
+<li class="toc_level_2"><a href="#5__数据库配置"><span class="toctext">5  数据库配置</span></a></li>
+<li class="toc_level_2"><a href="#6__主程序安装配置与启动"><span class="toctext">6  主程序安装配置与启动</span></a></li>
+<li class="toc_level_3"><a href="#6.1_主程序安装"><span class="toctext">6.1 主程序安装</span></a></li>
+<li class="toc_level_3"><a href="#6.2_主程序配置"><span class="toctext">6.2 主程序配置</span></a></li>
+<li class="toc_level_4"><a href="#6.2.1_服务参数配置"><span class="toctext">6.2.1 服务参数配置</span></a></li>
+<li class="toc_level_4"><a href="#6.2.2_日志数据存放配置"><span class="toctext">6.2.2 日志数据存放配置</span></a></li>
+<li class="toc_level_4"><a href="#6.2.3_运行参数配置"><span class="toctext">6.2.3 运行参数配置</span></a></li>
+<li class="toc_level_3"><a href="#6.3_集成安装配置"><span class="toctext">6.3 集成安装配置</span></a></li>
+<li class="toc_level_4"><a href="#6.3.1__统一认证系统的集成参数"><span class="toctext">6.3.1  统一认证系统的集成参数</span></a></li>
+<li class="toc_level_3"><a href="#6.4_统一认证系统授权"><span class="toctext">6.4 统一认证系统授权</span></a></li>
+<li class="toc_level_4"><a href="#6.4.1_日志系统角色"><span class="toctext">6.4.1 日志系统角色</span></a></li>
+<li class="toc_level_4"><a href="#6.4.2_统一认证授权"><span class="toctext">6.4.2 统一认证授权</span></a></li>
+<li class="toc_level_3"><a href="#6.5_启动系统"><span class="toctext">6.5 启动系统</span></a></li>
+</ul>
+</div>
+
+<h2><span id="1__概述">1  概述</span></h2>
+<h3><span id="1.1_系统简介">1.1 系统简介</span></h3>
+<p>日志统计与检测系统（以下简称日志系统），用于对CALIS各个应用系统的访问量、资源查看等进行监控和分析，</p>
+<p>日志系统的使用，可以为CALIS运行的各个应用系统发现问题、迅速响应并修复提供相关技术参考。</p>
+<h3><span id="1.2_手册说明">1.2 手册说明</span></h3>
+<h4><span id="1.2.1_目的">1.2.1 目的</span></h4>
+<p>本手册提供日志统计与监测系统服务端的安装指导。根据此手册，可以完成服务端的安装、配置工作。</p>
+<h4><span id="1.2.2_读者对象">1.2.2 读者对象</span></h4>
+<ul><li>项目实施组成员</li></ul>
+<ul><li>测试培训人员</li></ul>
+<h2><span id="2_名词解释">2 名词解释</span></h2>
+<p>UAS：统一认证系统</p>
+<p>RCS：CALIS会员管理中心系统</p>
+<p>Java SE： Java平台标准版(英文：Java Platform, Standard Edition) </p>
+<p>JDK：Java 开发工具包(英文：Java Development Kit)</p>
+<h2><span id="3__安装前准备">3  安装前准备</span></h2>
+<p>在安装本系统前，需要准备硬件环境、软件环境以及其他的环境要求。以下分别介绍。</p>
+<h3><span id="3.1_硬件环境">3.1 硬件环境</span></h3>
+<p>本系统需要的硬件环境如下：</p>
+<p>CPU：说明对CPU的要求</p>
+<p>内存：1 GB 以上</p>
+<p>网络：1000MB 网络环境</p>
+<h3><span id="3.2_软件环境">3.2 软件环境</span></h3>
+<p>本系统需要的软件环境如下：</p>
+<p>操作系统：能支持运行 Java SE 虚拟机的操作系统，推荐64位的Linux</p>
+<p>JDK		：Sun J2SE 1.6 以上版本</p>
+<p>数据库	：H2</p>
+<p>网络	：1000MB 网络环境</p>
+<p>IP		：需公网访问 </p>
+<p>域名	：需要有域名</p>
+<p>端口：需要提供两个端口</p>
+<h3><span id="3.3_其他环境要求">3.3 其他环境要求</span></h3>
+<p>需要可用的统一认证系统（UAS）和CALIS会员管理中心系统（RCS）。</p>
+<h2><span id="4__基础组件安装">4  基础组件安装</span></h2>
+<p>本系统需要的基础组件，包括JDK等。</p>
+<h3><span id="4.1_JDK">4.1 JDK</span></h3>
+<p>所需版本：Sun J2SE 1.6 以上版本，在64位平台下，必须安装对应的64位的JDK</p>
+<p>下载地址：<a href="http://jdl.sun.com/webapps/getjava/BrowserRedirect?locale=zh_CN&amp;host=java.com/" rel="nofollow">JDK6.0</a></p>
+<p>JDK(JRE)安装文档：<a href="http://www.oracle.com/technetwork/java/javase/index-137561.html" rel="nofollow">JDK(JRE)安装文档</a></p>
+<p>安装方法，分为Windows和Linux系统下的安装。</p>
+<ul><li>Windows系统：略。</li></ul>
+<ul><li>Linux系统：略。</li></ul>
+<h2><span id="5__数据库配置">5  数据库配置</span></h2>
+<p>本系统使用H2数据库，数据库为内置，不需要安装。但需要配置日志存放路径，详见<a href="#6.2.2_日志数据存放配置" rel="nofollow">6.2.2 日志数据存放配置</a></p>
+<h2><span id="6__主程序安装配置与启动">6  主程序安装配置与启动</span></h2>
+<p>该部分介绍本系统主程序的安装、配置以及如何启动本系统。</p>
+<h3><span id="6.1_主程序安装">6.1 主程序安装</span></h3>
+<p>主程序文件为压缩的zip文件格式，需要解压。如下图。</p>
+<p><img src="img/menual/log_zip.png" alt="" title="" /></p>
+<p>解压后的目录结构如下。</p>
+<p><img src="img/menual/log_unzip.png" alt="" title="" /></p>
+<h3><span id="6.2_主程序配置">6.2 主程序配置</span></h3>
+<p>需要对下面的文件参数进行配置：</p>
+<p>(1) 解压目录下的conf文件夹，主要是var.properties配置文件。</p>
+<p>(2) 解压目录下的start.bat文件（对于Linux系统则为start.sh文件）。</p>
+<p>var.properties文件中系统中的各个参数信息。默认内容如下。</p>
+<p><div class="code"><pre class="brush:java">
+
+#Jmx
+jmx_host=127.0.0.1
+jmx_port=8990
+#web
+http_host=127.0.0.1
+http_port=8991
+http_minThread=2
+http_maxThread=300
+
+#logger服务对外的域名，务必配置和http host不同的域名
+logger_host=192.168.66.128
+logger_port=8992
+
+#日志数据存放目录~代表用户目录
+#真实部署时候建议部署在存储上，比如/var/data/h2dbs
+logpath=~/h2dbs
+
+#集成统一认证的配置
+uasHost=uas.dev.calis.edu.cn
+uasPort=8101
+
+##################
+########CI########
+##################
+#hudson ci build
+local.build_properties=ci-build.properties
+#eclipse locale build
+#local.build_properties=${local.root}/local-build.properties
+#remote test ftp server
+remoteTest.ftp.server=192.168.2.49
+remoteTest.ftp.userid=test
+remoteTest.dist.root=/
+#build drop table need
+db_driver=oracle.jdbc.OracleDriver
+db_url=dbc:oracle:thin:@192.168.2.177:1521:orcl
+#instance waiting time 
+#经过测试hudson上启动很慢。
+server.start.time=80
+cobertura.report.type=xml
+</pre></div>
+</p>
+<h4><span id="6.2.1_服务参数配置">6.2.1 服务参数配置</span></h4>
+<p>var.properties文件中，服务器端口的配置需要根据实际情况进行设定。默认的配置如下：
+<div class="code"><pre class="brush:xml">
+
+#Jmx
+jmx_host=127.0.0.1
+jmx_port=8990
+#web
+http_host=127.0.0.1
+http_port=8991
+http_minThread=2
+http_maxThread=300
+
+#logger服务对外的域名，务必配置和http host不同的域名
+logger_host=192.168.66.128
+logger_port=8992
+	</pre></div>
+</p>
+<p>其中，<br/>
+log服务为日志记录功能，用户在自己的应用系统中动态引入一段Javascript代码，该代码提供对用户操作的日志记录。</p>
+<p>web用于报表查看，以web网页中图表或表格的形式查看应用系统的报表数据。</p>
+<p>Jmx用于报表处理，简单管理和追踪报表处理流程，如生成报表等。</p>
+<p>http_minThread和http_maxThread分别表示服务器最小和最大线程数。</p>
+<p>默认情况下，最小线程数量为2，最大为300，实际部署时根据情况调整。</p>
+<p><strong>注意：</strong>以上配置中的3个地址配置（&quot;	jmx_host&quot;，&quot;http_host&quot;，&quot;logger_host&quot;）中，必须保证&quot;logger_host&quot;和&quot;http_host&quot;对应不同的域名，目的是防止可能出现的会话干扰问题。</p>
+<h4><span id="6.2.2_日志数据存放配置">6.2.2 日志数据存放配置</span></h4>
+<p>默认情况下，日志存放在用户目录，如下。
+<div class="code"><pre class="brush:java">
+
+#日志数据存放目录~代表用户目录
+#真实部署时候建议部署在存储上，比如/var/data/h2dbs
+logpath=~/h2dbs
+</pre></div>
+
+默认的路径，是当前用户的用户目录下，在windows7系统中如果当前用户为&quot;administrator&quot;，日志数据的路径为&quot;C:\Users\Administrator\h2dbs&quot;。</p>
+<p>建议实际应用时，存放在其他位置，如&quot;/var/data/h2dbs&quot;，该路径对应windows系统的&quot;C:\var\data\h2dbs&quot;目录。</p>
+<h4><span id="6.2.3_运行参数配置">6.2.3 运行参数配置</span></h4>
+<p>在解压后的根目录中，打开start.bat文件。</p>
+<p>里面包含对java命令路径的配置，需要将其修改为JDK安装目录下java.exe的完全路径。</p>
+<p>假设JDK的安装目录为：D:/Java/jdk1.6.0_07/，那么需要修改为如下：</p>
+<p><div class="code"><pre class="brush:java">
+
+...
+set java_cmd=D:/Java/jdk1.6.0_07/bin/java.exe
+...
+</pre></div>
+</p>
+<p>对于Linux系统，同样需要进行类似配置，此时打开的是同目录下的start.sh文件。修改后为：</p>
+<p><div class="code"><pre class="brush:java">
+
+java_cmd=D:/Java/jdk1.6.0_07/bin/java
+</pre></div>
+</p>
+<h3><span id="6.3_集成安装配置">6.3 集成安装配置</span></h3>
+<p>系统运行时，需要和其他多个应用系统进行集成，集成的参数也在var.properties文件里进行配置。</p>
+<p>部署时，根据实际情况可能需要调整的参数说明如下。</p>
+<h4><span id="6.3.1__统一认证系统的集成参数">6.3.1  统一认证系统的集成参数</span></h4>
+<p>var.properties中，找到统一认证(UAS)集成配置。
+<div class="code"><pre class="brush:java">
+
+#集成统一认证的配置 
+	uasHost=uas.dev.calis.edu.cn
+	uasPort=8101
+</pre></div>
+
+各个属性的说明如下：</p>
+<table border='1'><tr><th>名称</th><th>说明</th></tr>
+<tr><td>uasHost</td><td>统一认证服务器地址，尽可能为域名</td></tr>
+<tr><td>uasPort</td><td>统一认证服务端口号</td></tr>
+</table>
+<h3><span id="6.4_统一认证系统授权">6.4 统一认证系统授权</span></h3>
+<h4><span id="6.4.1_日志系统角色">6.4.1 日志系统角色</span></h4>
+<p>日志系统当前需要2种用户角色，名称分别为：&quot;caluser&quot;和&quot;caladmin&quot;，分别代表普通用户和系统管理员。</p>
+<h4><span id="6.4.2_统一认证授权">6.4.2 统一认证授权</span></h4>
+<p>由于日志系统用户交由统一认证(CALIS中心版本)管理，因此需要在统一认证中做如下操作：</p>
+<p>(1)确保统一认证中已经有了应用系统角色&quot;caluser&quot;、&quot;caladmin&quot;，均从RCS(会员注册中心系统)同步过来。</p>
+<p>(2)在统一认证中授权策略，将不同用户分配对应的角色。</p>
+<p>具体操作请参考统一认证用户手册。</p>
+<h3><span id="6.5_启动系统">6.5 启动系统</span></h3>
+<p>(如何启动、启动步骤等，此部分必须填写)</p>
+<p>解压后文件夹根目录下，运行start.bat(对于Linux系统，则为start.sh文件)，启动程序。</p>
+<p><img src="img/menual/log_startup.png" alt="系统启动" title="系统启动" /> </p>
+<p>系统完成启动后，打开浏览器访问地址&quot;<a href="http://analytics.dev.calis.edu.cn:8991/report/analysis.htm" rel="nofollow">http://analytics.dev.calis.edu.cn:8991/report/analysis.htm</a>&quot;，</p>
+<p>出现下图表示已经部署完毕，之后可以登录系统，具体使用详见相应的用户手册。</p>
+<p><img src="img/menual/log_init.png" alt="系统首页" title="系统首页" /></p>
+</div>
+</div>
+  </body>
+</html>

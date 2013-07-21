@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: UniTest
+Bundle-SymbolicName: com.cnebula.analytics.unitest
+Bundle-Version: 1.0.0
+Bundle-Vendor: CNEBULA
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: com.cnebula.analytics.analyzeserver;bundle-version="1.0.0",
+ com.cnebula.analytics.common;bundle-version="1.0.0",
+ com.cnebula.analytics.logserver;bundle-version="1.0.0",
+ com.cnebula.analytics.reportserver;bundle-version="1.0.0",
+ org.junit4;bundle-version="4.1.0",
+ com.cnebula.common.xml.impl;bundle-version="1.0.1",
+ org.eclipse.osgi;bundle-version="3.3.0",
+ org.h2;bundle-version="1.3.164"
+Bundle-ClassPath: .

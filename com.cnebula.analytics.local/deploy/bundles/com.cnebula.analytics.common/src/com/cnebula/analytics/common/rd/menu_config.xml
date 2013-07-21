@@ -1,0 +1,68 @@
+<menulist>
+	<menu funcId="trend" name="趋势分析" chartSize="2" tableSize="-1" chartShow="true" tableShow="true" processType="alone" 
+	timeAp="true" defaultOat="iri" metricName="指标：" parentMenu="网站分析" supportedSite="all_calis_saas_library">
+	 	<support id="all"		name="全部"			filter=""></support>
+		<support id="eduChina" 	name="eduChina" 	filter="oat='eduChina'"></support>
+		<support id="yidu" 		name="e读" 			filter="oat='yidu'"></support>
+		<support id="ues" 		name="统一交换" 			filter="oat='ues'"></support>
+		<support id="aopac" 	name="古籍文献" 		filter="oat='aopac'"></support>
+		<support id="ccc"  		name="ccc" 			filter="oat='ccc'"></support>
+		<support id="uas" 		name="统一认证" 			filter="oat='uas'"></support>
+		<support id="opac" 		name="opac" 		filter="oat='opac'"></support>
+		<support id="ill" 		name="馆际互借" 			filter="oat='ill'"></support>
+		<support id="ztc" 		name="直通车" 			filter="oat='ztc'"></support>
+		<support id="nav" 		name="导航" 			filter="oat='nav'"></support>
+		<!-- <support id="cal" name="cal" filter="oat='cal'"></support> -->
+		<support id="ubs" 		name="统一计费" 			filter="oat='ubs'"></support>
+		<support id="nps" 		name="个性化门户" 			filter="oat='nps'"></support>
+		<support id="cvrs"  	name="参考咨询" 		filter="oat='cvrs'"></support>
+		<support id="auopac"	name="auopac" 		filter="oat='auopac'"></support>
+		<support id="iri" 		name="教参" 			filter="oat='iri'"></support>
+	</menu>
+	
+	<menu funcId="webvisit" name="受访页面" chartSize="0" tableSize="-1" chartShow="false" tableShow="true" processType="alone" 
+	timeAp="false" defaultOat="all" metricName="指标：" parentMenu="网站分析" supportedSite="all_calis_saas_library">
+	 	<support id="all"		name="全部"			filter=""></support>
+		<support id="eduChina" 	name="eduChina" 	filter="oat='eduChina'"></support>
+		<support id="yidu" 		name="e读" 			filter="oat='yidu'"></support>
+		<support id="ues" 		name="统一交换" 			filter="oat='ues'"></support>
+		<support id="aopac" 	name="古籍文献" 		filter="oat='aopac'"></support>
+		<support id="ccc"  		name="ccc" 			filter="oat='ccc'"></support>
+		<support id="uas" 		name="统一认证" 			filter="oat='uas'"></support>
+		<support id="opac" 		name="opac" 		filter="oat='opac'"></support>
+		<support id="ill" 		name="馆际互借" 			filter="oat='ill'"></support>
+		<support id="ztc" 		name="直通车" 			filter="oat='ztc'"></support>
+		<support id="nav" 		name="导航" 			filter="oat='nav'"></support>
+		<!-- <support id="cal" name="cal" filter="oat='cal'"></support> -->
+		<support id="ubs" 		name="统一计费" 			filter="oat='ubs'"></support>
+		<support id="nps" 		name="个性化门户" 			filter="oat='nps'"></support>
+		<support id="cvrs"  	name="参考咨询" 		filter="oat='cvrs'"></support>
+		<support id="auopac"	name="auopac" 		filter="oat='auopac'"></support>
+		<support id="iri" 		name="教参" 			filter="oat='iri'"></support>
+	</menu>
+	
+	<menu funcId="pageview" name="访问量统计" chartSize="2" tableSize="-1" chartShow="true" tableShow="true" processType="alone" 
+	timeAp="true" defaultOat="iri" metricName="指标：" parentMenu="定制分析" supportedSite="all_calis_saas_library">
+		<support id="iri" 		name="教参" 			filter="oat='iri'"></support>
+	</menu>
+	
+	<menu funcId="termAnalysis" name="检索词分析" chartSize="0" tableSize="-1" chartShow="true" tableShow="true" processType="alone" 
+	timeAp="false" defaultOat="iri" metricName="指标：" parentMenu="定制分析" supportedSite="all_calis_saas_library">
+		<support id="iri" 		name="教参" 			filter="oat='iri'"></support>
+	</menu>
+	
+	<menu funcId="collStat" name="高校统计" chartSize="1" tableSize="-1" chartShow="true" tableShow="true" processType="alone" 
+	timeAp="false" defaultOat="iri" metricName="指标：" parentMenu="定制分析" supportedSite="all_calis_saas_library">
+		<support id="iri" 		name="教参" 			filter="oat='iri'"></support>
+	</menu>
+	
+	<menu funcId="ranking" name="排行榜" chartSize="1" tableSize="-1" chartShow="true" tableShow="true" processType="uniform" 
+	timeAp="false" defaultOat="iri" metricName="排行榜：" parentMenu="定制分析" supportedSite="all_calis_saas_library">
+		<support id="iri" 		name="教参"			filter="oat='iri'"></support>
+	</menu>
+	
+	<menu funcId="dzfx" name="定制分析" >
+		<support id="iri"		name="iri" 			filter="oat=''"></support>
+	</menu>
+	
+</menulist>

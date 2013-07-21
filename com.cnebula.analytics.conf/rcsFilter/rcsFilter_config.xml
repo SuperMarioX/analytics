@@ -1,0 +1,24 @@
+<rcsFilterList>
+    <!--下面配置项是RCS接口同步数据需要过滤的条件-->
+	<item id="codelist" name="省中心代码">
+		<subItem id="gbcode" name="104030"></subItem>
+	</item>
+	<item id="domainlist" name="虚拟共享域">
+	    <subItem id="domain" name="VirtualSAASCenterInfo"></subItem>
+	</item>
+	<!--下面配置项是RCS接口同步数据需要满足的条件,status=1表示同步状态正常的租用馆-->
+	<item id="status" name="状态">
+	    <subItem id="status" name="1"></subItem>
+	</item>
+</rcsFilterList>
+ <!-- 
+ <rcsFilterMap>
+	<codelist id="codelist" name="省中心代码">
+		<subItem id="gbcode" name="104030"></subItem> 
+	</codelist>
+	<domain id="domain" name="VirtualSAASCenterInfo">
+	</domain>
+	<status id="status" name="1">
+	</status>
+</rcsFilterMap>
+ -->

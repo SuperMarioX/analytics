@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>piwik_study</title>
+<style type="text/css"><!--
+/* @group RESET */
+/* --------------------------------------------------------------
+
+  Reset.css
+  * Resets default browser CSS styles.
+
+  Created by Erik Meyer:
+  * meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/
+-------------------------------------------------------------- */
+
+* html {
+  overflow-y: auto;
+}
+html, body {
+    height: 100%;
+}
+--></style>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/zyxwiki.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shThemeDefault.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shCore.css"/>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCpp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCSharp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCss.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushGroovy.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJavaFX.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJScript.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPerl.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPhp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPlain.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPowerShell.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPython.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushRuby.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushScala.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushSql.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushVb.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushXml.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJava.js"></script>
+<script type="text/javascript">
+SyntaxHighlighter.config.clipboardSwf = '_cssAndJsDir_/clipboard.swf'
+SyntaxHighlighter.all();
+</script>
+  </head>
+  <body>
+
+<div id="xwikimaincontainer">
+<div id="xwikimaincontainerinner">
+<h1><span id="piwik">piwik</span></h1>
+
+<div class="xwikiToc"><ul>
+<li class="toc_level_1"><a href="#piwik"><span class="toctext">piwik</span></a></li>
+<li class="toc_level_2"><a href="#1_源码结构"><span class="toctext">1 源码结构</span></a></li>
+<li class="toc_level_2"><a href="#2_参数说明"><span class="toctext">2 参数说明</span></a></li>
+<li class="toc_level_3"><a href="#2.1_页面嵌入的示例代码"><span class="toctext">2.1 页面嵌入的示例代码</span></a></li>
+<li class="toc_level_3"><a href="#2.2_URL参数"><span class="toctext">2.2 URL参数</span></a></li>
+<li class="toc_level_4"><a href="#2.2.1_URL"><span class="toctext">2.2.1 URL</span></a></li>
+<li class="toc_level_4"><a href="#2.2.2_含义"><span class="toctext">2.2.2 含义</span></a></li>
+<li class="toc_level_3"><a href="#2.3_采集客户端数据"><span class="toctext">2.3 采集客户端数据</span></a></li>
+<li class="toc_level_4"><a href="#2.3.1_用户本地的cookie"><span class="toctext">2.3.1 用户本地的cookie</span></a></li>
+<li class="toc_level_4"><a href="#2.3.2_采集浏览器信息(Brower_features)"><span class="toctext">2.3.2 采集浏览器信息(Brower features)</span></a></li>
+<li class="toc_level_4"><a href="#2.3.3_采集其他信息（包括cookie）"><span class="toctext">2.3.3 采集其他信息（包括cookie）</span></a></li>
+<li class="toc_level_4"><a href="#2.2.4_发送请求"><span class="toctext">2.2.4 发送请求</span></a></li>
+<li class="toc_level_4"><a href="#2.3.5_发送结果"><span class="toctext">2.3.5 发送结果</span></a></li>
+<li class="toc_level_3"><a href="#2.4_离开页面时数据采集"><span class="toctext">2.4 离开页面时数据采集</span></a></li>
+<li class="toc_level_4"><a href="#2.4.1_获取目标页面url"><span class="toctext">2.4.1 获取目标页面url</span></a></li>
+<li class="toc_level_4"><a href="#2.4.2_发送监听日志到服务器"><span class="toctext">2.4.2 发送监听日志到服务器</span></a></li>
+<li class="toc_level_4"><a href="#2.4.3_发送结果"><span class="toctext">2.4.3 发送结果</span></a></li>
+</ul>
+</div>
+
+<h2><span id="1_源码结构">1 源码结构</span></h2>
+<p>代码结构如下
+<div class="code"><pre class="brush:java">
+
+if (!this.JSON2) {
+	this.JSON2 = {}
+}
+(function() {//定义1个JSON2，处理json数据
+	...
+	//JSON2内部依赖函数
+	...
+	if (typeof JSON2.stringify !== &quot;function&quot;) {
+		...
+		//定义stringify方法
+		...
+	}
+	if (typeof JSON2.parse !== &quot;function&quot;) {
+		JSON2.parse = function(o, f) {
+			...
+			//定义parse方法
+			...
+		}
+	}
+}());
+...
+...
+Piwik = Piwik
+		|| (function() {//定义一个Piwik对象
+			...
+			...
+			return {//对外暴露的3个方法(详见：http://piwik.org/docs/javascript-tracking/)
+				addPlugin : function(i, K) {
+					w[i] = K
+				},
+				getTracker : function(i, K) {
+					return new F(i, K)
+				},
+				getAsyncTracker : function() {
+					return H
+				}
+			}
+		}()), 
+		...
+		...;
+</pre></div>
+</p>
+<h2><span id="2_参数说明">2 参数说明</span></h2>
+<h3><span id="2.1_页面嵌入的示例代码">2.1 页面嵌入的示例代码</span></h3>
+<p>将piwik嵌入网站以后，加入如下代码：
+<div class="code"><pre class="brush:java">
+
+&lt;BODY&gt;
+	...
+	...
+	&lt;SCRIPT type=text/javascript&gt;
+		var _paq = _paq || [];
+		(function (){
+			_paq.push([&#39;setSiteId&#39;,&#39;1&#39;]);
+			_paq.push([&#39;setTrackerUrl&#39;,&#39;http://192.168.2.231/piwik/piwik.php&#39;]);
+			_paq.push([&#39;trackPageView&#39;]);
+			var d = document,
+			_g = d.createElement(&#39;script&#39;);
+			_s = d.getElementsByTagName(&#39;script&#39;)[0];
+			_g.type = &#39;text/javascript&#39;;
+			_g.defer = true;
+			_g.async = true;
+			_g.src = &quot;http://192.168.2.231/piwik/piwik.js&quot;;
+			_s.parentNode.insertBefore(_g,_s);
+
+		})();
+
+	&lt;/SCRIPT&gt;
+&lt;/BODY&gt;
+</pre></div>
+</p>
+<h3><span id="2.2_URL参数">2.2 URL参数</span></h3>
+<h4><span id="2.2.1_URL">2.2.1 URL</span></h4>
+<p>被访问的站点页面被打开时，采集的数据URL如下：
+<div class="code"><pre class="brush:java">
+
+http://192.168.2.231/piwik/piwik.php?action_name=%E6%B5%8B%E8%AF%95PIWik&amp;idsite=1&amp;rec=1&amp;r=721902&amp;h=10&amp;m=35&amp;s=0&amp;url=http%3A%2F%2Flocalhost%2Ftest.htm%3Fv%3Dd&amp;_id=88f3b87c75f13d8c&amp;_idts=1329964501&amp;_idvc=1&amp;_idn=1&amp;_refts=0&amp;_viewts=1329964501&amp;pdf=1&amp;qt=1&amp;realp=0&amp;wma=1&amp;dir=0&amp;fla=1&amp;java=1&amp;gears=0&amp;ag=0&amp;res=1440x900&amp;cookie=1
+</pre></div>
+</p>
+<h4><span id="2.2.2_含义">2.2.2 含义</span></h4>
+<table border='1'><tr><th>参数名</th><th>含义</th></tr>
+<tr><td>action_name	</td><td>页面Title，编码</td></tr>
+<tr><td>idSite</td><td>站点ID</td></tr>
+<tr><td>rec</td><td>固定值，1。无意义。</td></tr>
+<tr><td>r	</td><td>随机数</td></tr>
+<tr><td>h	</td><td>当前访问时浏览器上访问时的时间：小时</td></tr>
+<tr><td>m</td><td>当前访问时浏览器上访问时的时间：分</td></tr>
+<tr><td>s</td><td>当前访问时浏览器上访问时的时间：秒</td></tr>
+<tr><td>url	</td><td>页面地址，如“<a href="http://localhost/test.htm" rel="nofollow">http://localhost/test.htm</a>”</td></tr>
+<tr><td>_id</td><td>cookie里面的用户标识，88f3b87c75f13d8c.1329964501.1.1329964501.1329964501.的第一部分<br/>cookie值的组成：用户标识.第一次访问时间.当前访问的时间.最后一次访问的时间<br/>用户每次进入页面需要更新值</td></tr>
+<tr><td>_idts	</td><td>第一次访问时的时间戳</td></tr>
+<tr><td>_idvc	</td><td>需求文档里的访问数(网站或系统的所有访问者发起的具体会话次数)，根据session cookie是否过期而算出。源码中指&quot;visit Count&quot;。<br/>简单说，就是会话总次数</td></tr>
+<tr><td>_idn</td><td>是否新用户，根据ID cookie（2年期限）判断，源码中解释&quot;returning visitor flag&quot;，也就是唯一用户数	</td></tr>
+<tr><td>_refts</td><td>last ecommerce order timestamp，与电子商务有关的1个时间戳	</td></tr>
+<tr><td>_viewts</td><td>最后一次访问开始时的时间戳</td></tr>
+<tr><td>refurl</td><td>引用页：The Referrer URL</td></tr>
+<tr><td>pdf	</td><td>处理MimeTypes为“application/pdf”的插件是否存在，即：是否支持pdf，下同</td></tr>
+<tr><td>qt</td><td>video/quicktime，同上</td></tr>
+<tr><td>real</td><td>p	audio/x-pn-realaudio-plugin</td></tr>
+<tr><td>wma</td><td>application/x-mplayer2</td></tr>
+<tr><td>dir</td><td>application/x-director</td></tr>
+<tr><td>fla</td><td>application/x-shockwave-flash</td></tr>
+<tr><td>java	</td><td>javascript是否启用</td></tr>
+<tr><td>gears</td><td>application/x-googlegears</td></tr>
+<tr><td>ag</td><td>application/x-silverlight</td></tr>
+<tr><td>res</td><td>屏幕分辨率</td></tr>
+<tr><td>cookie	</td><td>浏览器是否支持cookie</td></tr>
+<tr><td>link</td><td>在页面中通过点击跳出页面时，获取的目标url，如&quot;<a href="http://www.baidu.com" rel="nofollow">http://www.baidu.com</a>&quot;</td></tr>
+</table>
+<p>官方网站有部分说明：<a href="http://piwik.org/docs/tracking-api/" rel="nofollow">http://piwik.org/docs/tracking-api/</a></p>
+<h3><span id="2.3_采集客户端数据">2.3 采集客户端数据</span></h3>
+<h4><span id="2.3.1_用户本地的cookie">2.3.1 用户本地的cookie</span></h4>
+<p>主要包括2个：id cookiew 和 session cookie。
+<div class="code"><pre class="brush:java">
+
+//ID相关的cookie，含义为&quot;用户标识.第一次访问时间.当前访问的时间.最后一次访问的时间&quot;
+ _pk_id.1.1fff=db361a1071a3f3b2.1329985794.3.1329985847.1329985832.
+ttt=dfd;//session相关的cookie
+</pre></div>
+</p>
+<h4><span id="2.3.2_采集浏览器信息(Brower_features)">2.3.2 采集浏览器信息(Brower features)</span></h4>
+<p>采集浏览器支持的minestype、javascript是否启用、cookie是否启用等。<br/>
+采集的结果放入对象browserFeatures
+<div class="code"><pre class="brush:java">
+
+/*
+ * Browser features (plugins, resolution, cookies)
+ */
+function detectBrowserFeatures() {
+	var i,
+		mimeType,
+		pluginMap = {
+			// document types
+			pdf: &#39;application/pdf&#39;,
+
+			// media players
+			qt: &#39;video/quicktime&#39;,
+			realp: &#39;audio/x-pn-realaudio-plugin&#39;,
+			wma: &#39;application/x-mplayer2&#39;,
+
+			// interactive multimedia
+			dir: &#39;application/x-director&#39;,
+			fla: &#39;application/x-shockwave-flash&#39;,
+
+			// RIA
+			java: &#39;application/x-java-vm&#39;,
+			gears: &#39;application/x-googlegears&#39;,
+			ag: &#39;application/x-silverlight&#39;
+		};
+
+	// general plugin detection
+	if (navigatorAlias.mimeTypes &amp;&amp; navigatorAlias.mimeTypes.length) {
+		for (i in pluginMap) {
+			if (Object.prototype.hasOwnProperty.call(pluginMap, i)) {
+				mimeType = navigatorAlias.mimeTypes[pluginMap[i]];
+				browserFeatures[i] = (mimeType &amp;&amp; mimeType.enabledPlugin) ? &#39;1&#39; : &#39;0&#39;;
+			}
+		}
+	}
+
+	// Safari and Opera
+	// IE6/IE7 navigator.javaEnabled can&#39;t be aliased, so test directly
+	if (typeof navigator.javaEnabled !== &#39;unknown&#39; &amp;&amp;
+			isDefined(navigatorAlias.javaEnabled) &amp;&amp;
+			navigatorAlias.javaEnabled()) {
+		browserFeatures.java = &#39;1&#39;;
+	}
+
+	// Firefox
+	if (isFunction(windowAlias.GearsFactory)) {
+		browserFeatures.gears = &#39;1&#39;;
+	}
+
+	// other browser features
+	browserFeatures.res = screenAlias.width + &#39;x&#39; + screenAlias.height;
+	browserFeatures.cookie = hasCookies();
+}
+</pre></div>
+</p>
+<h4><span id="2.3.3_采集其他信息（包括cookie）">2.3.3 采集其他信息（包括cookie）</span></h4>
+<p>根据cookie计算访问信息（第一次访问时间，最后访问时间，访问次数，唯一用户数）、浏览器当前时间等等。
+<div class="code"><pre class="brush:java">
+
+function getRequest(request, customData, pluginMethod, currentEcommerceOrderTs) {
+	...
+	id = loadVisitorIdCookie(),//获取用户本地的id cookie，分析后放入数组id中
+	...
+	newVisitor = id[0];
+	uuid = id[1];
+	createTs = id[2];
+	visitCount = id[3];
+	currentVisitTs = id[4];
+	lastVisitTs = id[5];
+	...
+	// build out the rest of the request
+	request += &#39;&amp;idsite=&#39; + configTrackerSiteId 
+		+ &#39;&amp;rec=1&#39;
+		+ &#39;&amp;r=&#39; + String(Math.random()).slice(2, 8)  // keep the string to a minimum
+		+ &#39;&amp;h=&#39; + now.getHours() 
+		+ &#39;&amp;m=&#39; + now.getMinutes() 
+		+ &#39;&amp;s=&#39; + now.getSeconds() 
+		+ &#39;&amp;url=&#39; + encodeWrapper(purify(currentUrl)) 
+		+ (configReferrerUrl.length ? &#39;&amp;urlref=&#39; + encodeWrapper(purify(configReferrerUrl)) : &#39;&#39;) 
+		+ &#39;&amp;_id=&#39; + uuid 
+		+ &#39;&amp;_idts=&#39; + createTs 
+		+ &#39;&amp;_idvc=&#39; + visitCount 
+		+ &#39;&amp;_idn=&#39; + newVisitor // currently unused
+		+ (campaignNameDetected.length ? &#39;&amp;_rcn=&#39; + encodeWrapper(campaignNameDetected) : &#39;&#39;) +
+		+ (campaignKeywordDetected.length ? &#39;&amp;_rck=&#39; + encodeWrapper(campaignKeywordDetected) : &#39;&#39;)
+		+ &#39;&amp;_refts=&#39; + referralTs 
+		+ &#39;&amp;_viewts=&#39; + lastVisitTs
+		+ (String(lastEcommerceOrderTs).length ? &#39;&amp;_ects=&#39; + lastEcommerceOrderTs : &#39;&#39;) 
+		+ (String(referralUrl).length ? &#39;&amp;_ref=&#39; + encodeWrapper(purify(referralUrl.slice(0, referralUrlMaxLength))) : &#39;&#39;);
+
+	// Custom Variables, scope &quot;page&quot;
+	var customVariablesPageStringified = JSON2.stringify(customVariablesPage);
+	if (customVariablesPageStringified.length &gt; 2) {
+		request += &#39;&amp;cvar=&#39; + encodeWrapper(customVariablesPageStringified);
+	}
+
+	//将已经获取的browser features添加到参数，当前为格式形如{paf:1,cookie:1}
+	// browser features
+	for (i in browserFeatures) {
+		if (Object.prototype.hasOwnProperty.call(browserFeatures, i)) {
+			request += &#39;&amp;&#39; + i + &#39;=&#39; + browserFeatures[i];
+		}
+	}
+
+	...
+	//其他参数
+	...
+
+	// 更新id cookie和session cookie：只要没过期，每次刷新页面时都根据当前时间续cookie时间
+	setVisitorIdCookie(uuid, createTs, visitCount, nowTs, lastVisitTs, isDefined(currentEcommerceOrderTs) &amp;&amp; String(currentEcommerceOrderTs).length ? currentEcommerceOrderTs : lastEcommerceOrderTs);
+	setCookie(sesname, &#39;*&#39;, configSessionCookieTimeout, configCookiePath, configCookieDomain, cookieSecure);
+
+	...
+
+	return request;
+}
+</pre></div>
+</p>
+<h4><span id="2.2.4_发送请求">2.2.4 发送请求</span></h4>
+<p>参数准备完毕后，向后台发送请求：
+<div class="code"><pre class="brush:java">
+
+/*
+* Send image request to Piwik server using GET.
+* The infamous web bug (or beacon) is a transparent, single pixel (1x1) image
+*/
+function getImage(request) {
+	var image = new Image(1, 1);
+
+	image.onLoad = function () { };
+	image.src = configTrackerUrl + (configTrackerUrl.indexOf(&#39;?&#39;) &lt; 0 ? &#39;?&#39; : &#39;&amp;&#39;) + request;
+}
+</pre></div>
+</p>
+<h4><span id="2.3.5_发送结果">2.3.5 发送结果</span></h4>
+<p><div class="code"><pre class="brush:java">
+
+http://192.168.2.231/piwik/piwik.php?action_name=%E6%B5%8B%E8%AF%95PIWik&amp;idsite=1&amp;rec=1&amp;r=721902&amp;h=10&amp;m=35&amp;s=0&amp;url=http%3A%2F%2Flocalhost%2Ftest.htm%3Fv%3Dd&amp;_id=88f3b87c75f13d8c&amp;_idts=1329964501&amp;_idvc=1&amp;_idn=1&amp;_refts=0&amp;_viewts=1329964501&amp;pdf=1&amp;qt=1&amp;realp=0&amp;wma=1&amp;dir=0&amp;fla=1&amp;java=1&amp;gears=0&amp;ag=0&amp;res=1440x900&amp;cookie=1
+</pre></div>
+</p>
+<h3><span id="2.4_离开页面时数据采集">2.4 离开页面时数据采集</span></h3>
+<h4><span id="2.4.1_获取目标页面url">2.4.1 获取目标页面url</span></h4>
+<p><div class="code"><pre class="brush:java">
+
+/*
+ * Handle click event
+ */
+function clickHandler(evt) {
+	var button,
+		target;
+
+	evt = evt || windowAlias.event;
+	button = evt.which || evt.button;
+	target = evt.target || evt.srcElement;//获取到target，如“http://www.baidu.com”
+
+	//去处理
+	if (evt.type === &#39;click&#39;) {
+		if (target) {
+			processClick(target);
+		}
+	} ...
+	...
+}
+</pre></div>
+</p>
+<h4><span id="2.4.2_发送监听日志到服务器">2.4.2 发送监听日志到服务器</span></h4>
+<p>以下代码将发送的请求拼接，并发送到服务器。
+<div class="code"><pre class="brush:java">
+
+/*
+* Log the link or click with the server
+*/
+function logLink(url, linkType, customData) {
+var request = getRequest(linkType + &#39;=&#39; + encodeWrapper(purify(url)), customData, &#39;link&#39;);
+sendRequest(request, configTrackerPause);
+} 
+</pre></div>
+</p>
+<h4><span id="2.4.3_发送结果">2.4.3 发送结果</span></h4>
+<p>最终的发送结果
+<div class="code"><pre class="brush:java">
+
+http://192.168.2.231/piwik/piwik.php?link=http%3A%2F%2Fwww.baidu.com%2F&amp;idsite=1&amp;rec=1&amp;r=273204&amp;h=18&amp;m=6&amp;s=42&amp;url=http%3A%2F%2Flocalhost%2Ftest.htm&amp;_id=b6af013755adb77d&amp;_idts=1329988948&amp;_idvc=19&amp;_idn=0&amp;_refts=0&amp;_viewts=1329991421&amp;pdf=1&amp;qt=1&amp;realp=0&amp;wma=1&amp;dir=0&amp;fla=1&amp;java=1&amp;gears=0&amp;ag=0&amp;res=1440x900&amp;cookie=1
+</pre></div>
+
+可以看出：在原有的参数基础上添加了link参数。</p>
+</div>
+</div>
+  </body>
+</html>

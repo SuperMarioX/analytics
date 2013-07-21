@@ -1,0 +1,53 @@
+<html>
+<head>
+<script type="text/javascript" src="/easyservice-util/EasyServiceClientFullZ.js"></script>
+<script src="/easyservice/com.cnebula.analytics.reportservice.ICAReportService?json&amp;v=1"></script>
+<script src="/easyservice/com.cnebula.analytics.common.rd.IRCSDataQueryService?json&amp;v=1"></script>
+<script type="text/javascript" src="js/datafeed.js"></script>
+<script type="text/javascript">
+	window.onload = function(){
+		calis.report.readerPager('./tplt/page.tplt','#pager',1000,20,1);
+		
+		var a = [];
+		for(var i = 0;i<100;i++){
+			var b = [];
+			for(var j=i;j<i+3;j++){
+				b.push(j);
+			}
+			a.push(b);
+		}
+		
+		calis.report.renderTableWithPager('#table1','#pager1',[1,2,3],a,'pager',20);
+		
+		var r = calis.util.timeSeq('m',new Date(2011,1,10),new Date(2012,2,4));
+		//alert(r.join(','));
+		r = calis.util.timeSeq('d',new Date(2011,1,10),new Date(2012,3,4));
+		//alert(r.join(','));
+		r = calis.util.timeSeq('h',new Date(2011,1,10),new Date(2012,3,4));
+		//alert(r.join(','));
+		var rows = [];
+		for(var i=0;i < 1000;i++){
+			var r = [i+ ",1",i + "_2"];
+			rows.push(r);
+		}
+		/*
+		calis.util.invokeRawBindingService({
+			action: "/easyservice/com.cnebula.analytics.reportservice.ICAReportService/aaa.csv",
+			method: "convert",
+			params: [[ 'header1', 'header2' ],rows],
+			responseContentType: "application/vnd.ms-excel"
+		});*/
+		
+		calis.report.downloadRows([ 'header1', 'header2' ], rows, '1.csv');
+	};
+</script>
+
+</head>
+<body>
+	<div id="pager"></div><br>
+	
+	<p>table with pager</p>
+	<div id="table1"></div><br>
+	<div id="pager1"></div>
+</body>
+</html>

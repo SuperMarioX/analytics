@@ -1,0 +1,2 @@
+2013-03-20 17:55:38[INFO]:[com.cnebula.osgi.es.util.EasyServiceManagerImp.<clinit>]:there's no system bundle maybe we're in mock model
+

@@ -1,0 +1,40 @@
+<HTML>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style type="text/css">
+	.val {
+		color: red;
+		font-size: 9pt;
+	}
+	</style>
+	<script src="/easyservice-util/EasyServiceClientFull.js"></script>
+	<script src="/easyservice/com.cnebula.common.remote.core.comet.ICometService?json"></script>
+	<script src="/easyservice/com.cnebula.analytics.reportservice.ICAReportService?json&amp;v=2"></script>
+	<script type="text/javascript">
+	function testRealTimeLog() {
+		var cs = EasyServiceClient.getRemoteProxy("/easyservice/com.cnebula.common.remote.core.comet.ICometService");
+		var cr = EasyServiceClient.getRemoteProxy("/easyservice/com.cnebula.analytics.reportservice.ICAReportService");
+		var cols = cr.getLogColumns().toArray();
+		var rt = cs.subscribe("realtime/calog", 100000, function(rt){
+			try{
+				if (rt != null){
+					var p = document.createElement("p");
+					var sb = new StringBuilder();
+					for (var i = 0; i < rt.length; i++){
+						sb.append(cols[i].name, "=<span class='val'>", rt[i] == null ? '<null>' : rt[i],"</span>&");
+					}
+					p.innerHTML = sb.toString();
+					document.body.appendChild(p);
+				}
+			}finally{
+				setTimeout(testRealTimeLog, 0);
+			}	
+		});
+	}
+	
+	setTimeout(testRealTimeLog, 0);
+	</script>
+</head>
+<body>
+</body>
+</HTML>

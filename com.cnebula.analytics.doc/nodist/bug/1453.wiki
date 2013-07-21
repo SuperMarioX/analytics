@@ -1,0 +1,28 @@
+==bug1453==
+
+==1、重现步骤==
+
+以下描述的步骤只是引起此bug描述现象的部分原因：
+
+1、用户将浏览器设置为禁用cookie
+
+2、用户访问集成了日志系统跟踪代码的页面
+
+3、日志系统后台响应为：\\
+[警告]2012-05-25 09:58:30               invalid  _caam[0]\\
+[警告]2012-05-25 09:58:30               
+uri=[/calog.gif?rsc=1&rnc=1&ssn=5963027466a487f5&_caam=0&lsr=1024x768&oadm=ccc.calis.edu.cn&ldev=pc&los=Windows&losv=XP&lbt=MSIE&lbv=6&lbl=zh-cn&lbpj=&lbpf=9.0.28.0&lfrm=http%3A%2F%2Fsearch.lib.bnu.edu.cn%3A8332%2FV%2FHKC9BFU4DEPFN9KPVALAIRJHQK7TIMLJVAALADSVT7FBIYE45G-08660%3Ffunc%3Dfind-ej-1&op=v&orid=%2Fresult.php%3Fat%3D%25E8%258B%2597%25E8%2597%258F%25E9%2593%25B6%25E9%25A5%25B0%25E5%25AF%25B9%25E6%25AF%2594%26from%3D0&otil=%E8%A5%BF%E5%8C%97%E5%B8%88%E8%8C%83%E5%A4%A7%E5%AD%A6%E5%A4%96%E6%96%87%E6%9C%9F%E5%88%8A%E7%BD%91&ort=p&rvc=1&sorg=630600&sid=&st=&oaid=app%3A100000.ccc_000&rrs=200&v=114]
+
+
+===2、修复意见===
+
+经日志项目组讨论，得出如下修改：
+
+====2.1日志跟踪代码修改====
+
+判断用户浏览器是否禁用cookies，若“是”则将“_caam”字段值设置为“d”，若“不是”，按原来流程发送日志
+
+====2.2日志服务修改====
+
+服务接收到一条日志，若“_caam”字段值为“d”，修改相关和会话相关的参数保证可以入库一条PV日志，若“_caam”为其他值
+按照原流程处理。

@@ -1,0 +1,59 @@
+<table class="h-table">
+<tr>
+	<td>Domain</td>
+	<td>MBean Type</td>
+	<td>关键属性简介</td>
+</tr>
+<tr>
+	<td>com.atomikos.datasource.pool</td>
+	<td>ConnectionPoolMBean</td>
+	<td>数据库连接池信息<br/>
+		pooledConnectionTrace： 当前活跃连接(未关闭)在发起连接请求时的调用栈
+	</td>
+</tr>
+<tr>
+	<td>com.cnebula.common.remote.jmx</td>
+	<td>RemoteCallMBean</td>
+	<td>
+		远程服务调用信息<br/>
+		methodCallCosts: 远程调用某个方法所花费的总时间 <br/>
+		methodCalledTimes: 远程调用某个方法的总次数<br/>
+		remoteClientCallTimes: 远程客户端远程调用的总次数<br/>
+		runningThreads: 活跃的远程调用线程(threadid=info)<br/>
+		通过invoke方法，可以获取活跃线程的调用栈
+	</td>	
+</tr>
+<tr>
+	<td>org.mortbay.jetty.servlet</td>
+	<td>hashsessionmanager</td>
+	<td>
+		sessions: 当前会话数(定时抽样统计这个参数可以掌握用户使用习惯和应用活跃曲线)
+	</td>
+</tr>
+<tr>
+	<td>org.mortbay.jetty.nio</td>
+	<td>selectchannelconnector</td>
+	<td>
+		connections: 从statsReset起Jetty服务器接受的连接请求<br/>
+					(默认平台启动时statsReset一次)<br/>
+		requests: 从statsRest起Jetty服务器接受的请求数(可统计服务器的总请求数)<br/>
+		connectionsOpenMax: 从statsRest起Jetty同时打开连接数的最大值(可统计最大的并发请求)<br/>
+	</td>
+</tr>
+<tr>
+	<td>org.mortbay.thread</td>
+	<td>boundedthreadpool</td>
+	<td>
+		maxThreads : 最大线程数<br/>
+		idleThreads : 空闲的线程数<br/>
+		threads: 当前的线程数<br/>
+	</td>
+</tr>
+<tr>
+	<td>com.atomikos.icatch.jta</td>
+	<td>Transactions</td>
+	<td>
+		Transactions : 当前活跃的事务(个数为数组长度)<br/>
+	</td>
+</tr>
+</table>

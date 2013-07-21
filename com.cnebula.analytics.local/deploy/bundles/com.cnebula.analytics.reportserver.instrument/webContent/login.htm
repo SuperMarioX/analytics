@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CALIS日志与统计监控系统</title>
+<style type="text/css">
+.hide{
+	display:none;
+}
+.show{
+	display:block;
+}
+</style>
+<script type="text/javascript" src="/easyservice-util/EasyServiceClientFullZ.js"></script>
+<script type="text/javascript" src="/easyservice/com.cnebula.common.security.auth.ILoginService?json"></script>
+<script type="text/javascript">
+var ANONY_USER= {
+	loginId: "$anonymous",
+	name: "anonymous"
+};
+var UAS_DOMAIN = "http://uas.dev.calis.edu.cn:8101";
+var homePage = "login.htm";
+var loginSrvLocal = EasyServiceClient.getRemoteProxy("/easyservice/com.cnebula.common.security.auth.ILoginService");
+var loginSrvCalis = EasyServiceClient.cloneWithNewTarget(loginSrvLocal,UAS_DOMAIN + "/easyservice/com.cnebula.common.security.auth.ILoginService");
+window.onload = function(){
+	var ctx = EasyServiceClient.newContext();
+	var rt;
+	try{
+		rt = loginSrvLocal.loginByCredentialAndGetStatus(ctx.param['artifact'],true);
+	}catch(e){
+		/**登录失败为匿名用户**/
+		rt = ANONY_USER;
+	}
+	ctx.user = rt;
+	if(ANONY_USER == rt){
+		ctx.isLogin = false;
+		ctx.anonyCls = "show";
+		ctx.loginCls = "hide";
+	}else{
+		ctx.isLogin = true;
+		ctx.anonyCls = "hide";
+		ctx.loginCls = "show";
+		ctx.user = rt.user;
+	}
+	ejs.renderComplexNode('#loginTmpl', '#login', ctx);
+};
+
+function toLogin(){
+	var uasLoginUrl = UAS_DOMAIN + "/amconsole/AuthServices/?verb=login&goto=" + encodeURIComponent(window.location.href);
+	var mywin = new ca.win('./uas.htm','red',810,600);
+	mywin.open();
+}
+
+function logout(){
+	loginSrvCalis.logout(function(rt, success, method, id){
+		if(success){
+			window.location.reload();
+		}
+	});
+}
+</script>
+</head>
+<body>
+	<div>
+		<textarea id="loginTmpl" style="display: none">
+		    <!--# if (!isLogin){#-->
+		    	<div class="+-anonyCls-+">
+		    		<a href="javascript:void(0);" onclick="toLogin();return false;">登录</a>    
+		    	</div>
+		    <!--# }else{
+		    #-->
+		    	<div class="+-loginCls-+">
+		    		<b>欢迎您，+-user.loginId-+</b> | <a id="logout" href="javascript:void(0);" onclick="logout();">退出</a>
+		    	</div>
+		    <!--# } #-->
+		</textarea>
+		<div id="login">
+		
+		</div>
+	</div>
+	
+	<!-- 以下div必须放于body最后 -->
+	<div id="popupCode">
+		<script type="text/javascript" src="js/popup.js"></script>
+		<script type="text/javascript">ca.initCss();</script>
+	</div>
+</body>
+</html>

@@ -1,0 +1,294 @@
+=piwik=
+#toc
+
+==1 源码结构==
+代码结构如下
+{{code}}
+if (!this.JSON2) {
+	this.JSON2 = {}
+}
+(function() {//定义1个JSON2，处理json数据
+	...
+	//JSON2内部依赖函数
+	...
+	if (typeof JSON2.stringify !== "function") {
+		...
+		//定义stringify方法
+		...
+	}
+	if (typeof JSON2.parse !== "function") {
+		JSON2.parse = function(o, f) {
+			...
+			//定义parse方法
+			...
+		}
+	}
+}());
+...
+...
+Piwik = Piwik
+		|| (function() {//定义一个Piwik对象
+			...
+			...
+			return {//对外暴露的3个方法(详见：http://piwik.org/docs/javascript-tracking/)
+				addPlugin : function(i, K) {
+					w[i] = K
+				},
+				getTracker : function(i, K) {
+					return new F(i, K)
+				},
+				getAsyncTracker : function() {
+					return H
+				}
+			}
+		}()), 
+		...
+		...;
+{{/code}}
+==2 参数说明==
+===2.1 页面嵌入的示例代码===
+将piwik嵌入网站以后，加入如下代码：
+{{code}}
+<BODY>
+	...
+	...
+	<SCRIPT type=text/javascript>
+		var _paq = _paq || [];
+		(function (){
+			_paq.push(['setSiteId','1']);
+			_paq.push(['setTrackerUrl','http://192.168.2.231/piwik/piwik.php']);
+			_paq.push(['trackPageView']);
+			var d = document,
+			_g = d.createElement('script');
+			_s = d.getElementsByTagName('script')[0];
+			_g.type = 'text/javascript';
+			_g.defer = true;
+			_g.async = true;
+			_g.src = "http://192.168.2.231/piwik/piwik.js";
+			_s.parentNode.insertBefore(_g,_s);
+			
+		})();
+		
+	</SCRIPT>
+</BODY>
+{{/code}}
+===2.2 URL参数===
+====2.2.1 URL====
+被访问的站点页面被打开时，采集的数据URL如下：
+{{code}}
+http://192.168.2.231/piwik/piwik.php?action_name=%E6%B5%8B%E8%AF%95PIWik&idsite=1&rec=1&r=721902&h=10&m=35&s=0&url=http%3A%2F%2Flocalhost%2Ftest.htm%3Fv%3Dd&_id=88f3b87c75f13d8c&_idts=1329964501&_idvc=1&_idn=1&_refts=0&_viewts=1329964501&pdf=1&qt=1&realp=0&wma=1&dir=0&fla=1&java=1&gears=0&ag=0&res=1440x900&cookie=1
+{{/code}}
+====2.2.2 含义====
+|= 参数名|= 含义|
+|action_name	|页面Title，编码
+|idSite|	站点ID
+|rec|	固定值，1。无意义。
+|r	|随机数
+|h	|当前访问时浏览器上访问时的时间：小时
+|m|	当前访问时浏览器上访问时的时间：分
+|s|	当前访问时浏览器上访问时的时间：秒
+|url	|页面地址，如“http://localhost/test.htm”
+|_id|	cookie里面的用户标识，88f3b87c75f13d8c.1329964501.1.1329964501.1329964501.的第一部分\\cookie值的组成：用户标识.第一次访问时间.当前访问的时间.最后一次访问的时间\\用户每次进入页面需要更新值
+|_idts	|第一次访问时的时间戳
+|_idvc	|需求文档里的访问数(网站或系统的所有访问者发起的具体会话次数)，根据session cookie是否过期而算出。源码中指"visit Count"。\\简单说，就是会话总次数
+|_idn|是否新用户，根据ID cookie（2年期限）判断，源码中解释"returning visitor flag"，也就是唯一用户数	
+|_refts|last ecommerce order timestamp，与电子商务有关的1个时间戳	
+|_viewts|	最后一次访问开始时的时间戳
+|refurl|引用页：The Referrer URL
+|pdf	|处理MimeTypes为“application/pdf”的插件是否存在，即：是否支持pdf，下同
+|qt|	video/quicktime，同上
+|real|p	audio/x-pn-realaudio-plugin
+|wma|	application/x-mplayer2
+|dir|	application/x-director
+|fla|	application/x-shockwave-flash
+|java	|javascript是否启用
+|gears|	application/x-googlegears
+|ag|	application/x-silverlight
+|res|	屏幕分辨率
+|cookie	|浏览器是否支持cookie
+|link|在页面中通过点击跳出页面时，获取的目标url，如"http://www.baidu.com"
+官方网站有部分说明：http://piwik.org/docs/tracking-api/
+===2.3 采集客户端数据===
+====2.3.1 用户本地的cookie====
+主要包括2个：id cookiew 和 session cookie。
+{{code}}
+//ID相关的cookie，含义为"用户标识.第一次访问时间.当前访问的时间.最后一次访问的时间"
+ _pk_id.1.1fff=db361a1071a3f3b2.1329985794.3.1329985847.1329985832.
+ttt=dfd;//session相关的cookie
+{{/code}}
+====2.3.2 采集浏览器信息(Brower features)====
+采集浏览器支持的minestype、javascript是否启用、cookie是否启用等。\\
+采集的结果放入对象browserFeatures
+{{code}}
+/*
+ * Browser features (plugins, resolution, cookies)
+ */
+function detectBrowserFeatures() {
+	var i,
+		mimeType,
+		pluginMap = {
+			// document types
+			pdf: 'application/pdf',
+
+			// media players
+			qt: 'video/quicktime',
+			realp: 'audio/x-pn-realaudio-plugin',
+			wma: 'application/x-mplayer2',
+
+			// interactive multimedia
+			dir: 'application/x-director',
+			fla: 'application/x-shockwave-flash',
+
+			// RIA
+			java: 'application/x-java-vm',
+			gears: 'application/x-googlegears',
+			ag: 'application/x-silverlight'
+		};
+
+	// general plugin detection
+	if (navigatorAlias.mimeTypes && navigatorAlias.mimeTypes.length) {
+		for (i in pluginMap) {
+			if (Object.prototype.hasOwnProperty.call(pluginMap, i)) {
+				mimeType = navigatorAlias.mimeTypes[pluginMap[i]];
+				browserFeatures[i] = (mimeType && mimeType.enabledPlugin) ? '1' : '0';
+			}
+		}
+	}
+
+	// Safari and Opera
+	// IE6/IE7 navigator.javaEnabled can't be aliased, so test directly
+	if (typeof navigator.javaEnabled !== 'unknown' &&
+			isDefined(navigatorAlias.javaEnabled) &&
+			navigatorAlias.javaEnabled()) {
+		browserFeatures.java = '1';
+	}
+
+	// Firefox
+	if (isFunction(windowAlias.GearsFactory)) {
+		browserFeatures.gears = '1';
+	}
+
+	// other browser features
+	browserFeatures.res = screenAlias.width + 'x' + screenAlias.height;
+	browserFeatures.cookie = hasCookies();
+}
+{{/code}}
+====2.3.3 采集其他信息（包括cookie）====
+根据cookie计算访问信息（第一次访问时间，最后访问时间，访问次数，唯一用户数）、浏览器当前时间等等。
+{{code}}
+function getRequest(request, customData, pluginMethod, currentEcommerceOrderTs) {
+	...
+	id = loadVisitorIdCookie(),//获取用户本地的id cookie，分析后放入数组id中
+	...
+	newVisitor = id[0];
+	uuid = id[1];
+	createTs = id[2];
+	visitCount = id[3];
+	currentVisitTs = id[4];
+	lastVisitTs = id[5];
+	...
+	// build out the rest of the request
+	request += '&idsite=' + configTrackerSiteId 
+		+ '&rec=1'
+		+ '&r=' + String(Math.random()).slice(2, 8)  // keep the string to a minimum
+		+ '&h=' + now.getHours() 
+		+ '&m=' + now.getMinutes() 
+		+ '&s=' + now.getSeconds() 
+		+ '&url=' + encodeWrapper(purify(currentUrl)) 
+		+ (configReferrerUrl.length ? '&urlref=' + encodeWrapper(purify(configReferrerUrl)) : '') 
+		+ '&_id=' + uuid 
+		+ '&_idts=' + createTs 
+		+ '&_idvc=' + visitCount 
+		+ '&_idn=' + newVisitor // currently unused
+		+ (campaignNameDetected.length ? '&_rcn=' + encodeWrapper(campaignNameDetected) : '') +
+		+ (campaignKeywordDetected.length ? '&_rck=' + encodeWrapper(campaignKeywordDetected) : '')
+		+ '&_refts=' + referralTs 
+		+ '&_viewts=' + lastVisitTs
+		+ (String(lastEcommerceOrderTs).length ? '&_ects=' + lastEcommerceOrderTs : '') 
+		+ (String(referralUrl).length ? '&_ref=' + encodeWrapper(purify(referralUrl.slice(0, referralUrlMaxLength))) : '');
+
+	// Custom Variables, scope "page"
+	var customVariablesPageStringified = JSON2.stringify(customVariablesPage);
+	if (customVariablesPageStringified.length > 2) {
+		request += '&cvar=' + encodeWrapper(customVariablesPageStringified);
+	}
+
+	//将已经获取的browser features添加到参数，当前为格式形如{paf:1,cookie:1}
+	// browser features
+	for (i in browserFeatures) {
+		if (Object.prototype.hasOwnProperty.call(browserFeatures, i)) {
+			request += '&' + i + '=' + browserFeatures[i];
+		}
+	}
+	
+	...
+	//其他参数
+	...
+	
+	// 更新id cookie和session cookie：只要没过期，每次刷新页面时都根据当前时间续cookie时间
+	setVisitorIdCookie(uuid, createTs, visitCount, nowTs, lastVisitTs, isDefined(currentEcommerceOrderTs) && String(currentEcommerceOrderTs).length ? currentEcommerceOrderTs : lastEcommerceOrderTs);
+	setCookie(sesname, '*', configSessionCookieTimeout, configCookiePath, configCookieDomain, cookieSecure);
+
+	...
+
+	return request;
+}
+{{/code}}
+====2.2.4 发送请求====
+参数准备完毕后，向后台发送请求：
+{{code}}
+/*
+* Send image request to Piwik server using GET.
+* The infamous web bug (or beacon) is a transparent, single pixel (1x1) image
+*/
+function getImage(request) {
+	var image = new Image(1, 1);
+
+	image.onLoad = function () { };
+	image.src = configTrackerUrl + (configTrackerUrl.indexOf('?') < 0 ? '?' : '&') + request;
+}
+{{/code}}
+====2.3.5 发送结果====
+{{code}}
+http://192.168.2.231/piwik/piwik.php?action_name=%E6%B5%8B%E8%AF%95PIWik&idsite=1&rec=1&r=721902&h=10&m=35&s=0&url=http%3A%2F%2Flocalhost%2Ftest.htm%3Fv%3Dd&_id=88f3b87c75f13d8c&_idts=1329964501&_idvc=1&_idn=1&_refts=0&_viewts=1329964501&pdf=1&qt=1&realp=0&wma=1&dir=0&fla=1&java=1&gears=0&ag=0&res=1440x900&cookie=1
+{{/code}}
+===2.4 离开页面时数据采集===
+====2.4.1 获取目标页面url====
+{{code}}
+/*
+ * Handle click event
+ */
+function clickHandler(evt) {
+	var button,
+		target;
+
+	evt = evt || windowAlias.event;
+	button = evt.which || evt.button;
+	target = evt.target || evt.srcElement;//获取到target，如“http://www.baidu.com”
+
+	//去处理
+	if (evt.type === 'click') {
+		if (target) {
+			processClick(target);
+		}
+	} ...
+	...
+}
+{{/code}}
+====2.4.2 发送监听日志到服务器====
+以下代码将发送的请求拼接，并发送到服务器。
+{{code}}
+/*
+* Log the link or click with the server
+*/
+function logLink(url, linkType, customData) {
+var request = getRequest(linkType + '=' + encodeWrapper(purify(url)), customData, 'link');
+sendRequest(request, configTrackerPause);
+} 
+{{/code}}
+====2.4.3 发送结果====
+最终的发送结果
+{{code}}
+http://192.168.2.231/piwik/piwik.php?link=http%3A%2F%2Fwww.baidu.com%2F&idsite=1&rec=1&r=273204&h=18&m=6&s=42&url=http%3A%2F%2Flocalhost%2Ftest.htm&_id=b6af013755adb77d&_idts=1329988948&_idvc=19&_idn=0&_refts=0&_viewts=1329991421&pdf=1&qt=1&realp=0&wma=1&dir=0&fla=1&java=1&gears=0&ag=0&res=1440x900&cookie=1
+{{/code}}
+可以看出：在原有的参数基础上添加了link参数。

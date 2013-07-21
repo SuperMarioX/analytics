@@ -1,0 +1,149 @@
+#xwikiToc, .xwikiToc {
+background-color:#F9F9F9;
+border:1px solid #AAAAAA;
+font-size:100%;
+padding:5px;
+}
+
+#xwikiToc ul, .xwikiToc ul {
+list-style-image:none;
+list-style-type:none;
+text-align:left;
+}
+
+.toc_level_3 {
+margin-left: 10px;
+}
+
+.toc_level_4 {
+margin-left: 20px;
+}
+
+.toc_level_5 {
+margin-left: 30px;
+}
+
+.toc_level_6 {
+margin-left: 40px;
+}
+
+body, td, input, textarea, select, button {
+color:#000000;
+font-family:Helvetica,Arial,sans-serif;
+font-size:10pt;
+font-size-adjust:none;
+font-style:normal;
+font-variant:normal;
+font-weight:normal;
+}
+
+#code, .code {
+border:1px solid #AAAAAA;
+}
+ul {
+line-height:1.5em;
+list-style-image:url(bullet.gif);
+list-style-type:square;
+}
+
+
+h1 span, h2 span, h3 span, h4 span {
+background-color:inherit;
+border-bottom:1px solid #CCCCCC;
+color:#000000;
+display:block;
+margin:20px 0;
+overflow:hidden;
+padding:0;
+position:relative;
+}
+
+a:hover {
+text-decoration:underline;
+}
+
+a {
+color:#002BB8;
+text-decoration:none;
+}
+
+
+tr:hover {
+background-color:#E8F3FD;
+}
+
+th, td {
+background-color:#F5FAFE;
+border-bottom:1px solid #00000;
+color:#666666;
+padding:1px 5px;
+}
+
+th{
+text-align:left;
+border-top:1px solid #CAD9EA;
+padding:0px;
+}
+
+em {
+font-style:italic;
+font-weight:normal;	
+}
+
+cite, strong, th {
+font-style:normal;
+font-weight:bold;
+}
+
+* {
+word-wrap:break-word;
+}
+
+table {
+border-collapse:collapse;
+empty-cells:show;
+}
+
+.wrap {
+text-align:left;
+}
+
+th {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#2F589C url(header_bg.gif) repeat-x scroll 0 0;
+color:#FFFFFF;
+line-height:31px;
+padding-left:1em;
+}
+
+
+/**
+table {
+border: 1px solid #B0C4DE;
+width:300px;
+border-collapse:collapse;
+}
+tr {
+	background-color:#E8F3FD
+}
+
+tbody tr:hover th, tbody tr:hover td {
+background-color:#E8F3FD;
+}
+
+td {
+border: 1px solid #B0C4DE;
+background-color:#F5FAFE;
+border-bottom:1px solid #FFFFFF;
+color:#666666;
+padding:1px 5px;
+}
+th { border: 1px solid #B0C4DE;
+	background:#2F589C url(header_bg.gif) repeat-x scroll 0 0; 
+	color:#FFFFFF;
+	line-height:31px;
+	padding-left:1em;
+}
+**/

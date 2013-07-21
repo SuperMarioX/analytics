@@ -1,0 +1,59 @@
+<ul class="nav">
+<!--# 
+	var topMenuList = menu.get("#topMenu");
+	for(var i = 0; i < topMenuList.size();i++){
+		var oneMenuId = topMenuList.get(i);
+		var showList = siteApp.intersection(menuMap.get(oneMenuId).app);
+		if(menuMap.get(oneMenuId).general == "true" || showList.length != 0) {
+			var oneMenuName = menuMap.get(oneMenuId).name;
+#-->
+			<li id="asidemenu+-i-+"><a class="open" href="#">+-oneMenuName-+</a>
+<!--# 
+			var twoMenuList = menu.get(oneMenuId);
+				
+			for(var j = 0; j < twoMenuList.size(); j++){
+				var twoMenuID = twoMenuList.get(j);
+				var showTwoList = siteApp.intersection(menuMap.get(twoMenuID).app);
+				if(menuMap.get(twoMenuID).general == "true" || showTwoList.length != 0) {
+					var twoMenuName = menuMap.get(twoMenuID).name;
+					var threeMenuList = menu.get(twoMenuID);
+						
+					if(threeMenuList == null){
+#-->
+					<ul>
+						<li><a id="+-twoMenuID-+" class="asideMenu" 
+							href="javascript:void(0)">+-twoMenuName-+</a></li>
+					</ul>	
+<!--#
+					}else{ 
+#-->
+					<ul>
+						<li><a id="+-twoMenuID-+" class="twoMenu" value="gb">+-twoMenuName-+</a></li>
+<!--#					
+						for(var k=0; k < threeMenuList.size(); k++){
+							var threeMenuID = threeMenuList.get(k);
+							var showThreeList = siteApp.intersection(menuMap.get(threeMenuID).app);
+							if(menuMap.get(threeMenuID).general == "true" || showThreeList.length != 0){
+								var threeMenuName = menuMap.get(threeMenuID).name;
+#-->
+								<ul class="threeMenuUL" style="display: none">
+									<li ><a id="+-threeMenuID-+" class="threeMenu" href="javascript:void(0)">+-threeMenuName-+</a></li>
+								</ul>
+<!--# 
+							}
+						}
+#-->
+					</ul>
+					
+<!--# 
+							
+					}
+				}
+			}
+#-->
+			</li>
+<!--# 			
+		}
+	}
+#-->
+</ul>

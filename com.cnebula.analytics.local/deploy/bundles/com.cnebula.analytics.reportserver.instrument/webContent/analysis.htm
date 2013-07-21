@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>日志统计与监控子项目首页</title>
+<link rel="stylesheet" type="text/css" href="css/ztree/zTreeStyle.css" >
+<link rel="stylesheet" type="text/css" href="css/jqplot/jquery.jqplot.min.css" />
+<link type="text/css" rel="stylesheet" href="css/tab/tabs.css"></link>
+<link type="text/css" rel="stylesheet" href="css/jquery.toastmessage.css"></link>
+<link type="text/css" rel="stylesheet" href="css/ca/cal.css"></link>
+<link type="text/css" rel="stylesheet" href="css/jqueryui/jquery.ui.all.css">
+<link type="text/css" rel="stylesheet" href="css/dataTables/jquery.dataTables_themeroller.css">
+
+<script src="js/jquery/jquery-1.6.4.js"></script>
+<script src="js/ztree/jquery.ztree.all-3.1.min.js"></script>
+<!--[if lt IE 9]><script  src="js/jqplot/excanvas.js"></script><![endif]-->
+<!-- jqplot plugins go here -->
+<script  src="js/jqplot/jquery.jqplot.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.barRenderer.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.pointLabels.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.canvasTextRenderer.min.js"><</script>
+<script  src="js/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.highlighter.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.highlighter.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.cursor.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script  src="js/jquery/date.js"></script>
+<script  src="js/jquery/jquery.qtip-1.0.0-rc3.min.js"></script>
+<script  src="js/jquery/jquery.toastmessage.js"></script>
+<script  src="js/jquery/ui/jquery.ui.core.js"></script>
+<script  src="js/jquery/ui/jquery.ui.widget.js"></script>
+<script  src="js/jquery/ui/jquery.ui.datepicker.js"></script>
+<script  src="js/jquery/ui/jquery.effects.core.js"></script>
+<script  src="js/jquery.dataTables.js"></script>
+<!-- End additional plugins -->
+<!-- tabs -->
+<script src="js/tab/easytabs.min.js" type="text/javascript"></script>
+<!-- end tabs -->
+
+<script src="/easyservice-util/EasyServiceClientFullZ.js"></script>
+<script src="/easyservice/com.cnebula.common.security.auth.ILoginService?json"></script> 
+<script src="/easyservice/com.cnebula.analytics.reportservice.ICAReportService?json&amp;v=2"></script>
+<script src="/easyservice/com.cnebula.analytics.common.rd.IRCSDataQueryService?json&amp;v=1"></script>
+<script src="/easyservice/com.cnebula.common.remote.core.comet.ICometService?json"></script>
+<script src="/easyservice/com.cnebula.analytics.reportservice.IComplexReportService?json&amp;v=3"></script>
+<script src="js/dateSelector.js"></script>
+<script src="js/datafeed.js"></script>
+<script src="js/uimodel.js"></script>
+<script src="js/action.js"></script>
+
+
+<script type="text/javascript">
+
+function IsNum(s)
+{
+    if(s!=null){
+        var r,re;
+        re = /\d8/i; //\d表示数字,*表示匹配多个数字
+        r = s.match(re);
+        return (r==s)?true:false;
+    }
+    return false;
+}
+
+var ANONY_USER= {
+		loginId: "$anonymous",
+		name: "anonymous"
+	};
+var homePage = "login.htm";
+var config = calis.report.reportService.getConfig();
+var UAS_DOMAIN = "http://"+ config.uasHost + ":" + config.uasPort;
+var loginSrvLocal = EasyServiceClient.getRemoteProxy("/easyservice/com.cnebula.common.security.auth.ILoginService");
+var loginSrvCalis = EasyServiceClient.cloneWithNewTarget(loginSrvLocal,UAS_DOMAIN + "/easyservice/com.cnebula.common.security.auth.ILoginService");
+
+
+function initUserInfo(){
+	var ctx = EasyServiceClient.newContext();
+	var rt;
+	try{
+		rt = loginSrvLocal.loginByCredentialAndGetStatus(ctx.param['artifact'],true);
+	}catch(e){
+		/**登录失败为匿名用户**/
+		rt = ANONY_USER;
+	}
+	
+	ctx.user = rt;
+	if(ANONY_USER == rt){
+		ctx.isLogin = false;
+		ctx.anonyCls = "showBlock";
+		ctx.loginCls = "hide";
+	}else{
+		ctx.isLogin = true;
+		ctx.anonyCls = "hide";
+		ctx.loginCls = "showBlock";
+		ctx.user = rt.user;
+	}
+	var forceLogin = false;
+	if(ctx.user.extAttributes){
+		var roles = ctx.user.extAttributes.get('roles');
+		if(roles.indexOf('cal.') < 0){
+			alert('您没有日志系统对应的角色!');
+			forceLogin = true;
+		}
+	}else{
+		forceLogin = true;
+	}
+	if(!forceLogin){
+		ejs.renderComplexNode('#loginTmpl', '#login', ctx);
+	}else{
+		var loginWin = new ca.win('./uas.htm?uas=' + UAS_DOMAIN,'white',810,600);
+		loginWin.open();
+	}
+	return forceLogin;
+}
+
+function toLogin(){
+	var uasLoginUrl = UAS_DOMAIN + "/amconsole/AuthServices/?verb=login&goto=" + encodeURIComponent(window.location.href);
+	var loginWin = new ca.win('./uas.htm?uas=' + UAS_DOMAIN,'white',200,100);
+	loginWin.open();
+}
+
+function logout(){
+	loginSrvCalis.logout(function(rt, success, method, id){
+		if(success){
+			window.location.href = "analysis.htm"
+		}
+	});
+}
+
+$(document).ready(function(){
+	if(window.location.href.indexOf('#') > 0){
+		window.location.href = window.location.href.substring(0,window.location.href.indexOf('#'));
+		return;
+	}
+	if (! (jQuery.browser.mozilla && jQuery.browser.version.split('.')[0] >= 4)) {
+		$().toastmessage('showToast', {
+            text: "为避免页面响应缓慢，建议您使用firefox浏览器4.0以后的版本！请点击<a style='color:lightgreen;' href='http://firefox.com.cn/download/'>此处</a>下载",
+            sticky: true,
+            position: 'top-center',
+            type: 'warning',
+            closeText: ''
+        });
+
+	}
+	if(!initUserInfo()){
+		ctx.init();
+	};
+	$('#tab-container').easytabs({
+		  animate: false,
+		  animationSpeed:200,
+		  defaultTab: "li#defaultTab"
+	});
+	$('#tab-container').bind('easytabs:after', function() {
+		var id = arguments[1][0].attributes.id.value;
+		if(id == 'pvLink'){
+			ctx.easyPvTabSelected = true;
+			ctx.easyResTabSelected  = false;
+			ctx.easyOpTabSelected = false;
+			ctx.easyAcTabSelected = false;
+		}else if(id == 'resLink'){
+			ctx.easyPvTabSelected = false;
+			ctx.easyResTabSelected  = true;
+			ctx.easyOpTabSelected = false;
+			ctx.easyAcTabSelected = false;
+		}else if(id == 'opLink'){
+			ctx.easyPvTabSelected = false;
+			ctx.easyResTabSelected  = false;
+			ctx.easyOpTabSelected = true;
+			ctx.easyAcTabSelected = false;
+		}else if(id == 'acLink'){
+			ctx.easyPvTabSelected = false;
+			ctx.easyResTabSelected  = false;
+			ctx.easyOpTabSelected = false;
+			ctx.easyAcTabSelected = true;
+		}
+		doProgressQuery();
+	  });
+
+});
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<div id="header">
+			<div id="logo"></div>
+			<textarea id="loginTmpl" style="display: none">
+			    <!--# if (!isLogin){#-->
+			    	<div class="+-anonyCls-+">
+			    		<a href="javascript:void(0);" onclick="toLogin();return false;">登录</a>    
+			    	</div>
+			    <!--# }else{
+			    #-->
+			    	<div class="+-loginCls-+">
+			    		<b>欢迎您，+-user.loginId-+</b> | <a id="logout" href="javascript:void(0);" onclick="logout();">退出</a>
+			    	</div>
+			    <!--# } #-->
+			</textarea>
+			<div id="login" class="login"></div>
+			<div class="clear"></div>
+		</div>
+		<div id="dataArea">
+			<div id="innerHeader"></div>
+			<div id="data">
+				<div id="appTree">
+					<div class="appTitle"></div>
+					<div class="ztree" id="tree" style="overflow: auto;"></div>
+				</div>
+				<div id="middleDiv"></div>
+				<div id="statResult">
+					<div id="appList"></div>
+					<div id="timeConditions">
+						<span> 
+							<a href="javascript:void(0);" onclick="ctx.onTimeScaleClick('h');" id="hourCat">小时统计</a> 
+							<a href="javascript:void(0);" onclick="ctx.onTimeScaleClick('d');" id="dayCat">日统计</a> 
+							<a href="javascript:void(0);" onclick="ctx.onTimeScaleClick('m');" id="monthCat">月统计</a> 
+						</span> 
+						<span>
+							<select id="startYear"></select> 
+							<select id="startMonth"></select>
+							<select id="startDay"></select> 
+						</span>
+						至
+						<span> 
+							<select id="endYear"></select> 
+							<select id="endMonth"></select> 
+							<select id="endDay"></select> 
+						</span>
+						<button onclick="doProgressQuery();">查看结果</button>
+					</div>
+					<div id="tab-container" class="tab-container">
+						<ul class='etabs'>
+						  <li class='tab' id="defaultTab"><a href="#pvTab" id="pvLink">流量</a></li>
+						  <li class='tab'><a href="#resTab" id="resLink" >资源</a></li>
+						  <li class='tab'><a href="#opTab" id="opLink">操作</a></li>
+						  <li class='tab'><a href="#acTab" id="acLink">业务</a></li>
+						</ul>
+						<div class='panel-container'>
+							<div id="pvTab">	
+								<h3>浏览量、访问量统计<span id="pvtotal"></span></h3>
+								<div id="pv">
+									<div id="pvChart"></div>
+									<div id="pvTable" class="dataTable">无</div>
+									<div id="pvPager"></div>
+								</div>
+								
+								<h3>实时访问日志监控</h3>
+								<div>
+									<div id="realtimePVTable"></div>
+									<div id="realtimePVPager">无</div>
+								</div>
+							</div>
+							<div id="resTab" >
+								<h3>资源排行</h3>
+								<ul id="resourceTab" class="resourceTab">
+									<li id = "defaultResourceTab" class="resourceTabSelected" onclick="ctx.onResourceTabSelected(this,'resource');">原始数据</li>
+									<li onclick="ctx.onResourceTabSelected(this,'resource1');">局部汇总（按所选日期范围，以天为单位汇总）</li>
+								</ul>
+								<div id="resource">
+									<div id="resourceTime"></div>
+									<div id="resourceChart"></div>
+									<div id="resourceTable" class="dataTable"></div>
+									<div id="resourcePager"></div>
+								</div>
+								<div id="resource1">
+									<div id="resourceChart1"></div>
+									<div id="resourceTable1" class="dataTable"></div>
+									<div id="resourcePager1"></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+							<div id="opTab">
+								<h3>操作统计排行</h3>
+								<ul id="operationTab" class="resourceTab">
+									<li id = "defaultOperationTab" class="resourceTabSelected" onclick="ctx.onOperationTabSelected(this,'operation');">原始数据</li>
+									<li onclick="ctx.onOperationTabSelected(this,'operation1');">局部汇总（按所选日期范围，以天为单位汇总）</li>
+								</ul>
+								<div id="operation">
+									<div id="opTime"></div>
+									<div id="opChart" class="chart"></div>
+									<div id="opTable" class="dataTable"></div>
+									<div id="opPager"></div>
+								</div>
+								<div id="operation1">
+									<div id="opChart1" class="chart"></div>
+									<div id="opTable1"></div>
+									<div id="opPager1"></div>
+								</div>
+								<h3>实时操作日志监控</h3>
+								<div>
+									<div id="realtimeOPTable">无</div>
+									<div id="realtimeOPPager"></div>
+								</div>
+							</div>
+							<!-- 各系统业务统计分析  (以后会将此处剥离出来单独放到一个页面中)-->
+							<div id="acTab">
+								<div>
+									<b>时间：</b>
+									<span>
+										<a href="javascript:void(0);" id="dateYesterday">昨天</a>
+										<a href="javascript:void(0);" id="dateLastMonth">上月</a> 
+									</span>
+									<span>
+										时间段：<input type="text" id="dateFrom" value="--请选择--"> —
+											 <input type="text" id="dateTo" value="--请选择--">
+									</span>
+									<input type="hidden" id="startDate" value=""/>
+									<input type="hidden" id="endDate" value=""/>
+								</div>
+								<div id="institution"></div>
+								<div id="subinstitution"></div>
+								<div id="dimensionMenu"></div>
+								<div id="metricsMenu"></div>
+								<input type="button" value="查看结果" onclick="actionCTX.doReport()"/>
+								<div id="HistogramImage"></div>
+								<!-- <div style="width: 400" align="right" >
+									<a href="#"onclick="custom()">【自定义指标】 </a><br>	
+									<div id="bar" style="display:block"></div>
+								</div> -->
+								<div id="acTable" class="browser"></div>
+							</div>
+							<!-- 各系统业务统计分析  end-->
+						</div>
+					</div>	
+				</div>
+				<div class="clear"></div>
+			</div>
+				<div class="clear"></div>
+		</div>
+		<div id="footer">
+			<div>中国高等教育文献保障系统（CALIS）管理中心 版权所有</div>
+			<div>Copyright 1996-2010 CALIS All rights reserved</div>
+		</div>
+		<iframe id="printFrame" name="printFrame" src="./tplt/printPage.htm" style="height:0;"></iframe>
+	</div>
+	<!-- 以下div必须放于body最后 -->
+	<div id="popupCode">
+		<script src="js/popup.js"></script>
+		<script type="text/javascript">ca.initCss();</script>
+	</div>
+</body>
+</html>

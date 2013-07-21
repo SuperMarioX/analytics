@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportorCfg>
+	<TopMenu id="wzfx" name="网站分析">
+	
+		<Menu id="trend" name="趋势分析" defaultOat="yidu" loadpage="main.htm" isLayLibSite="false">
+
+			<ChartWidget enabled="true" type="line" size="2" processor="processorModule.chart.handle"></ChartWidget>
+			<DataTableWidget enabled="false" size="-1" processor="commontable"></DataTableWidget>
+			<DateWidget enabled="true" isGrain="true"></DateWidget>
+			
+		</Menu>
+		
+		<Menu id="realTime" name="实时分析" defaultOat="all" loadpage="main.htm" isLaySaasSite="false" isLayLibSite="false">
+
+			<ChartWidget enabled="true" type="line" size="1" processor="commontable"></ChartWidget>
+			<DataTableWidget enabled="false" size="-1" processor="commontable"></DataTableWidget>
+			<DateWidget enabled="false" isGrain="true"></DateWidget>
+			
+		</Menu>
+		
+	</TopMenu>
+	
+	<ApplicationMap>
+		<Application id="all"		name="全部"			filter=""></Application>
+		<Application id="eduChina" 	name="eduChina" 	filter="oat='eduChina'"></Application>
+		<Application id="yidu" 		name="e读" 			filter="oat='yidu'"></Application>
+		<Application id="ues" 		name="统一交换" 		filter="oat='ues'"></Application>
+		<Application id="aopac" 	name="古籍文献" 		filter="oat='aopac'"></Application>
+		<Application id="ccc"  		name="ccc" 			filter="oat='ccc'"></Application>
+		<Application id="uas" 		name="统一认证" 		filter="oat='uas'"></Application>
+		<Application id="opac" 		name="opac" 		filter="oat='opac'"></Application>
+		<Application id="ill" 		name="馆际互借" 		filter="oat='ill'"></Application>
+		<Application id="ztc" 		name="直通车" 		filter="oat='ztc'"></Application>
+		<Application id="nav" 		name="导航" 			filter="oat='nav'"></Application>
+		<Application id="ubs" 		name="统一计费" 		filter="oat='ubs'"></Application>
+		<Application id="nps" 		name="个性化门户" 		filter="oat='nps'"></Application>
+		<Application id="cvrs"  	name="参考咨询" 		filter="oat='cvrs'"></Application>
+		<Application id="auopac"	name="auopac" 		filter="oat='auopac'"></Application>
+		<Application id="iri" 		name="教参" 			filter="oat='iri'"></Application>
+	</ApplicationMap>
+	
+</ReportorCfg>

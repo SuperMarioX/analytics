@@ -1,0 +1,450 @@
+<html xmlns:lxslt="http://xml.apache.org/xslt" xmlns:stringutils="xalan://org.apache.tools.ant.util.StringUtils">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Unit Test Results: com.cnebula.analytics.analyzeserver.processor.TestDayReportProcessor</title>
+<link rel="stylesheet" type="text/css" title="Style" href="../../../../../stylesheet.css">
+<script type="text/javascript" language="JavaScript">
+        var TestCases = new Array();
+        var cur;
+        
+    cur = TestCases['com.cnebula.analytics.analyzeserver.processor.TestDayReportProcessor'] = new Array();
+    
+        cur['ant.core.lib'] = 'F:\\apache-ant-1.7.1\\lib\\ant.jar';
+    
+        cur['ant.file'] = 'F:\\workspace\\analytics\\com.cnebula.analytics.ci\\build.xml';
+    
+        cur['ant.file.Build Core'] = 'F:\\workspace\\analytics\\com.cnebula.analytics.ci\\build.xml';
+    
+        cur['ant.file.Build Util Macros'] = 'F:\\workspace\\analytics\\com.cnebula.analytics.ci\\build-util_1_0.xml';
+    
+        cur['ant.home'] = 'F:\\apache-ant-1.7.1';
+    
+        cur['ant.java.version'] = '1.6';
+    
+        cur['ant.library.dir'] = 'F:\\apache-ant-1.7.1\\lib';
+    
+        cur['ant.project.name'] = 'Build Core';
+    
+        cur['ant.version'] = 'Apache Ant version 1.7.1 compiled on June 27 2008';
+    
+        cur['appId'] = 'app:100000.uas_000';
+    
+        cur['arch'] = 'x86';
+    
+        cur['awt.toolkit'] = 'sun.awt.windows.WToolkit';
+    
+        cur['basedir'] = 'F:\\workspace\\analytics\\com.cnebula.analytics.ci';
+    
+        cur['build.compiler'] = 'org.eclipse.jdt.core.JDTCompilerAdapter';
+    
+        cur['build.date'] = '20130320';
+    
+        cur['CNEBULA_ES_CFG_PATH'] = '../com.cnebula.analytics.local/deploy/instance/conf/server.xml';
+    
+        cur['cobertura.report.root'] = '../com.cnebula.analytics.local/deploy/cobertura/report';
+    
+        cur['cobertura.report.type'] = 'xml';
+    
+        cur['com.cnebula.analytics.analyzeserver_copy_resource'] = 'copy 0 resource from ..//com.cnebula.analytics.analyzeserver/ to ../com.cnebula.analytics.local/deploy/bundles/com.cnebula.analytics.analyzeserver';
+    
+        cur['com.cnebula.analytics.analyzeserver_jar_output'] = '';
+    
+        cur['com.cnebula.analytics.analyzeserver.bindir'] = 'bin';
+    
+        cur['com.cnebula.analytics.analyzeserver.instrument_jar_output'] = '';
+    
+        cur['com.cnebula.analytics.analyzeserver.srcslist'] = '../com.cnebula.analytics.analyzeserver/src';
+    
+        cur['com.cnebula.analytics.common_copy_resource'] = 'copy 0 resource from ..//com.cnebula.analytics.common/ to ../com.cnebula.analytics.local/deploy/bundles/com.cnebula.analytics.common';
+    
+        cur['com.cnebula.analytics.common_jar_output'] = '';
+    
+        cur['com.cnebula.analytics.common.bindir'] = 'bin';
+    
+        cur['com.cnebula.analytics.common.instrument_jar_output'] = '';
+    
+        cur['com.cnebula.analytics.common.srcslist'] = '../com.cnebula.analytics.common/src';
+    
+        cur['com.cnebula.analytics.comtest_copy_resource'] = 'copy 0 resource from ..//com.cnebula.analytics.comtest/ to ../com.cnebula.analytics.local/deploy/bundles/com.cnebula.analytics.comtest';
+    
+        cur['com.cnebula.analytics.comtest_jar_output'] = '';
+    
+        cur['com.cnebula.analytics.comtest.bindir'] = 'bin';
+    
+        cur['com.cnebula.analytics.comtest.srcslist'] = '../com.cnebula.analytics.comtest/src';
+    
+        cur['com.cnebula.analytics.logserver_copy_resource'] = 'copy 0 resource from ..//com.cnebula.analytics.logserver/ to ../com.cnebula.analytics.local/deploy/bundles/com.cnebula.analytics.logserver';
+    
+        cur['com.cnebula.analytics.logserver_jar_output'] = '';
+    
+        cur['com.cnebula.analytics.logserver.bindir'] = 'bin';
+    
+        cur['com.cnebula.analytics.logserver.instrument_jar_output'] = '';
+    
+        cur['com.cnebula.analytics.logserver.srcslist'] = '../com.cnebula.analytics.logserver/src';
+    
+        cur['com.cnebula.analytics.reportserver_copy_resource'] = 'copy 0 resource from ..//com.cnebula.analytics.reportserver/ to ../com.cnebula.analytics.local/deploy/bundles/com.cnebula.analytics.reportserver';
+    
+        cur['com.cnebula.analytics.reportserver_jar_output'] = '';
+    
+        cur['com.cnebula.analytics.reportserver.bindir'] = 'bin';
+    
+        cur['com.cnebula.analytics.reportserver.instrument_jar_output'] = '';
+    
+        cur['com.cnebula.analytics.reportserver.srcslist'] = '../com.cnebula.analytics.reportserver/src';
+    
+        cur['com.cnebula.analytics.unitest_copy_resource'] = 'copy 0 resource from ..//com.cnebula.analytics.unitest/ to ../com.cnebula.analytics.local/deploy/bundles/com.cnebula.analytics.unitest';
+    
+        cur['com.cnebula.analytics.unitest_jar_output'] = '';
+    
+        cur['com.cnebula.analytics.unitest.bindir'] = 'bin';
+    
+        cur['com.cnebula.analytics.unitest.srcslist'] = '../com.cnebula.analytics.unitest/src';
+    
+        cur['db_driver'] = 'oracle.jdbc.OracleDriver';
+    
+        cur['db_url'] = 'dbc:oracle:thin:@192.168.2.177:1521:orcl';
+    
+        cur['deploy.root'] = '../com.cnebula.analytics.local/deploy';
+    
+        cur['DSTAMP'] = '20130320';
+    
+        cur['eclipse.pdebuild.home'] = '/F:/eclipse-jee-indigo-SR1-win32/eclipse/plugins/org.eclipse.pde.build_3.7.0.v20110512-1320/./';
+    
+        cur['eclipse.pdebuild.scripts'] = '/F:/eclipse-jee-indigo-SR1-win32/eclipse/plugins/org.eclipse.pde.build_3.7.0.v20110512-1320/scripts/';
+    
+        cur['eclipse.pdebuild.templates'] = '/F:/eclipse-jee-indigo-SR1-win32/eclipse/plugins/org.eclipse.pde.build_3.7.0.v20110512-1320/templates/';
+    
+        cur['env.__COMPAT_LAYER'] = 'RunAsAdmin';
+    
+        cur['env.1830B7BD-F7A3-4c4d-989B-C004DE465EDE'] = 'f8c:6299b80';
+    
+        cur['env.ALLUSERSPROFILE'] = 'C:\\ProgramData';
+    
+        cur['env.ANT_HOME'] = 'F:\\apache-ant-1.7.1';
+    
+        cur['env.APPDATA'] = 'C:\\Users\\calis\\AppData\\Roaming';
+    
+        cur['env.asl.log'] = 'Destination=file';
+    
+        cur['env.CommonProgramFiles'] = 'C:\\Program Files\\Common Files';
+    
+        cur['env.COMPUTERNAME'] = 'CALIS-PC';
+    
+        cur['env.ComSpec'] = 'C:\\Windows\\system32\\cmd.exe';
+    
+        cur['env.FP_NO_HOST_CHECK'] = 'NO';
+    
+        cur['env.HOMEDRIVE'] = 'C:';
+    
+        cur['env.HOMEPATH'] = '\\Users\\calis';
+    
+        cur['env.JAVA_HOME'] = 'D:\\Java\\jdk1.6.0_25';
+    
+        cur['env.LOCALAPPDATA'] = 'C:\\Users\\calis\\AppData\\Local';
+    
+        cur['env.LOGONSERVER'] = '\\\\CALIS-PC';
+    
+        cur['env.NUMBER_OF_PROCESSORS'] = '4';
+    
+        cur['env.OS'] = 'Windows_NT';
+    
+        cur['env.Path'] = 'D:/Java/jdk1.6.0_25/bin/../jre/bin/client;D:/Java/jdk1.6.0_25/bin/../jre/bin;D:/Java/jdk1.6.0_25/bin/../jre/lib/i386;F:\\apache-ant-1.7.1/bin/;C:\\Program Files\\Common Files\\NetSarang;D:\\Java\\jdk1.6.0_25\\bin;E:\\oracle\\product\\10.2.0\\db_1\\bin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Common Files\\Thunder Network\\KanKan\\Codecs;C:\\Program Files\\Microsoft ASP.NET\\ASP.NET Web Pages\\v1.0\\;C:\\Program Files\\Microsoft SQL Server\\100\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\100\\DTS\\Binn\\;C:\\Program Files\\SSH Communications Security\\SSH Secure Shell;e:\\Program Files\\OpenVPN\\bin;F:\\eclipse-jee-indigo-SR1-win32\\eclipse;';
+    
+        cur['env.PATHEXT'] = '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC';
+    
+        cur['env.PERL5LIB'] = 'E:\\oracle\\product\\10.2.0\\db_1\\perl\\5.8.3\\lib\\MSWin32-x86;E:\\oracle\\product\\10.2.0\\db_1\\perl\\5.8.3\\lib;E:\\oracle\\product\\10.2.0\\db_1\\perl\\5.8.3\\lib\\MSWin32-x86;E:\\oracle\\product\\10.2.0\\db_1\\perl\\site\\5.8.3;E:\\oracle\\product\\10.2.0\\db_1\\perl\\site\\5.8.3\\lib;E:\\oracle\\product\\10.2.0\\db_1\\sysman\\admin\\scripts;';
+    
+        cur['env.PROCESSOR_ARCHITECTURE'] = 'x86';
+    
+        cur['env.PROCESSOR_IDENTIFIER'] = 'x86 Family 6 Model 23 Stepping 10, GenuineIntel';
+    
+        cur['env.PROCESSOR_LEVEL'] = '6';
+    
+        cur['env.PROCESSOR_REVISION'] = '170a';
+    
+        cur['env.ProgramData'] = 'C:\\ProgramData';
+    
+        cur['env.ProgramFiles'] = 'C:\\Program Files';
+    
+        cur['env.PROMPT'] = '$P$G';
+    
+        cur['env.PSModulePath'] = 'C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\';
+    
+        cur['env.PUBLIC'] = 'C:\\Users\\Public';
+    
+        cur['env.SESSIONNAME'] = 'Console';
+    
+        cur['env.SystemDrive'] = 'C:';
+    
+        cur['env.SystemRoot'] = 'C:\\Windows';
+    
+        cur['env.TEMP'] = 'C:\\Users\\calis\\AppData\\Local\\Temp';
+    
+        cur['env.TMP'] = 'C:\\Users\\calis\\AppData\\Local\\Temp';
+    
+        cur['env.USERDOMAIN'] = 'calis-PC';
+    
+        cur['env.USERNAME'] = 'calis';
+    
+        cur['env.USERPROFILE'] = 'C:\\Users\\calis';
+    
+        cur['env.VBOX_INSTALL_PATH'] = 'E:\\Program Files\\Oracle\\VirtualBox\\';
+    
+        cur['env.VS100COMNTOOLS'] = 'E:\\Program Files\\Microsoft Visual Studio 10.0\\Common7\\Tools\\';
+    
+        cur['env.windir'] = 'C:\\Windows';
+    
+        cur['err'] = '';
+    
+        cur['es.config.path'] = '../com.cnebula.analytics.conf';
+    
+        cur['fail.unit.test'] = 'true';
+    
+        cur['file.encoding'] = 'GBK';
+    
+        cur['file.encoding.pkg'] = 'sun.io';
+    
+        cur['file.separator'] = '\\';
+    
+        cur['host'] = '127.0.0.1';
+    
+        cur['http_host'] = '127.0.0.1';
+    
+        cur['http_maxThread'] = '300';
+    
+        cur['http_minThread'] = '2';
+    
+        cur['http_port'] = '8991';
+    
+        cur['init.memory'] = '128';
+    
+        cur['is.client'] = 'false';
+    
+        cur['java.awt.graphicsenv'] = 'sun.awt.Win32GraphicsEnvironment';
+    
+        cur['java.awt.printerjob'] = 'sun.awt.windows.WPrinterJob';
+    
+        cur['java.class.path'] = 'F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\ci\\cobertura\\cobertura.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\ci\\cobertura\\lib\\asm-3.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\ci\\cobertura\\lib\\asm-tree-3.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\ci\\cobertura\\lib\\jakarta-oro-2.0.8.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\ci\\cobertura\\lib\\log4j-1.2.9.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\lib\\connector-1_5.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\lib\\toplink-essentials.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\instrumented\\com.cnebula.analytics.analyzeserver_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\instrumented\\com.cnebula.analytics.common_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\instrumented\\com.cnebula.analytics.logserver_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\instrumented\\com.cnebula.analytics.reportserver_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundle.jars\\com.cnebula.analytics.analyzeserver_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundle.jars\\com.cnebula.analytics.common_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundle.jars\\com.cnebula.analytics.logserver_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundle.jars\\com.cnebula.analytics.reportserver_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.common.instrument\\lib\\UserAgentUtils-1.5.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.common.instrument\\lib\\pinyin4j-2.5.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.common\\lib\\UserAgentUtils-1.5.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.common\\lib\\pinyin4j-2.5.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\apache-mime4j-0.6.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\bsh-1.3.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\cglib-nodep-2.1_3.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\commons-beanutils-1.8.3.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\commons-codec-1.6.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\commons-collections-3.2.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\commons-exec-1.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\commons-io-2.0.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\commons-jxpath-1.3.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\commons-lang-2.6.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\commons-logging-1.1.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\cssparser-0.9.5.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\ezmorph-1.0.6.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\guava-12.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\hamcrest-core-1.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\hamcrest-library-1.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\htmlunit-2.9.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\htmlunit-core-js-2.9.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\httpclient-4.1.3.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\httpcore-4.1.3.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\httpmime-4.1.3.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\ini4j-0.5.2.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\jcommander-1.13.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\jna-3.4.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\jna-platform-3.4.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\json-20080701.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\json-lib-2.4-jdk15.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\junit-dep-4.10.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\nekohtml-1.9.15.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\netty-3.2.7.Final.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\operadriver-0.14.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\protobuf-java-2.4.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\sac-1.3.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\selenium-java-2.25.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\serializer-2.7.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\testng-6.0.1-nobsh-noguice.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\webbit-0.4.8-SNAPSHOT.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\xalan-2.7.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\xercesImpl-2.9.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.comtest\\lib\\xml-apis-1.3.04.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.logserver.instrument\\lib\\h2-1.3.164-sources.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.logserver.instrument\\lib\\javolution-5.5.1-sources.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.logserver.instrument\\lib\\javolution-5.5.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.logserver.instrument\\lib\\netty-3.3.1.Final-sources.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.logserver\\lib\\h2-1.3.164-sources.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.logserver\\lib\\javolution-5.5.1-sources.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.logserver\\lib\\javolution-5.5.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.logserver\\lib\\netty-3.3.1.Final-sources.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.reportserver.instrument\\lib\\jxl.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.reportserver.instrument\\lib\\org.json.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.reportserver\\lib\\jxl.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.reportserver\\lib\\org.json.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\checkstyle-5.6-all.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\cobertura_1.9.2.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.caucho.hessian_3.1.6.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.client.update_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.conf.impl_1.0.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.db_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.dio_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.ejb.impl_1.1.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.ejb.lucene.imp_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.ejb.lucene.ui_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.ejb.lucene_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.ejb.manage_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.facelets_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.i18n.impl_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.log.impl_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.mail.service_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.management.impl_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.remote.comtest_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.remote.core.unittest_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.remote.core_1.0.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.remote.ejb.io_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.remote.ws_1.0.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.servlet.impl_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.servlet.jsf.example_1.1.6.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.servlet.jsf.imp_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.servlet.jsf.simpleexample_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.servlet.jsp.imp_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.tomcat.server_5.5.35.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.common.xml.impl_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.ehcache.provider_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.facelets.example_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.junit_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.limit_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.platform.admin_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.rcs_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.solr.service.imp_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.um.client.ui_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.um.ejb_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.um.service.imp_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.um.service_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.um.simple.permission.imp_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.um.simple.permission_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.cnebula.um.task.syn_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\com.sun.facelets_1.1.13.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\httpunit_1.6.2.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\javax.persistence_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\javax.servlet.jsp.jstl_1.1.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\javax.servlet.jsp_2.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\javax.servlet_2.5.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.apache.common.lang_2.3.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.apache.commons.collections_1.0.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.apache.commons.el_1.0.0.200901081027.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.apache.commons.logging_1.0.4.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.apache.jasper_5.5.17.ES.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.apache.lucene_3.3.0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.apache.myfaces.tomahawk_1.1.6.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.apache.myfaces_1.1.5.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.eclipse.equinox.event_1.0.100.v20070516.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.eclipse.equinox.http.jetty_1.0.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.eclipse.equinox.http.servlet_1.0.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.eclipse.equinox.log_1.0.1.R32x_v20060717.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.eclipse.osgi.services_3.1.200.ES.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.eclipse.osgi_3.3.0.ES_1_0.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.h2_1.3.164-sources.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.h2_1.3.164.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.jboss.netty_3.3.1-sources.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.jboss.netty_3.3.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.junit4_4.1.0.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.knopflerfish.bundle.component_2.0.1.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\dep\\target\\plugins\\org.mortbay.jetty_6.1.6.jar;F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\bundles\\com.cnebula.analytics.unitest\\bin;F:\\apache-ant-1.7.1\\lib\\ant-launcher.jar;F:\\apache-ant-1.7.1\\lib\\ant.jar;F:\\apache-ant-1.7.1\\lib\\ant-junit.jar;../com.cnebula.analytics.local/deploy/instance/cnebula/cnebula_cft_1.0.0.jar';
+    
+        cur['java.class.version'] = '50.0';
+    
+        cur['java.endorsed.dirs'] = 'D:\\Java\\jdk1.6.0_25\\jre\\lib\\endorsed';
+    
+        cur['java.ext.dirs'] = 'D:\\Java\\jdk1.6.0_25\\jre\\lib\\ext;C:\\Windows\\Sun\\Java\\lib\\ext';
+    
+        cur['java.home'] = 'D:\\Java\\jdk1.6.0_25\\jre';
+    
+        cur['java.io.tmpdir'] = 'C:\\Users\\calis\\AppData\\Local\\Temp\\';
+    
+        cur['java.library.path'] = 'D:\\Java\\jdk1.6.0_25\\jre\\bin;.;C:\\Windows\\Sun\\Java\\bin;C:\\Windows\\system32;C:\\Windows;D:/Java/jdk1.6.0_25/bin/../jre/bin/client;D:/Java/jdk1.6.0_25/bin/../jre/bin;D:/Java/jdk1.6.0_25/bin/../jre/lib/i386;F:\\apache-ant-1.7.1/bin/;C:\\Program Files\\Common Files\\NetSarang;D:\\Java\\jdk1.6.0_25\\bin;E:\\oracle\\product\\10.2.0\\db_1\\bin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Common Files\\Thunder Network\\KanKan\\Codecs;C:\\Program Files\\Microsoft ASP.NET\\ASP.NET Web Pages\\v1.0\\;C:\\Program Files\\Microsoft SQL Server\\100\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\100\\DTS\\Binn\\;C:\\Program Files\\SSH Communications Security\\SSH Secure Shell;e:\\Program Files\\OpenVPN\\bin;F:\\eclipse-jee-indigo-SR1-win32\\eclipse;';
+    
+        cur['java.runtime.name'] = 'Java(TM) SE Runtime Environment';
+    
+        cur['java.runtime.version'] = '1.6.0_25-b06';
+    
+        cur['java.specification.name'] = 'Java Platform API Specification';
+    
+        cur['java.specification.vendor'] = 'Sun Microsystems Inc.';
+    
+        cur['java.specification.version'] = '1.6';
+    
+        cur['java.vendor'] = 'Sun Microsystems Inc.';
+    
+        cur['java.vendor.url'] = 'http://java.sun.com/';
+    
+        cur['java.vendor.url.bug'] = 'http://java.sun.com/cgi-bin/bugreport.cgi';
+    
+        cur['java.version'] = '1.6.0_25';
+    
+        cur['java.vm.info'] = 'mixed mode';
+    
+        cur['java.vm.name'] = 'Java HotSpot(TM) Client VM';
+    
+        cur['java.vm.specification.name'] = 'Java Virtual Machine Specification';
+    
+        cur['java.vm.specification.vendor'] = 'Sun Microsystems Inc.';
+    
+        cur['java.vm.specification.version'] = '1.0';
+    
+        cur['java.vm.vendor'] = 'Sun Microsystems Inc.';
+    
+        cur['java.vm.version'] = '20.0-b11';
+    
+        cur['jmx_host'] = '127.0.0.1';
+    
+        cur['jmx_port'] = '8990';
+    
+        cur['line.separator'] = ' ';
+    
+        cur['local.build_properties'] = 'ci-build.properties';
+    
+        cur['local.root'] = '../com.cnebula.analytics.local';
+    
+        cur['logger_host'] = '192.168.2.93';
+    
+        cur['logger_port'] = '8992';
+    
+        cur['logpath'] = '~/h2dbs';
+    
+        cur['max.memory'] = '512';
+    
+        cur['mlog.level'] = 'ERROR';
+    
+        cur['net.sourceforge.cobertura.datafile'] = 'F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\cobertura\\com.cnebula.analytics.analyzeserver.processor.ser';
+    
+        cur['os'] = 'win32';
+    
+        cur['os.arch'] = 'x86';
+    
+        cur['os.name'] = 'Windows 7';
+    
+        cur['os.version'] = '6.1';
+    
+        cur['path.separator'] = ';';
+    
+        cur['port'] = '8991';
+    
+        cur['product.name'] = 'analytics';
+    
+        cur['product.version'] = '1.1.0';
+    
+        cur['project.code'] = 'analytics';
+    
+        cur['rcsHost'] = 'rcs.calis.edu.cn';
+    
+        cur['rcsPort'] = '80';
+    
+        cur['relative.config.xml'] = 'server.xml';
+    
+        cur['remoteTest.dist.root'] = '/';
+    
+        cur['remoteTest.ftp.server'] = '192.168.2.49';
+    
+        cur['remoteTest.ftp.userid'] = 'test';
+    
+        cur['runtime.build'] = '../com.cnebula.analytics.local/build';
+    
+        cur['server.start.time'] = '80';
+    
+        cur['sun.arch.data.model'] = '32';
+    
+        cur['sun.boot.class.path'] = 'D:\\Java\\jdk1.6.0_25\\jre\\lib\\resources.jar;D:\\Java\\jdk1.6.0_25\\jre\\lib\\rt.jar;D:\\Java\\jdk1.6.0_25\\jre\\lib\\sunrsasign.jar;D:\\Java\\jdk1.6.0_25\\jre\\lib\\jsse.jar;D:\\Java\\jdk1.6.0_25\\jre\\lib\\jce.jar;D:\\Java\\jdk1.6.0_25\\jre\\lib\\charsets.jar;D:\\Java\\jdk1.6.0_25\\jre\\lib\\modules\\jdk.boot.jar;D:\\Java\\jdk1.6.0_25\\jre\\classes';
+    
+        cur['sun.boot.library.path'] = 'D:\\Java\\jdk1.6.0_25\\jre\\bin';
+    
+        cur['sun.cpu.endian'] = 'little';
+    
+        cur['sun.cpu.isalist'] = 'pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86';
+    
+        cur['sun.desktop'] = 'windows';
+    
+        cur['sun.io.unicode.encoding'] = 'UnicodeLittle';
+    
+        cur['sun.java.command'] = 'org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner com.cnebula.analytics.analyzeserver.processor.TestDayReportProcessor filtertrace=true haltOnError=false haltOnFailure=false showoutput=false outputtoformatters=true logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,F:\\workspace\\analytics\\com.cnebula.analytics.local\\deploy\\test\\unit\\TEST-com.cnebula.analytics.analyzeserver.processor.TestDayReportProcessor.xml crashfile=F:\\workspace\\analytics\\com.cnebula.analytics.ci\\junitvmwatcher1037894176443653307.properties propsfile=F:\\workspace\\analytics\\com.cnebula.analytics.ci\\junit7313429550999486813.properties';
+    
+        cur['sun.java.launcher'] = 'SUN_STANDARD';
+    
+        cur['sun.jnu.encoding'] = 'GBK';
+    
+        cur['sun.management.compiler'] = 'HotSpot Client Compiler';
+    
+        cur['sun.os.patch.level'] = '';
+    
+        cur['target.platform.root'] = '../com.cnebula.analytics.local/dep';
+    
+        cur['TODAY'] = 'March 20 2013';
+    
+        cur['TSTAMP'] = '1755';
+    
+        cur['uasHost'] = 'uas.dev.calis.edu.cn';
+    
+        cur['uasPort'] = '8101';
+    
+        cur['user.country'] = 'CN';
+    
+        cur['user.dir'] = 'F:\\workspace\\analytics\\com.cnebula.analytics.ci';
+    
+        cur['user.home'] = 'C:\\Users\\calis';
+    
+        cur['user.language'] = 'zh';
+    
+        cur['user.name'] = 'calis';
+    
+        cur['user.timezone'] = '';
+    
+        cur['user.variant'] = '';
+    
+        cur['workspace.root'] = '../';
+    
+        cur['ws'] = 'win32';
+    </script><script type="text/javascript" language="JavaScript">
+        function displayProperties (name) {
+          var win = window.open('','JUnitSystemProperties','scrollbars=1,resizable=1');
+          var doc = win.document;
+          doc.open();
+          doc.write("<html><head><title>Properties of " + name + "</title>");
+          doc.write("<style type=\"text/css\">");
+          doc.write("body {font:normal 68% verdana,arial,helvetica; color:#000000; }");
+          doc.write("table tr td, table tr th { font-size: 68%; }");
+          doc.write("table.properties { border-collapse:collapse; border-left:solid 1 #cccccc; border-top:solid 1 #cccccc; padding:5px; }");
+          doc.write("table.properties th { text-align:left; border-right:solid 1 #cccccc; border-bottom:solid 1 #cccccc; background-color:#eeeeee; }");
+          doc.write("table.properties td { font:normal; text-align:left; border-right:solid 1 #cccccc; border-bottom:solid 1 #cccccc; background-color:#fffffff; }");
+          doc.write("h3 { margin-bottom: 0.5em; font: bold 115% verdana,arial,helvetica }");
+          doc.write("</style>");
+          doc.write("</head><body>");
+          doc.write("<h3>Properties of " + name + "</h3>");
+          doc.write("<div align=\"right\"><a href=\"javascript:window.close();\">Close</a></div>");
+          doc.write("<table class='properties'>");
+          doc.write("<tr><th>Name</th><th>Value</th></tr>");
+          for (prop in TestCases[name]) {
+            doc.write("<tr><th>" + prop + "</th><td>" + TestCases[name][prop] + "</td></tr>");
+          }
+          doc.write("</table>");
+          doc.write("</body></html>");
+          doc.close();
+          win.focus();
+        }
+      
+      </script>
+</head>
+<body>
+<h1>Unit Test Results.</h1>
+<table width="100%">
+<tr>
+<td align="left"></td><td align="right">Designed for use with <a href="http://www.junit.org/">JUnit</a> and <a href="http://ant.apache.org/">Ant</a>.</td>
+</tr>
+</table>
+<hr size="1">
+<h3>Class com.cnebula.analytics.analyzeserver.processor.TestDayReportProcessor</h3>
+<table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
+<tr valign="top">
+<th width="80%">Name</th><th>Tests</th><th>Errors</th><th>Failures</th><th nowrap>Time(s)</th><th nowrap>Time Stamp</th><th>Host</th>
+</tr>
+<tr valign="top" class="Error">
+<td><a title="Display all tests" href="3_TestDayReportProcessor.html">TestDayReportProcessor</a></td><td><a title="Display all tests" href="3_TestDayReportProcessor.html">0</a></td><td><a title="Display only errors" href="3_TestDayReportProcessor-errors.html">1</a></td><td>0</td><td>0.223</td><td>2013-03-20T09:55:38</td><td>calis-PC</td>
+</tr>
+</table>
+<h2>Errors</h2>
+<table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
+<tr valign="top">
+<th>Name</th><th>Status</th><th width="80%">Type</th><th nowrap>Time(s)</th>
+</tr>
+<tr valign="top" class="Error">
+<td><a name="com.cnebula.analytics.analyzeserver.processor.TestDayReportProcessor"></a>com.cnebula.analytics.analyzeserver.processor.TestDayReportProcessor</td><td>Error</td><td>Invalid byte 2 of 2-byte UTF-8 sequence.<br>
+<br>
+<code>com.cnebula.common.xml.XMLParseException: Invalid byte 2 of 2-byte UTF-8 sequence.<br/>	at com.cnebula.common.xml.impl.EasyObjectXMLTransformerImpl.parse(EasyObjectXMLTransformerImpl.java:158)<br/>	at com.cnebula.common.xml.impl.EasyObjectXMLTransformerImpl.parse(EasyObjectXMLTransformerImpl.java:166)<br/>	at com.cnebula.common.xml.impl.EasyObjectXMLTransformerImpl.parse(EasyObjectXMLTransformerImpl.java:193)<br/>	at com.cnebula.analytics.analyzeserver.processor.TestDayReportProcessor.beforeClass(TestDayReportProcessor.java:76)<br/>Caused by: org.apache.xerces.impl.io.MalformedByteSequenceException: Invalid byte 2 of 2-byte UTF-8 sequence.<br/>	at org.apache.xerces.util.ErrorHandlerWrapper.createSAXParseException(Unknown Source)<br/>	at org.apache.xerces.util.ErrorHandlerWrapper.fatalError(Unknown Source)<br/>	at org.apache.xerces.impl.XMLErrorReporter.reportError(Unknown Source)<br/>	at org.apache.xerces.impl.XMLErrorReporter.reportError(Unknown Source)<br/>	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)<br/>	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)<br/>	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)<br/>	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)<br/>	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)<br/>	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)<br/>	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)<br/>	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)<br/>	at javax.xml.parsers.SAXParser.parse(SAXParser.java:198)<br/>	at com.cnebula.common.xml.impl.EasyObjectXMLTransformerImpl.parse(EasyObjectXMLTransformerImpl.java:144)<br/>Caused by: org.apache.xerces.impl.io.MalformedByteSequenceException: Invalid byte 2 of 2-byte UTF-8 sequence.<br/>	at org.apache.xerces.impl.io.UTF8Reader.invalidByte(Unknown Source)<br/>	at org.apache.xerces.impl.io.UTF8Reader.read(Unknown Source)<br/>	at org.apache.xerces.impl.XMLEntityScanner.load(Unknown Source)<br/>	at org.apache.xerces.impl.XMLEntityScanner.scanLiteral(Unknown Source)<br/>	at org.apache.xerces.impl.XMLScanner.scanAttributeValue(Unknown Source)<br/>	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanAttribute(Unknown Source)<br/>	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)<br/>	at org.apache.xerces.impl.XMLNSDocumentScannerImpl$NSContentDispatcher.scanRootElementHook(Unknown Source)<br/></code></td><td>0.001</td>
+</tr>
+</table>
+<div class="Properties">
+<a href="javascript:displayProperties('com.cnebula.analytics.analyzeserver.processor.TestDayReportProcessor');">
+                    Properties &raquo;
+                </a>
+</div>
+<div class="Properties">
+<a href="./3_TestDayReportProcessor-out.txt">
+                        System.out &raquo;
+                    </a>
+</div>
+</body>
+</html>

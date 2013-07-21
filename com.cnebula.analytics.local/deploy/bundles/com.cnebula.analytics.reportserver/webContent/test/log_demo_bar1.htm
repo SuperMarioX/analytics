@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>基本柱状图</title>
+	<link class="include" rel="stylesheet" type="text/css" href="../css/jqplot/jquery.jqplot.min.css" />
+  	<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="../js/jqplot/excanvas.js"></script><![endif]-->
+    <script class="include" type="text/javascript" src="../js/jquery/jquery.min.js"></script>
+	<!-- jqplot plugins go here -->
+	<script class="include" type="text/javascript" src="../js/jqplot/jquery.jqplot.min.js"></script>
+	<script class="include" type="text/javascript" src="../js/jqplot/plugins/jqplot.barRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../js/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../js/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../js/jqplot/plugins/jqplot.pointLabels.min.js"></script>
+	<!-- End additional plugins -->
+</head>
+<body>
+	<!-- 注意：div的高度和宽度必须设置!
+		这里作为示例直接写在style里面，实际开发建议写在css中 。
+		例如本例中可以写成
+		#chart1{
+			width:300px; height:300px;
+		}
+	-->
+	<div id="chart1" style="width:300px; height:300px;"></div>
+	<script class="code" type="text/javascript">
+		$(document).ready(function(){
+			$.jqplot.config.enablePlugins = true;
+			var s1 = [2, 6, 7, 10];
+			var ticks = ['a', 'b', 'c', 'd'];
+			var options = {
+			    //animate: !$.jqplot.use_excanvas,//如果去除本注释，将显示动画效果：注意IE8（包括IE8）以下不会出现动画效果
+			    title: '柱状图标题',
+			    seriesDefaults:{
+			        renderer:$.jqplot.BarRenderer,
+			        pointLabels: { show: true }
+			    },
+			    axes: {
+			        xaxis: {
+			        	label: "X轴",
+			            renderer: $.jqplot.CategoryAxisRenderer,
+			            ticks: ticks
+			        },
+			        yaxis: {
+				    	label: "Y轴"
+				  	}
+			    }
+			};
+			plot1 = $.jqplot('chart1', [s1], options);
+		});
+	</script>
+</body>
+</html>

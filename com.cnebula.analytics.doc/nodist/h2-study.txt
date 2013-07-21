@@ -1,0 +1,18 @@
+1） 快速插入
+
+To speed up large imports, consider using the following options temporarily:
+
+SET LOG 0 (disabling the transaction log)
+SET CACHE_SIZE (a large cache is faster)
+SET LOCK_MODE 0 (disable locking)
+SET UNDO_LOG 0 (disable the session undo log)
+
+上面也可以在Statement中执行。
+
+
+These options can be set in the database URL: jdbc:h2:~/test;LOG=0;CACHE_SIZE=65536;LOCK_MODE=0;UNDO_LOG=0. 
+Most of those options are not recommended for regular use, that means you need to reset them after use.
+
+
+2）Pluggable File System
+选择nioMapped?

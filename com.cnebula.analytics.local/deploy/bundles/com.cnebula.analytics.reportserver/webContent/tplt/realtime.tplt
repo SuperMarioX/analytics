@@ -1,0 +1,107 @@
+<div id="dataList">
+	<!--#
+		if(tClass){
+	#-->
+			<table class="+-tClass-+">
+	<!--#
+		}else{
+	#-->
+		<table>
+	<!--#	
+		}
+	#-->
+	
+	<!--#
+		if(caption){
+	#-->
+			<caption>+-caption-+</caption>
+	<!--#
+		}
+	#-->
+	
+	<!--#
+		if(header){
+	#-->
+			<tr>
+				<th class="th">序号</th>
+	<!--#
+			for(var i=0;i<header.length;i++){
+				var h = header[i];
+	#-->
+				<th class="th">+-h-+</th>
+	<!--#
+			}
+	#-->
+			</tr>
+	<!--#
+		}
+	#-->
+	
+	<!--#
+		if(rows){
+			for(var i=0;i<rows.length;i++){
+	#-->
+				<tr>
+					<td class="td">+-(appendNum + i + 1)-+</td>
+	<!--#			
+				var row = rows[i];
+				for(var j=0;j<row.length;j++){
+					var r = row[j];
+	#-->
+					<td class="td">+-r-+</td>
+	<!--#					
+				}
+	#-->
+				</tr>
+	<!--#				
+			}
+		}
+	#-->
+		</table>
+</div>
+<!--#
+	var totalPages = Math.ceil(recordCount/perpageLength);
+#-->
+<div id="pageList">
+	<ul class="pagerInfo">
+		<li class="totalPage">共+-totalPages-+页</li>
+		<li class="edgePage"><a onclick='+-obj-+.gotoPage(1);return false;'>首页</a></li>
+<!--#								
+	if(curPage <= step + 1){
+		for(var i=1; i<=(curPage + step) && i <= totalPages; i++){
+			if( i == curPage ){
+#-->			
+				<li class="curPage"><a onclick='+-obj-+.gotoPage(+-i-+);return false;'>+-i-+</a></li>
+<!--#
+			}else{
+#-->			
+				<li class="commonPage"><a onclick='+-obj-+.gotoPage(+-i-+);return false;'>+-i-+</a></li>
+<!--#	 			
+			}
+		}
+	}else{
+		for(var i =(curPage - step < 1 ? 1 : curPage - step); i <= (curPage + step) && i <= totalPages; i++){
+			if( i == curPage ){
+#-->		
+				<li class="curPage"><a onclick='+-obj-+.gotoPage(+-i-+);return false;'>+-i-+</a></li>
+<!--#					
+			}else{
+#-->				
+				<li class="commonPage"><a onclick='+-obj-+.gotoPage(+-i-+);return false;'>+-i-+</a></li>
+<!--#					
+			}
+		}
+	}
+#-->	
+		<li class="edgePage"><a onclick='+-obj-+.gotoPage(+-totalPages-+);return false;'>末页</a></li>
+	</ul>
+	<div id="printAndDownload">
+<!--#					
+	if(download){
+#-->
+	<button onclick="">下载</button>
+<!--#					
+	}
+#-->
+	</div>
+</div>

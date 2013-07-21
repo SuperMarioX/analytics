@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report reportName="pv_v_org_report" processTime="02:00">
+	<metricsList>
+		<metrics name="gPageView" description="CALIS全域浏览量"></metrics>
+		<metrics name="gVisits"    description="CALIS全域访问量"></metrics>
+		<metrics name="pageView"  description="针对应用系统(对应于不同的域名)浏览量"></metrics>
+		<metrics name="visits"     description="针对应用系统(对应于不同的域名)访问量"></metrics>
+	</metricsList>
+	<matrixes>
+		<matrix url="jdbc/logds"  name="day_log" reportMatrix="false" table="lv{yyyyMMdd}">
+			<columns>
+				<column colName="topy"   name="topy"    type="NUMBER"   length="4"    description="操作时间:年" ></column>
+				<column colName="topm"   name="topm"    type="NUMBER"   length="2"    description="操作时间:月" ></column>
+				<column colName="topd"   name="topd"    type="NUMBER"   length="2"    description="操作时间:日" ></column>
+				<column colName="toph"   name="toph"    type="NUMBER"   length="2"    description="操作时间:小时" ></column>
+				<column colName="lorg"   name="lorg"    type="TEXT"     length="255"  description="网络地点:学校/单位代码" ></column>
+				<column colName="op"     name="op"      type="TEXT"     length="255"  description="动作" ></column>
+				<column colName="oasc"   name="oasc"    type="TEXT"     length="32"   description="应用系统:应用系统所属共享域" ></column>
+				<column colName="oat"    name="oat"     type="TEXT"     length="32"   description="应用系统:应用系统类型" ></column>
+				<column colName="oaid"   name="oaid"    type="TEXT"     length="64"   description="应用系统:APPID" ></column>
+				<column colName="ort"    name="ort"     type="TEXT"     length="32"   description="资源:类型" ></column>
+				<column colName="otil"   name="otil"    type="TEXT"     length="32"   description="资源:名称" ></column>
+				<column colName="rvc"    name="rvc"     type="NUMBER"   length="1"    description="计数:浏览量计数(PV记1，其他动作记0)" ></column>
+				<column colName="rsc"    name="rsc"     type="NUMBER"   length="1"    description="计数:访问次数计数(casn和casc同时存在时为0,否则为1)" ></column>
+				<column colName="rgsc"   name="rgsc"    type="NUMBER"   length="1"    description="计数:全局访问次数计数(当cagsn和cagsc同时存在时为0，否则为1)" ></column>
+			</columns>
+		</matrix>
+<!-- 按照网络地点（学校/单位）24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_gpv_gv_Glorg" table="h_gpv_gv_Glorg">
+			<columns>
+				<column colName="pv"    length="10"  name="gPageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="gVisits"     type="NUMBER" description="访问量"></column>
+				<column colName="lorg"  length="255" name="lorg"        type="TEXT"   description="学校/单位"></column>
+				<column colName="date"  length="8"   name="date"        type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"    name="toph"       type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>		
+<!-- 按照网络地点（学校/单位）日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_gpv_gv_Glorg" table="d_gpv_gv_Glorg">
+			<columns>
+				<column colName="pv"    length="10"  name="gPageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="gVisits"     type="NUMBER" description="访问量"></column>
+				<column colName="lorg"  length="255" name="lorg"        type="TEXT"   description="学校/单位"></column>
+				<column colName="date"  length="8"   name="date"        type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"        type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"        type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"        type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"       type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+<!-- 按照网络地点（学校/单位）以及应用系统ID 24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Goaid_lorg" table="h_pv_v_Goaid_lorg">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="aid"   length="64"  name="oaid"       type="TEXT"   description="应用系统id"></column>
+				<column colName="lorg"  length="255" name="lorg"       type="TEXT"   description="学校/单位"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"    name="toph"       type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+<!-- 按照网络地点（学校/单位）以及应用系统ID日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Goaid_lorg" table="d_pv_v_Goaid_lorg">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="aid"   length="64"  name="oaid"       type="TEXT"   description="应用系统id"></column>
+				<column colName="lorg"  length="255" name="lorg"       type="TEXT"   description="学校/单位"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+<!-- 按照网络地点（学校/单位）以及应用系统类型和SaaS中心24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Goasc_oat_lorg" table="h_pv_v_Goasc_oat_lorg">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="asc"   length="32"  name="oasc"       type="TEXT"   description="SaaS中心ID"></column>
+				<column colName="at"    length="32"  name="oat"        type="TEXT"   description="应用系统类型"></column>
+				<column colName="lorg"  length="255" name="lorg"       type="TEXT"   description="学校/单位"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"   name="toph"       type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>		
+<!-- 按照网络地点（学校/单位）以及应用系统类型和SaaS中心日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Goasc_oat_lorg" table="d_pv_v_Goasc_oat_lorg">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="asc"   length="32"  name="oasc"       type="TEXT"   description="SaaS中心ID"></column>
+				<column colName="at"    length="32"  name="oat"        type="TEXT"   description="应用系统类型"></column>
+				<column colName="lorg"  length="255" name="lorg"       type="TEXT"   description="学校/单位"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+<!-- 按照网络地点（学校/单位）以及SaaS中心24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Goasc_lorg" table="h_pv_v_Goasc_lorg">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="asc"   length="32"  name="oasc"       type="TEXT"   description="SaaS中心ID"></column>
+				<column colName="lorg"  length="255" name="lorg"       type="TEXT"   description="学校/单位"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"   name="toph"       type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>		
+<!-- 按照网络地点（学校/单位）以及SaaS中心日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Goasc_lorg" table="d_pv_v_Goasc_lorg">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="asc"   length="32"  name="oasc"       type="TEXT"   description="SaaS中心ID"></column>
+				<column colName="lorg"  length="255" name="lorg"       type="TEXT"   description="学校/单位"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>		
+	</matrixes>
+	<pipline>
+		<!-- 按照网络地点（学校/单位）24小时汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_gpv_gv_Glorg"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)"  value="pv" />
+				<property key="sum(rgsc)" value="v" />
+				<property key="lorg"     value="lorg" />
+				<property key="date$"    value="#date" />
+				<property key="toph"     value="h" />
+				<property key="#where"   value="op='v'" />
+			</properties>
+		</processor>	
+		<!-- 按照网络地点（学校/单位）日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_gpv_gv_Glorg"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)"  value="pv" />
+				<property key="sum(rgsc)" value="v" />
+				<property key="lorg"     value="lorg" />
+				<property key="date$"    value="#date" />
+				<property key="y$"       value="#year" />
+				<property key="m$"       value="#month" />
+				<property key="topd"     value="d" />
+				<property key="wd$"      value="#dayOfWeek" />
+				<property key="#where"   value="op='v'" />
+			</properties>
+		</processor>
+		<!-- 按照网络地点（学校/单位）以及应用系统ID24小时汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Goaid_lorg"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oaid"     value="aid" />
+				<property key="lorg"     value="lorg" />
+				<property key="date$"    value="#date" />
+				<property key="toph"     value="h" />
+				<property key="#where"   value="op='v'" />
+			</properties>
+		</processor>		
+		<!-- 按照网络地点（学校/单位）以及应用系统ID日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Goaid_lorg"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oaid"     value="aid" />
+				<property key="lorg"     value="lorg" />
+				<property key="date$"    value="#date" />
+				<property key="y$"       value="#year" />
+				<property key="m$"       value="#month" />
+				<property key="topd"     value="d" />
+				<property key="wd$"      value="#dayOfWeek" />
+				<property key="#where"   value="op='v'" />
+			</properties>
+		</processor>
+		<!-- 按照网络地点（学校/单位）以及应用系统类型和SaaS中心日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Goasc_oat_lorg"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oat"      value="at" />
+				<property key="oasc"     value="asc" />
+				<property key="lorg"     value="lorg" />
+				<property key="toph"     value="h" />
+				<property key="#where"   value="op='v'" />
+			</properties>
+		</processor>			
+		<!-- 按照网络地点（学校/单位）以及应用系统类型和SaaS中心日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Goasc_oat_lorg"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oat"      value="at" />
+				<property key="oasc"     value="asc" />
+				<property key="lorg"   value="lorg" />
+				<property key="date$"  value="#date" />
+				<property key="y$"     value="#year" />
+				<property key="m$"     value="#month" />
+				<property key="topd"   value="d" />
+				<property key="wd$"    value="#dayOfWeek" />
+				<property key="#where" value="op='v'" />
+			</properties>
+		</processor>
+		<!-- 按照网络地点（学校/单位）以及SaaS中心日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Goasc_lorg"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oasc"     value="asc" />
+				<property key="lorg"     value="lorg" />
+				<property key="toph"     value="h" />
+				<property key="#where"   value="op='v'" />
+			</properties>
+		</processor>			
+		<!-- 按照网络地点（学校/单位）以及SaaS中心日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Goasc_lorg"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oasc"     value="asc" />
+				<property key="lorg"   value="lorg" />
+				<property key="date$"  value="#date" />
+				<property key="y$"     value="#year" />
+				<property key="m$"     value="#month" />
+				<property key="topd"   value="d" />
+				<property key="wd$"    value="#dayOfWeek" />
+				<property key="#where" value="op='v'" />
+			</properties>
+		</processor>			
+	</pipline>	
+</report>

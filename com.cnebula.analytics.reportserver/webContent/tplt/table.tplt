@@ -1,0 +1,62 @@
+<!--#
+	if(tClass){
+#-->
+		<table class="+-tClass-+">
+<!--#
+	}else{
+#-->
+		<table>
+<!--#	
+	}
+#-->
+
+<!--#
+	if(caption){
+#-->
+		<caption>+-caption-+</caption>
+<!--#
+	}
+#-->
+
+<!--#
+	if(header){
+#-->
+		<tr>
+<!--#
+		for(var i=0;i<header.length;i++){
+			var h = header[i];
+#-->
+			<th class="th+-i-+">+-h-+</th>
+<!--#
+		}
+#-->
+		</tr>
+<!--#
+	}
+#-->
+
+<!--#
+	if(rows){
+		for(var i=0;i<rows.length;i++){
+#-->
+			<tr>
+<!--#			
+			var row = rows[i];
+			for(var j=0;j<header.length;j++){
+				var r = row[j];
+				if(dic){
+					if(dic[r]){
+						r = dic[r];
+					}
+				}
+#-->
+				<td class="td+-j-+" >+-r-+</td>
+<!--#					
+			}
+#-->
+			</tr>
+<!--#				
+		}
+	}
+#-->
+</table>

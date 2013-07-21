@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>logapi</title>
+<style type="text/css"><!--
+/* @group RESET */
+/* --------------------------------------------------------------
+
+  Reset.css
+  * Resets default browser CSS styles.
+
+  Created by Erik Meyer:
+  * meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/
+-------------------------------------------------------------- */
+
+* html {
+  overflow-y: auto;
+}
+html, body {
+    height: 100%;
+}
+--></style>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/zyxwiki.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shThemeDefault.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shCore.css"/>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCpp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCSharp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCss.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushGroovy.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJavaFX.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJScript.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPerl.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPhp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPlain.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPowerShell.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPython.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushRuby.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushScala.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushSql.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushVb.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushXml.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJava.js"></script>
+<script type="text/javascript">
+SyntaxHighlighter.config.clipboardSwf = '_cssAndJsDir_/clipboard.swf'
+SyntaxHighlighter.all();
+</script>
+  </head>
+  <body>
+
+<div id="xwikimaincontainer">
+<div id="xwikimaincontainerinner">
+<h1><span id="指标API">指标API</span></h1>
+
+<div class="xwikiToc"><ul>
+<li class="toc_level_1"><a href="#指标API"><span class="toctext">指标API</span></a></li>
+<li class="toc_level_2"><a href="#1_报表结构"><span class="toctext">1 报表结构</span></a></li>
+<li class="toc_level_2"><a href="#2_报表介绍"><span class="toctext">2 报表介绍</span></a></li>
+<li class="toc_level_2"><a href="#2.1_按浏览量、访问次数统计"><span class="toctext">2.1 按浏览量、访问次数统计</span></a></li>
+<li class="toc_level_2"><a href="#2.2_按操作数统计"><span class="toctext">2.2 按操作数统计</span></a></li>
+<li class="toc_level_2"><a href="#3_指标介绍"><span class="toctext">3 指标介绍</span></a></li>
+<li class="toc_level_3"><a href="#3.1_浏览量"><span class="toctext">3.1 浏览量</span></a></li>
+<li class="toc_level_3"><a href="#3.2_访问次数"><span class="toctext">3.2 访问次数</span></a></li>
+<li class="toc_level_3"><a href="#3.3_受访页面"><span class="toctext">3.3 受访页面</span></a></li>
+</ul>
+</div>
+
+<h2><span id="1_报表结构">1 报表结构</span></h2>
+<p>报表包含的字段有：</p>
+<table border='1'><tr><th>属性名称</th><th>含义</th><th>是否必备</th><th>其他说明</th></tr>
+<tr><td>lfrm</td><td>location( from ) 访问途径</td><td>可选</td><td>浏览日志默认为上次页面url，否则默认为本页url，可由调用者覆盖 </td></tr>
+<tr><td>sorg</td><td>subject organization 登录用户所在的学校/单位代码</td><td>用户登录后有则必备</td><td>字符长度超过20将会被截断</td></tr>
+<tr><td>sten</td><td>subject tenant 登录用户的所属租客</td><td>用户登录后有则必备</td><td>字符长度超过20将会被截断</td></tr>
+<tr><td>sid</td><td>subject id 登录用户的身份ID</td><td>用户登录后必备</td><td>字符长度超过20将会被截断</td></tr>
+<tr><td>st</td><td>subject type 用户类型，学生、教师...等</td><td>用户登录后有则必备</td><td>字符长度超过20将会被截断</td></tr>
+<tr><td>op</td><td>operation 动作，枚举值：访问、检索等</td><td>可选</td><td>不提供则默认为v，表示浏览日志，可以覆盖。字符长度超过20将会被截断</td></tr>
+<tr><td>oaid</td><td>object app id 应用系统ID</td><td>必备</td><td>字符长度超过32将会被截断</td></tr>
+<tr><td>ort</td><td>object resource type 所访问的资源类型，枚举值：页面，服务，图书...</td><td>操作日志必备</td><td>浏览日志默认为p（表示page)，可以覆盖</td></tr>
+<tr><td>orid</td><td>object resource id 所访问的资源ID</td><td>操作日志必备</td><td>浏览日志默认为当前url(不含host port)，可由调用者提供覆盖。字符长度超过1024将会被截断</td></tr>
+<tr><td>otil</td><td>object title标题</td><td>操作日志必备</td><td>浏览日志默认为本页title</td></tr>
+<tr><td>ocrt	</td><td>object creator 所访问的资源对应的作者，可为多值</td><td>有则必备</td><td>字符长度超过20将会被截断</td></tr>
+<tr><td>osub	</td><td>object subject 所访问的资源主题</td><td>有则必备</td><td>字符长度超过20将会被截断</td></tr>
+<tr><td>opub	</td><td>object publisher 所访问的资源出版者</td><td>有则必备</td><td>字符长度超过50将会被截断</td></tr>
+<tr><td>ocor</td><td>object contributor 所访问资源的其他贡献人</td><td>有则必备</td><td>字符长度超过20将会被截断</td></tr>
+<tr><td>odt</td><td>object date 所访问的资源的出版日期，当前仅支持年</td><td>有则必备</td><td>字符长度超过20将会被截断</td></tr>
+<tr><td>ofmt	 </td><td>object format 所访问的资源 格式</td><td>有则必备</td><td>字符长度超过20将会被截断</td></tr>
+<tr><td>osrc	</td><td>object source 所访问的资源来源</td><td>有则必备</td><td>字符长度超过20将会被截断</td></tr>
+<tr><td>oln	</td><td>object language 所访问的资源语言</td><td>有则必备</td><td>字符长度超过20将会被截断</td></tr>
+<tr><td>orel</td><td>object relation 所访问资源的相关资源，比如期刊论文此处可放期刊</td><td>有则必备</td><td>字符长度超过50将会被截断</td></tr>
+<tr><td>rrs	</td><td>result response status响应状态，枚举值：成功,失败,恶意访问等等 </td><td>有则必备</td><td>字符长度超过20将会被截断</td></tr>
+</table>
+<p>报表分为两种类型：按浏览量、访问次数统计的报表和按照操作数统计的报表，每种类型的报表又分别按照全站、共享域、成员馆三种级别分别统计（中心站属于共享域级别），careport文件夹下的报表xml文件共有6个：</p>
+<table border='1'><tr><td>文件名（不含后缀）</td><td>含义</td></tr>
+<tr><td>ops_op_report</td><td>按操作统计、全站级别</td></tr>
+<tr><td>ops_op_oasc_report</td><td>按操作统计、共享域级别</td></tr>
+<tr><td>ops_op_oaten_report</td><td>按操作统计、成员馆级别</td></tr>
+<tr><td>pv_v_report</td><td>按浏览量、访问次数统计、全站级别</td></tr>
+<tr><td>pv_v_oasc_report</td><td>按浏览量、访问次数统计、共享域级别</td></tr>
+<tr><td>pv_v_oaten_report</td><td>按浏览量、访问次数统计、成员馆级别</td></tr>
+</table>
+<h2><span id="2_报表介绍">2 报表介绍</span></h2>
+<p>下面介绍日志系统中使用的报表，每个报表都只介绍按照全站级别时的结构，在该结构上添加oasc字段即为共享域级别的报表，添加上oasc、oaten即为成员馆级别的报表。
+报表数据分别按小时和按日进行统计，按小时统计时，报表中的时间信息包括：</p>
+<table border='1'><tr><td>colName</td><td>name</td><td>type</td><td>description</td></tr>
+<tr><td>date</td><td>date</td><td>NUMBER</td><td>日期,如20120102</td></tr>
+<tr><td>h</td><td>toph</td><td>NUMBER</td><td>每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)</td></tr>
+</table>
+<p>按日统计时，报表中的时间信息包括：</p>
+<table border='1'><tr><td>colName</td><td>name</td><td>type</td><td>description</td></tr>
+<tr><td>date</td><td>date</td><td>NUMBER</td><td>日期,如20120102</td></tr>
+<tr><td>y</td><td>topy</td><td>NUMBER</td><td>年</td></tr>
+<tr><td>m</td><td>topm</td><td>NUMBER</td><td>月，从1~12</td></tr>
+<tr><td>d</td><td>topd</td><td>NUMBER</td><td>月中的日，从1~31</td></tr>
+<tr><td>wd</td><td>topwh</td><td>NUMBER</td><td>周中的日，星期日（1）~星期六(7)</td></tr>
+</table>
+<p>其中colName是数据库表中的列名，name是查找报表时用来进行匹配的列的名称。
+下面的报表介绍中，同样不包含时间信息，每种报表添加上时间信息即为两张报表，分别添加上共享域信息、成员馆信息后，就能生成6张报表。</p>
+<h2><span id="2.1_按浏览量、访问次数统计">2.1 按浏览量、访问次数统计</span></h2>
+<p>统计的数据列称为统计列，在按浏览量、访问次数统计的报表里，统计列有两列：</p>
+<table border='1'><tr><td>colName</td><td>name</td><td>type</td><td>description</td><td>如何从原始数据得到</td></tr>
+<tr><td>pv</td><td>pageView</td><td>NUMBER</td><td>浏览量</td><td>sum(rvc)</td></tr>
+<tr><td>v</td><td>visits</td><td>NUMBER</td><td>访问次数</td><td>sum(rsc)</td></tr>
+</table>
+<p>下列报表中，不做特殊说明的，均包含pv、v两列</p>
+<h2><span id="2.2_按操作数统计">2.2 按操作数统计</span></h2>
+<p>按操作数统计的报表中，统计列只有一列：</p>
+<table border='1'><tr><td>colName</td><td>name</td><td>type</td><td>description</td><td>如何从原始数据得到</td></tr>
+<tr><td>ops</td><td>ops</td><td>NUMBER</td><td>操作数统计</td><td>sum(rvc)</td></tr>
+</table>
+<p>在按操作数统计的报表中，一般包含操作op列，部分报表对op进行过滤后统计，为特定功能设定报表。op列的情况如下：</p>
+<table border='1'><tr><td>colName</td><td>name</td><td>type</td><td>description</td><td>如何从原始数据得到</td></tr>
+<tr><td>op</td><td>op</td><td>TEXT</td><td>操作</td><td>op</td></tr>
+</table>
+<p>下列报表中，不做特殊说明的，均包含ops、op两列</p>
+<h2><span id="3_指标介绍">3 指标介绍</span></h2>
+<h3><span id="3.1_浏览量">3.1 浏览量</span></h3>
+<h3><span id="3.2_访问次数">3.2 访问次数</span></h3>
+<h3><span id="3.3_受访页面">3.3 受访页面</span></h3>
+<p>受访页面统计页面被访问情况
+原始数据中，当ort=&#39;p&#39;时，orid记录了页面的url，该url中不包含host和port
+受访页面的必备字段包括：</p>
+<table border='1'><tr><th>属性名称</th><th>含义</th><th>是否必备</th><th>其他说明</th></tr>
+<tr><td>webView</td><td>浏览量计数</td><td>必备 </td><td>sum(rvc)</td></tr>
+<tr><td>oat</td><td>object app type 应用系统类型</td><td>必备</td><td>字符长度超过32将会被截断</td></tr>
+<tr><td>orid</td><td>object resource id 所访问的资源ID</td><td>操作日志必备</td><td>浏览日志默认为当前url(不含host port)，可由调用者提供覆盖。字符长度超过1024将会被截断</td></tr>
+</table>
+</div>
+</div>
+  </body>
+</html>

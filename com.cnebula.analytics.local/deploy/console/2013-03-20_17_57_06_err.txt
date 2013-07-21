@@ -1,0 +1,2 @@
+[warn]2013-03-20 17:57:08		Logfile closed: F:\workspace\analytics\com.cnebula.analytics.ci\..\com.cnebula.analytics.local\deploy\instance\conf\..\txLogDir\tm.log-1.log
+rcs data not completly syn to mem db!

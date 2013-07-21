@@ -1,0 +1,51 @@
+body {
+	line-height: 26px;
+	color: #000000;
+	margin: 0px;
+	font-size: 12px;
+}
+
+
+
+/*-------------链接样式css----------------------*/
+
+
+a:link{color:#000000;}
+a:visited{color:#000000;}
+a:hover{color:#b01a34;}
+
+a.a1:link{color:#FF0000; font-weight: bold;text-decoration: none;}
+a.a1:visited{color:#FF0000;font-weight: bold;text-decoration: none;}
+a.a1:hover{color:#FF0000;font-weight: bold;text-decoration: none;}
+
+a.a2:link{color:#000000; font-weight: bold;text-decoration: none;}
+a.a2:visited{color:#000000;font-weight: bold;text-decoration: none;}
+a.a2:hover{color:#000000;font-weight: bold;text-decoration: none;}
+
+a.a3:link{color:#000000; text-decoration: none;}
+a.a3:visited{color:#000000;text-decoration: none;}
+a.a3:hover{color:#000000;text-decoration: none;}
+
+a.a4:link{color:#1273C4; text-decoration: none;}
+a.a4:visited{color:#1273C4; text-decoration: none;}
+a.a4:hover{color:#1273C4; text-decoration: none;}
+
+a.a5:link{color:#FFFFFF; text-decoration: none;font-weight: bold;}
+a.a5:visited{color:#FFFFFF; text-decoration: none;font-weight: bold;}
+a.a5:hover{color:#FFFFFF; text-decoration: none;font-weight: bold;}
+
+
+
+/*-------------前台页面样式css----------------------*/
+
+.banner-tu {
+	background-image: url(images/rz%20_r1_c1.jpg);
+	background-repeat: no-repeat;
+	background-position: left;
+}
+
+.lan_bian { border: 1px solid #0391D1;}
+
+.font_1 {color:#000000;font-weight: bold;}
+.font_2 {color:#000000;font-weight: bold;text-indent: 12px;}
+.sj_font {text-indent: 12px;}

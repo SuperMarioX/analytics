@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SecurityConfig disabled="false" debug="true">
+
+	<!-- Authentication 认证部分 -->
+	<authentication>
+		<loginConfig>
+			<config name="OSGISystemLogin">
+				<entrylist>
+					<entry loginModuleName="com.cnebula.common.security.auth.EasyLoginModule"
+						controlFlag="required">
+						<option key="loginValidateService"
+							value="com.cnebula.common.security.auth.ILoginValidateService" />
+						<option key="loginValidateServiceTarget" value="(id=KernelAccessControlProvider)" />
+					</entry>
+				</entrylist>
+			</config>
+			<config name="umLogin">
+				<entrylist>
+					<entry loginModuleName="com.cnebula.common.security.auth.EasyLoginModule"
+						controlFlag="required">
+						<option key="loginValidateService"
+							value="com.cnebula.common.security.auth.ILoginValidateService" />
+						<option key="loginValidateServiceTarget" value="(id=UMValidLoginService)" />
+					</entry>
+				</entrylist>
+			</config>
+		</loginConfig>
+		<kernelUsers>
+			<user name="system" />
+			<user name="root" password="111111" />
+			<user name="guest" password="222222" />
+			<user name="jmx" password="xxxxxx" />
+		</kernelUsers>
+	</authentication>
+
+	<!-- Authorization 授权部分 -->
+	<authorization>
+		<systemRole name="system" description="超级角色，拥有一切权限">
+			<userRules>
+				<rule name="SystemUserRule">
+					<expression><![CDATA[u.name="system"]]></expression>
+				</rule>
+			</userRules>
+			<permissionRules>
+				<rule name="SystemUserPermissionRule">
+					<expression>true</expression>
+				</rule>
+			</permissionRules>
+			<children>
+				<role type="code" name="CALISGeneralBundle" description="给一般代码赋予常规权限"
+					ownerName="system">
+					<userRules>
+						<rule name="CodeGeneralUserRule">
+							<expression><![CDATA[ code.location.protocol="file" & ( !code.location.path ~="*com.cnebula.limit*")]]></expression>
+						</rule>
+					</userRules>
+					<permissionRules>
+						<rule name="CodeGeneralUserPermissionRule">
+							<expression>
+							<![CDATA[
+								 true | type="RemoteServiceAccessPermission" |
+								 type ~= "org.osgi.service.event.*" | type="file" |
+								 type="socket" | type="basic" | type="runtime" |
+								 type="OsgiPackage" | type="OsgiService" | type="OsgiAdmin" |
+								 type="OsgiBundle" | type="Property" | type="Reflect" |
+								 type~="java.*" | type~="javax.*"
+							]]>
+							</expression>
+						</rule>
+					</permissionRules>
+				</role>
+				<role type="code" name="CALISLimitBundle" description="受限代码权限"
+					ownerName="system">
+					<userRules>
+						<rule name="CodeLimitUserRule">
+							<expression><![CDATA[code.location.protocol="file" & code.location.path ~="*com.cnebula.limit*" ]]></expression>
+						</rule>
+					</userRules>
+					<permissionRules>
+						<rule name="CodeLimitUserPermissionRule">
+							<expression>
+							<![CDATA[
+								 type="socket" | type="Reflect"  | type="OsgiPackage" | type="OsgiService" | 
+								 type="file"   | type="Property" | (type="OsgiAdmin" & ops <= {"resource", "class"}) | 
+								 ( type="javax.security.auth.AuthPermission" & ops <= {"doAs"} ) | type ="runtime"
+								 | (name ="com.cnebula.common.remote.IAdminService" & (env.request.localIp = "127.0.0.1" | env.request.localIp = "localhost")) 
+								 | (name ="com.cnebula.platform.admin.IPlatformStatusService" & (env.request.localIp = "127.0.0.1" | env.request.localIp = "localhost")) 
+							]]>
+							</expression>
+						</rule>
+					</permissionRules>
+				</role>
+				<role type="code" name="DSBundle" description="DS所有的权限"
+					ownerName="system">
+					<userRules>
+						<rule name="DSUserRule">
+							<expression><![CDATA[code.location.path ~= "*/org.knopflerfish.*"]]></expression>
+						</rule>
+					</userRules>
+					<permissionRules>
+						<rule name="DSUserPermissionRule">
+							<expression><![CDATA[true]]></expression>
+						</rule>
+					</permissionRules>
+				</role>
+				<role name="rootRole" description="平台管理员的角色" ownerName="system">
+					<userRules>
+						<rule name="RootUserRule">
+							<expression><![CDATA[u.name="root"]]></expression>
+						</rule>
+					</userRules>
+					<permissionRules>
+						<rule name="RootUserPermissionRule">
+							<expression>
+							<![CDATA[
+									!((ops has "delete" | 
+									   ops has "update" | 
+									   ops has ~"delete.*" | 
+									   ops has ~"update.*") & maintainInfo.lifeCycleStatus = 8 & u.id != "$administrator")
+								]]>
+							</expression>
+						</rule>
+					</permissionRules>
+				</role>
+				<role name="jmxRole" description="JMX管理员的角色" ownerName="system">
+					<userRules>
+						<rule name="JMXUserRule">
+							<expression><![CDATA[u.name="jmx"]]></expression>
+						</rule>
+					</userRules>
+					<permissionRules>
+						<rule name="JMXUserPermissionRule">
+							<expression>
+							<![CDATA[
+									(type = "RemoteServiceAccessPermission" & name="com.cnebula.common.remote.IRemoteServiceDiscoverer") |
+									name = "com.cnebula.common.remote.batch.IEasyBatchService" | 
+									(name = "com.cnebula.common.management.IJMXQueryService" & ops <= {"invoke"}  & (env.request.remoteIp ~= "192.*" | env.request.remoteIp ~= "127.*") ) |
+									(name = "com.cnebula.common.management.IJMXQueryService" & ( ops <= {"queryAllMBean","queryMBeanInfo","queryMBeanInfo","getAllAttribute","getAttributes"})) |
+									name ~= "com.cnebula.common.remote.jmx.RemoteCallMBean#dumpRunningThreadTrace*" |
+									name ~= "com.cnebula.analytics.analyzeserver.jmx.AnalyzeServerMbean#listCountSizeOfAllMatrix*" |
+									name ~= "com.cnebula.analytics.analyzeserver.jmx.AnalyzeServerMbean#listReport*" |
+									name ~= "com.cnebula.analytics.analyzeserver.jmx.AnalyzeServerMbean#listTrack*" |
+									name ~= "com.cnebula.analytics.analyzeserver.jmx.AnalyzeServerMbean#listLast30DayTrack*" |
+									name ~= "com.cnebula.analytics.analyzeserver.jmx.AnalyzeServerMbean#countSizeOfMatrix*" |
+									name ~= "com.cnebula.analytics.analyzeserver.jmx.AnalyzeServerMbean#listFailTrack*" |
+									name ~= "com.cnebula.analytics.analyzeserver.jmx.AnalyzeServerMbean#reDoReport*"
+								]]>
+							</expression>
+						</rule>
+					</permissionRules>
+				</role>
+			</children>
+		</systemRole>
+	</authorization>
+</SecurityConfig>

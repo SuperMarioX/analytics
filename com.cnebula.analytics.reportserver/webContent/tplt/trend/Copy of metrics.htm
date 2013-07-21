@@ -1,0 +1,72 @@
+<!--# if(func == '趋势分析'){ #-->
+<label for="+-metricsItemName-+_01"> <input id="+-metricsItemName-+_01"
+	type="checkbox" value="pageView" title="浏览量(PV)" name="+-metricsItemName-+" filter="" metricsName="pageView" checked/>
+	浏览量(PV)
+</label>
+<label for="+-metricsItemName-+_02"> <input id="+-metricsItemName-+_02"
+	type="checkbox" title="访问次数" value="visits" name="+-metricsItemName-+" filter="" metricsName="visits"/>
+	访问次数
+</label>
+<!--# }else if(func == '访问量统计'){ #-->
+<label for="+-metricsItemName-+_01"> <input id="+-metricsItemName-+_01"
+	type="checkbox" value="iri:pageView" title="浏览量(PV)" name="+-metricsItemName-+" filter="" metricsName="pageView" checked/>
+	浏览量(PV)
+</label>
+<label for="+-metricsItemName-+_02"> <input id="+-metricsItemName-+_02"
+	type="checkbox" title="访问次数" value="iri:visits" name="+-metricsItemName-+" filter="" metricsName="visits"/>
+	访问次数
+</label>
+<label for="+-metricsItemName-+_03"> <input id="+-metricsItemName-+_03"
+	type="checkbox" title="登录次数" value="iri:op.l" name="+-metricsItemName-+" filter="op = 'l'" metricsName="ops"/>
+	登录次数
+</label>
+<label for="+-metricsItemName-+_04"> <input id="+-metricsItemName-+_04"
+	type="checkbox" title="课程访问量统计" value="iri:op.vw-ort.c"
+	name="+-metricsItemName-+" filter="op = 'vw' and ort in ('c', 'c-n', 'c-f')" metricsName="ops"/> 课程访问量统计
+</label>
+<label for="+-metricsItemName-+_05"> <input id="+-metricsItemName-+_05"
+	type="checkbox" title="教参书访问量统计" value="iri:op.vw-ort.rf"
+	name="+-metricsItemName-+" filter="op = 'vw' and ort in ('rf', 'rf-n', 'rf-f')" metricsName="ops"/> 教参书访问量统计
+</label>
+<label for="+-metricsItemName-+_06"> <input id="+-metricsItemName-+_06"
+	type="checkbox" title="课程信息检索次数" value="iri:op.s:ort.c.c-n.c-f"
+	name="+-metricsItemName-+" filter="op='s' and ort in ('c', 'c-n', 'c-f')" metricsName="ops" /> 课程信息检索次数
+</label>
+<label for="+-metricsItemName-+_07"> <input id="+-metricsItemName-+_07"
+	type="checkbox" title="教参书检索次数" value="iri:op.s:ort.rf.rf-n.rf-f"
+	name="+-metricsItemName-+" filter="op='s' and ort in ('rf', 'rf-n', 'rf-f')" metricsName="ops" /> 教参书检索次数
+</label>
+<!--# }else if(func == '检索词分析'){ #-->
+<!--# $("#chartMetricsIndicator").css("display", "none"); #-->
+<!--# $("#advfilterBar").css("display", "none"); #-->
+<!--# }else if(func == '高校统计'){ #-->
+<label for="+-metricsItemName-+_01"> <input id="+-metricsItemName-+_01"
+	type="checkbox" title="登录人次" value="iri:op.l" 
+	name="+-metricsItemName-+" filter="op='l' and oaten<>oasc" metricsName="ops" checked/> 登录人次
+</label>
+<label for="+-metricsItemName-+_02"> <input id="+-metricsItemName-+_02"
+	type="checkbox" title="课程信息检索次数" value="iri:op.s:ort.c.c-n.c-f"
+	name="+-metricsItemName-+" filter="op='s' and ort in ('c', 'c-n', 'c-f') and oaten<>oasc" metricsName="ops" /> 课程信息检索次数
+</label>
+<label for="+-metricsItemName-+_03"> <input id="+-metricsItemName-+_03"
+	type="checkbox" title="教参书检索次数" value="iri:op.s:ort.rf.rf-n.rf-f"
+	name="+-metricsItemName-+" filter="op='s' and ort in ('rf', 'rf-n', 'rf-f') and oaten<>oasc" metricsName="ops" /> 教参书检索次数
+</label>
+<label for="+-metricsItemName-+_04"> <input id="+-metricsItemName-+_04"
+	type="checkbox" title="课程信息被访问量" value="iri:op.vw:ort.c.c-n.c-f"
+	name="+-metricsItemName-+" filter="op='vw' and ort in ('c', 'c-n', 'c-f') and oaten<>oasc" metricsName="ops" /> 课程信息被访问量
+</label>
+<label for="+-metricsItemName-+_05"> <input id="+-metricsItemName-+_05"
+	type="checkbox" title="教参书全文访问量" value="iri:op.vw:ort.rf.rf-n.rf-f"
+	name="+-metricsItemName-+" filter="op='vw' and ort in ('rf', 'rf-n', 'rf-f') and oaten<>oasc" metricsName="ops" /> 教参书全文访问量
+</label>
+<!--# }else if(func == '排行榜'){ #-->
+<label for="+-metricsItemName-+_01"> <input id="+-metricsItemName-+_01"
+	type="checkbox" title="课程资源访问" value="iri:op.vw:ort.c.c-n.c-f" 
+	name="+-metricsItemName-+" filter="op='vw' and ort in ('c-n', 'c-f')" metricsName="ops" ap="cour_ranking" checked/> 课程资源访问
+</label>
+<label for="+-metricsItemName-+_02"> <input id="+-metricsItemName-+_02"
+	type="checkbox" title="教学参考书全文阅读" value="iri:op.vw:ort.rf.rf-n.rf-f"
+	name="+-metricsItemName-+" filter="op='vw' and ort in ('rf-n', 'rf-f')" metricsName="ops" ap="rf_ranking"/> 教学参考书全文阅读
+</label>
+<!--# } #-->

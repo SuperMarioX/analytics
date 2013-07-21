@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="Cache-Control" content="max-age=7200" />
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+<title>JMX Console</title>
+<link rel="stylesheet" type="text/css" href="styles/jmx.css" />
+<link rel="stylesheet" type="text/css" href="styles/jquery.jqplot.css" />
+<link rel="Stylesheet" type="text/css" href="styles/smoothness/jquery-ui-1.8.17.custom.css" />
+<style type="text/css">
+body {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.h-table {
+	border: thick solid #EEEEEE;
+	width: 100%;
+}
+
+.h-table tr:HOVER {
+	background-color: #AAAAAA;
+}
+
+.h-table td {
+	white-space: normal;
+	word-break: break-all;
+	border: thin solid #CCCCCC;
+}
+
+.tplt-div {
+	width: 100% :
+}
+
+.layer-table {
+	width: 100%;
+}
+
+.layer-table td {
+	text-align: center;
+}
+
+.footer {
+	background-color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+}
+</style>
+<script type="text/javascript" src="script/EasyServiceClientFull.js"></script>
+<script type="text/javascript" src="script/jquery.js"></script>
+<script type="text/javascript" src="script/jquery.flot.js"></script>
+<script type="text/javascript" src="script/jquery.flot.navigate.js"></script>
+<script type="text/javascript" src="script/excanvas.js"></script>
+<script type="text/javascript" src="script/jquery-ui-1.8.17.custom.min.js"></script>
+<script src="/easyservice/com.cnebula.common.management.IJMXQueryService?json&amp;v=1"></script>
+<script type="text/javascript" src="script/jmx.js"></script>
+<script type="text/javascript" src="script/uicontrol.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(function() {
+			$("#content").tabs({ selected: 1});
+		});
+		readerIntroduce();
+		readerNames();
+		renderAttributes('org.mortbay.log:id=0,type=eslog');
+
+		Monitor = new Monitor();
+		Monitor.start();
+
+		SamplesRender = new SamplesRender();
+		SamplesRender.start();
+	});
+</script>
+</head>
+<body>
+	<h1>EasyService JMX Console</h1>
+	<h3 style="text-align: right; width: 70%;">Powered by EasyService</h3>
+	<h5 style="text-align: right; width: 80%;">Tested IE6, IE 7, IE 8, IE9, Firefox, Safari</h5>
+	<table class='layer-table'>
+		<tr>
+			<td>
+				<div id="content">
+					<ul>
+						<li><a href="#introduce">introduce</a></li>
+						<li><a href="#samples">samples</a></li>
+						<li><a href="#console">console</a></li>
+						<li><a href="#monitor">monitor</a></li>
+					</ul>
+
+					<div id="introduce" class="tplt-div"></div>
+					<!-- end introduce -->
+
+					<div id="samples" class="tplt-div"></div>
+					<!-- end samples -->
+
+					<div id="console" class="tplt-div">
+						<table class='layer-table'>
+							<tr>
+								<td style="vertical-align: top;"><div id="names"></div></td>
+								<td style="vertical-align: top;"><div id="attrs"></div></td>
+							</tr>
+						</table>
+					</div>
+					<!-- end console -->
+
+					<div id="monitor" class="tplt-div"></div>
+					<!-- end monitor -->
+
+				</div> <!-- end content --></td>
+		</tr>
+	</table>
+	<table class='layer-table' style="margin-top: 12px;">
+		<tr>
+			<td class="footer">Copyright &copy; 2012 CALIS技术中心, All Rights Reserved</td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CALogRecord>
+	<columns>
+		<column prime="true" formatPattern="" colName="id" length="0"
+			name="id" id="0" type="NUMBER" description="数据表主键"></column>
+		<column prime="false" formatPattern="" colName="v_id" length="32"
+			name="visitorId" id="1" type="TEXT" description="用户唯一标识"></column>
+		<column prime="false" formatPattern="yyyy-MM-dd hh:mm:ss"
+			colName="vv_starttime_local" length="0" name="visitorVisitStartTimeLocal"
+			id="2" type="DATE" description="用户访问页面时，用户本地的时间"></column>
+		<column prime="false" formatPattern="" colName="v_country"
+			length="2" name="visitorCountry" id="3" type="TEXT" description="用户国家">
+			<dictionary dictarget="conf/country.properties" id="0"
+				className="com.cnebula.analytics.common.conf.AbstractCALogColumnDictionary" />
+		</column>
+	</columns>
+</CALogRecord>

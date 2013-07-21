@@ -1,0 +1,2 @@
+{os=unknown, browser.renderingengine=other, browser=unknown, device=unknown, os.manufacturer=other, browser.manufacturer=other, isMobileDevice=false, browser.version=null}
+

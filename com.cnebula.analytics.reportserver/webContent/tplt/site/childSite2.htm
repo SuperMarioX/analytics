@@ -1,0 +1,90 @@
+<!--#if(userType == "calis"){  #-->
+<div class="site-child" id="saasChildSite" style="display: none">
+	<ul>
+	<!--#
+	var saasSitesList = saasSites.childSitesList;
+	var saasSitesMap = saasSites.childSitesMap;
+	for(var i = 0; i < saasSitesList.size(); i++){
+		var site = saasSitesMap.get(saasSitesList.get(i));
+		var saasId = site.id;
+		var saasFilter = site.filter;
+		var saasName = site.sName || site.name;
+	#-->
+	<li id="childSaas">
+		<a id="+-saasId-+" filter="+-saasFilter-+">+-saasName-+</a>
+	</li>
+	<!--#
+	}
+	#-->
+	</ul>
+</div>
+<!--# } #-->
+
+<!--#  
+var defaultLibrary = librarySite.defLibrary;
+var libInfo = defaultLibrary.split('#');
+var libSaasList = librarySite.childSitesList;
+var libSaasMap = librarySite.childSitesMap;
+
+#-->
+<div class="site-child" id="libraryChildSite" style="display: none">
+	<span class="font_bold_12">您所在的图书馆：</span>
+	<div class="imageInputWrapper" style="float:left;margin : 4px 0px 0px 0px;">
+ 		<input type="text" id="+-libInfo[0]-+" pid="+-libInfo[3]-+" class="site-input" value="+-libInfo[1]-+" filter="+-libInfo[2]-+" />
+ 		<img src="./img/bank.png" id="libListButton"/>
+ 	</div>
+ 	<input type="button" value="确定" id="libInputButton" class="enterId"></input>
+</div>
+
+
+<div id="dialog" class="dialog" style="display: none">
+<div id="selSize">
+<!--#if(libSaasList.size() > 1){  #-->
+	请选择选在的共享域：
+	<select id="saasListSelect" >
+	<!--#  
+		for(var i = 0; i < libSaasList.size(); i++){
+			var libSaas = libSaasList.get(i)
+			var libSaasId = libSaasMap.get(libSaas).id;
+			var libSaasName = libSaasMap.get(libSaas).name;
+	#-->
+			<option  value="+-libSaasId-+">+-libSaasName-+</option>
+	<!--#
+		}
+	#-->
+	</select>
+	<!--#
+	}else{
+		var libSaas = libSaasList.get(0);
+		var libSaasId = libSaas.id;
+		var libSaasName = libSaas.name;
+	#-->
+		您所在的共享域为: +-libSaasName-+
+<!--#		
+	}
+#-->
+<br/><br/>
+</div>
+
+<ul id="sizechild">
+<!--# 
+	for(var i=0; i < libSaasList.size(); i++) {
+		var libSaasId = libSaasList.get(i);
+		var libraryList = libSaasMap.get(libSaasId).childSitesList;
+		var libraryMap = libSaasMap.get(libSaasId).childSitesMap;
+		for(var j=0; j < libraryList.size(); j++) {
+			var libraryId = libraryList.get(j);
+			var libraryFilter = libraryMap.get(libraryId).filter;
+			var libraryName = libraryMap.get(libraryId).name;
+		#-->
+			<li class="+-libSaasId-+" style="display: none"><a id="+-libraryId-+" libName="+-libraryName-+" pid="+-libSaasId-+" filter="+-libraryFilter-+">+-libraryName-+</a></li>
+		<!--# 
+		}
+	}
+#-->
+
+</ul>
+
+
+
+</div>

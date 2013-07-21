@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>performance</title>
+<style type="text/css"><!--
+/* @group RESET */
+/* --------------------------------------------------------------
+
+  Reset.css
+  * Resets default browser CSS styles.
+
+  Created by Erik Meyer:
+  * meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/
+-------------------------------------------------------------- */
+
+* html {
+  overflow-y: auto;
+}
+html, body {
+    height: 100%;
+}
+--></style>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/zyxwiki.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shThemeDefault.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shCore.css"/>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCpp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCSharp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCss.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushGroovy.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJavaFX.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJScript.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPerl.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPhp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPlain.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPowerShell.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPython.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushRuby.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushScala.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushSql.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushVb.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushXml.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJava.js"></script>
+<script type="text/javascript">
+SyntaxHighlighter.config.clipboardSwf = '_cssAndJsDir_/clipboard.swf'
+SyntaxHighlighter.all();
+</script>
+  </head>
+  <body>
+
+<div id="xwikimaincontainer">
+<div id="xwikimaincontainerinner">
+<h1><span id="类型转换">类型转换</span></h1>
+<p>c = 10000</p>
+<table border='1'><tr><td>String-&gt;int </td><td>16ms</td></tr>
+<tr><td>String-&gt;Date</td><td>256ms</td></tr>
+<tr><td>Date.setTime</td><td>16ms</td></tr>
+</table>
+<h1><span id="h2入库类型差异">h2入库类型差异</span></h1>
+<p>c = 10000
+表: create table testtype (tstr varchar(20), tint int, tdate date);
+由h2自动转换</p>
+<table border='1'><tr><td>String</td><td>2153ms</td></tr>
+<tr><td>Object</td><td>2620ms</td></tr>
+<tr><td>StringReader</td><td>33000ms</td></tr>
+</table>
+</div>
+</div>
+  </body>
+</html>

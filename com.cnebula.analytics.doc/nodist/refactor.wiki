@@ -1,0 +1,192 @@
+#toc
+
+==1 说明==
+本文档用于说明日志系统build167以后版本的重构设计。\\
+
+==2 重构思想==
+*为减少js的开发难度，将用户权限、菜单过滤、应用系统过滤的相关逻辑重构到java中实现， 后台服务返回一个根据用户角色过滤后，描述站点、菜单、应用系统相关信息的实体Reportor，这里我们统称为“报告者”，前台js只负责传递id值。\\
+
+*从可扩展、可维护的方面考虑，在后台的配置文件中增加以下配置点：
+# chart的图表类型
+# chart是否可用
+# datatables是否可用
+# 日期控件是否可用
+# chart的指标容器是否可用
+# chart的指标变更是否要刷新datatables
+# datatables的列排序。
+# 对于特殊数据转换（如学科），在配置文件中指定一个转换器。
+# 指定原型数据的初始化方法（原型数据指的是具有固定数据结构的报表数据，如13类学科的报表，我们明确知道这个报表是13行数据，不确定的是有几列数据，所需要组装的就是每个指标的统计值）
+
+==3 实体==
+===3.1 站点实体===
+{{code}}
+public class Site {
+	String id;	//全站： all、中心站：calis、共享域：saas、成员馆：library，对于成员馆子站点id为各成员馆的馆代码
+	String pid; //父站点id，若为空则说明该站点为顶级站点
+	String filter;
+	List<Site> childSites = new ArrayList<Site>();//子站点
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getFilter() {
+		return filter;
+	}
+	public void setFilter(String filter) {
+		this.filter = filter;
+	}
+	public List<Site> getChildSite() {
+		return childSites;
+	}
+	public void setChildSite(List<Site> childSite) {
+		this.childSites = childSite;
+	}
+	
+}
+{{/code}}
+===3.2 报告者实体===
+{{code}}
+public class Reportor {
+
+	private List<Site> sites = new ArrayList<Site>();
+	
+	//key: 站点id value： 该站点下的所有菜单
+	private Map<String,List<Menu>> menus = new HashMap<String,List<Menu>>();
+
+	public List<Site> getSites() {
+		return sites;
+	}
+
+	public void setSites(List<Site> sites) {
+		this.sites = sites;
+	}
+
+	public Map<String, List<Menu>> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(Map<String, List<Menu>> menus) {
+		this.menus = menus;
+	}
+	
+}
+{{/code}}
+
+==4 配置文件结构及相关服务==
+*配置文件结构：
+
+{{code}}
+<reportorCfg>
+
+<menuCfg>
+	<menu id="trend" name="趋势分析" chartSize="2" tableSize="-1" chartShow="true" tableShow="true" processType="alone" 
+		timeAp="true" defaultOat="all" metricName="指标：" pid="wzfx" supportedSite="all_calis_saas_library" describe="" loadPage="main.htm" timeCorr="true" general="true">
+		<conver key="oaten" processor="com.cnebula.analytics.reportserver.util.OrgManager" method="getCN"></conver>
+		<protoData processor="" method=""></protoData>
+	</menu>
+</menuCfg>
+
+<appCfg>
+	<app id="all"		name="全部"			filter=""></app>
+	<app id="eduChina" 	name="eduChina" 	filter="oat='eduChina'"></app>
+	<app id="yidu" 		name="e读" 			filter="oat='yidu'"></app>
+	<app id="ues" 		name="统一交换" 		filter="oat='ues'"></app>
+	<app id="aopac" 	name="古籍文献" 		filter="oat='aopac'"></app>
+	<app id="ccc"  		name="ccc" 			filter="oat='ccc'"></app>
+	<app id="uas" 		name="统一认证" 		filter="oat='uas'"></app>
+	<app id="opac" 		name="opac" 		filter="oat='opac'"></app>
+	<app id="ill" 		name="馆际互借" 		filter="oat='ill'"></app>
+	<app id="ztc" 		name="直通车" 		filter="oat='ztc'"></app>
+	<app id="nav" 		name="导航" 			filter="oat='nav'"></app>
+	<app id="ubs" 		name="统一计费" 		filter="oat='ubs'"></app>
+	<app id="nps" 		name="个性化门户" 		filter="oat='nps'"></app>
+	<app id="cvrs"  	name="参考咨询" 		filter="oat='cvrs'"></app>
+	<app id="auopac"	name="auopac" 		filter="oat='auopac'"></app>
+	<app id="iri" 		name="教参" 			filter="oat='iri'"></app>
+</appCfg>
+
+</reportorCfg>
+{{/code}}
+
+*相关服务
+
+{{code}}
+public interface IReportorCfgService {
+
+	//key： 站点id ，value： 该站点支持的菜单
+	public Map<String,List<Menu>> getMenuMap();
+	
+	//key： 应用系统的代码 ，value：应用系统bean
+	public Map<String,App> getAppMap();
+}
+{{/code}}
+
+==5 报告者服务==
+原则上我们只需对js暴露此接口即可。
+
+{{code}}
+public interface IReportorService {
+
+	public Reportor getReportor();
+}
+
+{{/code}}
+
+==6 前台页面设计==
+前台页面采用大闭包的形式，包含若干全局变量和若干对象模块。全局变量存储日志查询中的重要信息，对象模块处理日志页面中的相关处理。
+===6.1 全局变量===
+{{code}}
+/* 用户所属机构代码 */
+	var _userCode;
+	/*
+	 * 从后台返回的报告者对象
+	 * 程序的所有处理逻辑都依靠该对象
+	 * */
+	var _reportor;
+	/*
+	 *	当前选择的站点id 
+	 */
+	var _siteId = "";
+	/*
+	 *	机构的过滤条件，可能的情况：
+	 * 	1.为空，表示查询全站；
+	 * 	2.包含oasc，表示查询共享域；
+	 * 	3.包含oaten，表示查询成员馆；
+	 * 	4.若_oatenListFilter不为空，则不使用_siteFilter，表示在共享域中过滤出部分成员馆，可以不使用共享域信息
+	 * 	重选站点时，该字段重新设置
+	 */
+	var _siteFilter = "";
+	/*
+	 *	勾选多个成员馆时将过滤条件保存在该字段中
+	 *	重选功能时，该字段清空 
+	 */
+	var _oatenListFilter = "";
+	/*
+	 * 当前选择的站点所拥有的所有应用系统
+	 * 
+	 */
+	var _siteApp = null;
+{{/code}}
+===6.2 对象模块===
+====6.2.1 初始化对象模块====
+该模块完成用户信息的初始化，并根据用户信息从后台得到报告者对象，保存到_reportor
+====6.2.2 站点对象模块====
+得到报告者对象后，调用站点对象模块的初始化操作，该对象模块还包括子站点对象模块。
+该模块完成与站点选择相关的操作逻辑
+考虑是否预先一次性生成所有子站点，选择站点后，直接调用出子站点的信息，可以避免每次重新生成
+====6.2.3 菜单对象模块====
+选择站点后，调用菜单对象模块的初始化操作，根据用户信息和站点信息生成菜单。
+该模块完成与菜单相关的操作逻辑
+====6.2.4 顶部功能选择对象模块====
+该模块可以有多种具体实现，当前有系统环境为顶部功能（顶部功能，指该对象需要在以下的对象之前初始化
+完毕，因为下面部分对象模块的功能实现依靠该模块）
+====6.2.5 时间选择对象模块====
+====6.2.6 时间刻度对象模块====
+====6.2.7 应用系统选择对象模块====
+====6.2.8 图表指标选择对象模块====
+====6.2.9 表格指标选择对象模块====
+====6.2.10 图表数据查询对象模块====
+====6.2.11 表格数据查询对象模块====

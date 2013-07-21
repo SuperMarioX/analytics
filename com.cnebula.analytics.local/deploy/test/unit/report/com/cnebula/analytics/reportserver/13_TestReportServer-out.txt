@@ -1,0 +1,30 @@
+2013-03-20 17:57:04[INFO]:[com.cnebula.osgi.es.util.EasyServiceManagerImp.<clinit>]:there's no system bundle maybe we're in mock model
+SELECT pv,v,date,h FROM laGAll24h WHERE date >= 20130220 AND date <= 20130320 ORDER BY (pv) DESC limit 1000
+SELECT pv,v,date,d FROM laGAllDay WHERE date >= 20130220 AND date <= 20130320 ORDER BY (pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,date FROM laGAllDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (date) ORDER BY (SUM_pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,date FROM laGAllDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (date) ORDER BY (SUM_pv) DESC limit 1000
+SELECT pv,v,aid,date,d,wd,m FROM laGAppDay WHERE date >= 20130220 AND date <= 20130320 ORDER BY (pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,aid,date,m FROM laGAppDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (aid,date,m) ORDER BY (SUM_pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,aid,date FROM laGAppDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (aid,date) ORDER BY (SUM_pv) DESC limit 1000
+SELECT pv,v,at,asc,date,d,wd FROM laGAppTypeDay WHERE date >= 20130220 AND date <= 20130320 ORDER BY (pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,at,asc,date FROM laGAppTypeDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (at,asc,date) ORDER BY (SUM_pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,at,asc,date FROM laGAppTypeDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (at,asc,date) ORDER BY (SUM_pv) DESC limit 1000
+SELECT pv,v,ort,ortil,date,d,wd FROM laGOtilDay WHERE date >= 20130220 AND date <= 20130320 ORDER BY (pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,ort,ortil,date FROM laGOtilDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (ort,ortil,date) ORDER BY (SUM_pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,ort,ortil,date FROM laGOtilDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (ort,ortil,date) ORDER BY (SUM_pv) DESC limit 1000
+SELECT pv,v,aid,ort,ortil,date,d,wd FROM laGOtilAppDay WHERE date >= 20130220 AND date <= 20130320 ORDER BY (pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,aid,ort,ortil,date FROM laGOtilAppDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (aid,ort,ortil,date) ORDER BY (SUM_pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,aid,ort,ortil,date FROM laGOtilAppDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (aid,ort,ortil,date) ORDER BY (SUM_pv) DESC limit 1000
+SELECT pv,v,at,asc,ort,ortil,date,d,wd FROM laGOtilAppTypeDay WHERE date >= 20130220 AND date <= 20130320 ORDER BY (pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,at,asc,ort,ortil,date FROM laGOtilAppTypeDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (at,asc,ort,ortil,date) ORDER BY (SUM_pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,at,asc,ort,ortil,date FROM laGOtilAppTypeDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (at,asc,ort,ortil,date) ORDER BY (SUM_pv) DESC limit 1000
+SELECT pv,v,lorg,date,d,wd,m,y FROM laGLOrgDay WHERE date >= 20130220 AND date <= 20130320 ORDER BY (pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,lorg,date,m,y FROM laGLOrgDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (lorg,date,m,y) ORDER BY (SUM_pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,lorg,date,y FROM laGLOrgDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (lorg,date,y) ORDER BY (SUM_pv) DESC limit 1000
+SELECT pv,v,aid,lorg,date,d,wd,m,y FROM laGLOrgAppDay WHERE date >= 20130220 AND date <= 20130320 ORDER BY (pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,aid,lorg,date,m,y FROM laGLOrgAppDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (aid,lorg,date,m,y) ORDER BY (SUM_pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,aid,lorg,date,y FROM laGLOrgAppDay WHERE date >= 20130220 AND date <= 20130320 GROUP BY (aid,lorg,date,y) ORDER BY (SUM_pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,at,asc,lorg,date,y FROM laGLOrgAppTypeDay WHERE date >= 20130220 AND date <= 20130320 AND  asc ='100000' AND at ='eduChina' GROUP BY (at,asc,lorg,date,y) ORDER BY (SUM_pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,at,asc,lorg,date,m,y FROM laGLOrgAppTypeDay WHERE date >= 20130220 AND date <= 20130320 AND  asc ='100000' AND at ='eduChina' GROUP BY (at,asc,lorg,date,m,y) ORDER BY (SUM_pv) DESC limit 1000
+SELECT sum(pv) AS SUM_pv,sum(v) AS SUM_v,at,asc,lorg,date,y FROM laGLOrgAppTypeDay WHERE date >= 20130220 AND date <= 20130320 AND  asc ='100000' AND at ='eduChina' GROUP BY (at,asc,lorg,date,y) ORDER BY (SUM_pv) DESC limit 1000
+

@@ -1,0 +1,27 @@
+<!--# if(initVal == 'browse') {#-->
+<label for="+-metricsItemName-+_01"> <input id="+-metricsItemName-+_01"
+	type="checkbox" value="pageView" title="浏览量(PV)" name="+-metricsItemName-+" filter="" 
+	metricsName="pageView" dimensions="Browser,BrowserDet" limits="10000" chartType="pie" 
+	chartTitle="Browser;BrowserDet" description="BROWSERDET: '浏览器类型'" checked/>
+	浏览量(PV)
+</label>
+<label for="+-metricsItemName-+_02"> <input id="+-metricsItemName-+_02"
+	type="checkbox" title="访问次数" value="visits" name="+-metricsItemName-+" filter="" 
+	metricsName="visits" dimensions="Browser,BrowserDet" limits="10000" chartType="pie"
+	chartTitle="Browser;BrowserDet" description="BROWSERDET: '浏览器类型'"/>
+	访问次数
+</label>
+<!--# } else if(initVal == 'opersys') {#-->
+<label for="+-metricsItemName-+_01"> <input id="+-metricsItemName-+_01"
+	type="checkbox" value="pageView" title="浏览量(PV)" name="+-metricsItemName-+" filter="" 
+	metricsName="pageView" dimensions="Opersystem,OpersystemDet" limits="10000" chartType="pie" 
+	chartTitle="Opersystem;OpersystemDet" description="OPERSYSTEMDET: '操作系统类型'" checked/>
+	浏览量(PV)
+</label>
+<label for="+-metricsItemName-+_02"> <input id="+-metricsItemName-+_02"
+	type="checkbox" title="访问次数" value="visits" name="+-metricsItemName-+" filter="" 
+	metricsName="visits" dimensions="Opersystem,OpersystemDet" limits="10000" chartType="pie"
+	chartTitle="Opersystem;OpersystemDet" description="OPERSYSTEMDET: '操作系统类型'"/>
+	访问次数
+</label>
+<!--# } #-->

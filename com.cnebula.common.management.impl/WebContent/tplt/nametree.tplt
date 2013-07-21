@@ -1,0 +1,22 @@
+<!--# 
+for(var i=0;i<domains.length;i++){
+	var dn = domains[i];
+	var dnames = domainMap.get(dn);
+#-->
+	<h3><a href="#">+-dn-+</a></h3>
+	<div>
+<!--# 
+		for(var j=0;j<dnames.size();j++){
+			var cn = dnames.get(j).canonicalName;
+			var nn = cn;
+			p = /type=.*/;
+			nn = p.exec(nn);
+#-->
+			<h4 style="cursor: pointer;" onclick="renderAttributes('+-cn-+')">+-nn-+</h4>
+<!--#
+		}
+#-->
+	</div>
+<!--# 
+}
+#-->

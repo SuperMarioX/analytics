@@ -1,0 +1,81 @@
+=指标API=
+#toc
+
+==1 报表结构==
+报表包含的字段有：
+|= 属性名称|=含义|=是否必备|=其他说明|
+|lfrm|location( from ) 访问途径|可选|浏览日志默认为上次页面url，否则默认为本页url，可由调用者覆盖 |
+| sorg| subject organization 登录用户所在的学校/单位代码| 用户登录后有则必备| 字符长度超过20将会被截断|
+| sten| subject tenant 登录用户的所属租客| 用户登录后有则必备| 字符长度超过20将会被截断|
+| sid| subject id 登录用户的身份ID| 用户登录后必备| 字符长度超过20将会被截断|
+| st| subject type 用户类型，学生、教师...等| 用户登录后有则必备| 字符长度超过20将会被截断|
+| op| operation 动作，枚举值：访问、检索等| 可选| 不提供则默认为v，表示浏览日志，可以覆盖。字符长度超过20将会被截断|
+| oaid| object app id 应用系统ID| 必备| 字符长度超过32将会被截断|
+| ort| object resource type 所访问的资源类型，枚举值：页面，服务，图书...|操作日志必备|浏览日志默认为p（表示page)，可以覆盖
+| orid|object resource id 所访问的资源ID|操作日志必备|浏览日志默认为当前url(不含host port)，可由调用者提供覆盖。字符长度超过1024将会被截断|
+|otil|object title标题|操作日志必备|浏览日志默认为本页title|
+| ocrt	| object creator 所访问的资源对应的作者，可为多值| 有则必备| 字符长度超过20将会被截断|
+| osub	| object subject 所访问的资源主题| 有则必备| 字符长度超过20将会被截断|
+| opub	| object publisher 所访问的资源出版者| 有则必备| 字符长度超过50将会被截断|
+| ocor| 	object contributor 所访问资源的其他贡献人| 有则必备| 字符长度超过20将会被截断|
+| odt| object date 所访问的资源的出版日期，当前仅支持年| 有则必备| 字符长度超过20将会被截断|
+| ofmt	 | object format 所访问的资源 格式| 有则必备| 字符长度超过20将会被截断|
+| osrc	| object source 所访问的资源来源| 有则必备| 字符长度超过20将会被截断|
+| oln	| object language 所访问的资源语言| 有则必备| 字符长度超过20将会被截断|
+| orel|object relation 所访问资源的相关资源，比如期刊论文此处可放期刊| 有则必备| 字符长度超过50将会被截断|
+| rrs	| result response status响应状态，枚举值：成功,失败,恶意访问等等 | 有则必备| 字符长度超过20将会被截断|
+
+报表分为两种类型：按浏览量、访问次数统计的报表和按照操作数统计的报表，每种类型的报表又分别按照全站、共享域、成员馆三种级别分别统计（中心站属于共享域级别），careport文件夹下的报表xml文件共有6个：
+| 文件名（不含后缀）| 含义|
+| ops_op_report| 按操作统计、全站级别|
+| ops_op_oasc_report| 按操作统计、共享域级别|
+| ops_op_oaten_report| 按操作统计、成员馆级别|
+| pv_v_report| 按浏览量、访问次数统计、全站级别|
+| pv_v_oasc_report| 按浏览量、访问次数统计、共享域级别|
+| pv_v_oaten_report| 按浏览量、访问次数统计、成员馆级别|
+
+==2 报表介绍==
+下面介绍日志系统中使用的报表，每个报表都只介绍按照全站级别时的结构，在该结构上添加oasc字段即为共享域级别的报表，添加上oasc、oaten即为成员馆级别的报表。
+报表数据分别按小时和按日进行统计，按小时统计时，报表中的时间信息包括：
+| colName| name| type| description|
+| date| date| NUMBER| 日期,如20120102|
+| h| toph| NUMBER| 每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)|
+按日统计时，报表中的时间信息包括：
+| colName| name| type| description|
+| date| date| NUMBER| 日期,如20120102|
+| y| topy| NUMBER| 年|
+| m| topm| NUMBER| 月，从1~12|
+| d| topd| NUMBER| 月中的日，从1~31|
+| wd| topwh| NUMBER| 周中的日，星期日（1）~星期六(7)|
+其中colName是数据库表中的列名，name是查找报表时用来进行匹配的列的名称。
+下面的报表介绍中，同样不包含时间信息，每种报表添加上时间信息即为两张报表，分别添加上共享域信息、成员馆信息后，就能生成6张报表。
+
+
+==2.1 按浏览量、访问次数统计==
+统计的数据列称为统计列，在按浏览量、访问次数统计的报表里，统计列有两列：
+| colName| name|type| description| 如何从原始数据得到|
+| pv| pageView| NUMBER| 浏览量| sum(rvc)|
+| v| visits| NUMBER| 访问次数| sum(rsc)|
+下列报表中，不做特殊说明的，均包含pv、v两列
+
+==2.2 按操作数统计==
+按操作数统计的报表中，统计列只有一列：
+| colName| name|type| description| 如何从原始数据得到|
+| ops| ops| NUMBER| 操作数统计| sum(rvc)|
+在按操作数统计的报表中，一般包含操作op列，部分报表对op进行过滤后统计，为特定功能设定报表。op列的情况如下：
+| colName| name|type| description| 如何从原始数据得到|
+| op| op| TEXT| 操作| op|
+下列报表中，不做特殊说明的，均包含ops、op两列
+
+
+==3 指标介绍==
+===3.1 浏览量===
+===3.2 访问次数===
+===3.3 受访页面===
+受访页面统计页面被访问情况
+原始数据中，当ort='p'时，orid记录了页面的url，该url中不包含host和port
+受访页面的必备字段包括：
+|= 属性名称|=含义|=是否必备|=其他说明|
+| webView| 浏览量计数| 必备 | sum(rvc)|
+| oat| object app type 应用系统类型| 必备| 字符长度超过32将会被截断|
+| orid| object resource id 所访问的资源ID|操作日志必备|浏览日志默认为当前url(不含host port)，可由调用者提供覆盖。字符长度超过1024将会被截断|

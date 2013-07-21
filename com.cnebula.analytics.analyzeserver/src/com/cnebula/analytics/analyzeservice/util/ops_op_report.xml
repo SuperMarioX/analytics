@@ -1,0 +1,219 @@
+<report reportName="ops_op_report"  processTime="02:30">
+	<!--
+		 按照共享域、应用系统类型、应用系统Id、资源类型、资源名称分类的浏览量和访问量的报表
+	 -->
+	<metricsList>
+		<metrics name="gOps" description="CALIS操作统计"></metrics>
+		<metrics name="ops"  description="针对应用系统(对应于不同的域名)操作统计"></metrics>
+	</metricsList>
+	<matrixes>
+		<matrix url="jdbc/logds"  name="day_log" reportMatrix="false" table="lv{yyyyMMdd}">
+			<columns>
+				<column colName="topy"   name="topy"    type="NUMBER"   length="4"    description="操作时间:年" ></column>
+				<column colName="topm"   name="topm"    type="NUMBER"   length="2"    description="操作时间:月" ></column>
+				<column colName="topd"   name="topd"    type="NUMBER"   length="2"    description="操作时间:日" ></column>
+				<column colName="toph"   name="toph"    type="NUMBER"   length="2"    description="操作时间:小时" ></column>
+				<column colName="op"     name="op"      type="TEXT"     length="255"  description="动作" ></column>
+				<column colName="oasc"   name="oasc"    type="TEXT"     length="32"   description="应用系统:应用系统所属共享域" ></column>
+				<column colName="oat"    name="oat"     type="TEXT"     length="32"   description="应用系统:应用系统类型" ></column>
+				<column colName="oaid"   name="oaid"    type="TEXT"     length="64"   description="应用系统:APPID" ></column>
+				<column colName="rvc"    name="rvc"     type="NUMBER"   length="1"    description="计数:浏览量计数(PV记1，其他动作记0)" ></column>
+			</columns>
+		</matrix>
+<!-- 报表数据矩阵的命名规则，开头包含时间刻度： h、d、m、y -->
+<!-- 按照操作24小时汇总(全域) -->
+		<matrix url="jdbc/analyticsds" name="h_gOps_Gop" table="h_gOps_Gop">
+			<columns>
+				<column colName="gOps"   length="10"   name="gOps"       type="NUMBER" description="操作统计"></column>
+				<column colName="op"     length="255"  name="op"         type="TEXT"   description="操作"></column>
+				<column colName="date"   length="8"    name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"      length="2"    name="toph"       type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>		
+<!-- 按照操作日汇总(全域) -->
+		<matrix url="jdbc/analyticsds" name="d_gOps_Gop" table="d_gOps_Gop">
+			<columns>
+				<column colName="gOps"   length="10"   name="gOps"       type="NUMBER" description="操作统计"></column>
+				<column colName="op"     length="255"  name="op"         type="TEXT"   description="操作"></column>
+				<column colName="date"   length="8"    name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"      length="4"    name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"      length="2"    name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"      length="2"    name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"     length="2"    name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+<!-- 按照操作以及应用系统ID 24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_ops_Gappid_op" table="h_ops_Gappid_op">
+			<columns>
+				<column colName="ops"    length="10"  name="ops"        type="NUMBER" description="操作统计"></column>
+				<column colName="aid"   length="64"  name="oaid"       type="TEXT"   description="应用系统id"></column>
+				<column colName="op"    length="255" name="op"         type="TEXT"   description="操作"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"   name="toph"       type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+<!-- 按照操作以及应用系统ID 日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_ops_Gappid_op" table="d_ops_Gappid_op">
+			<columns>
+				<column colName="ops"    length="10"  name="ops"        type="NUMBER" description="操作统计"></column>
+				<column colName="aid"   length="64"  name="oaid"       type="TEXT"   description="应用系统id"></column>
+				<column colName="op"    length="255" name="op"         type="TEXT"   description="操作"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>		
+<!-- 按照操作以及应用系统类型和SaaS中心 24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_ops_Goasc_oat_op" table="h_ops_Goasc_oat_op">
+			<columns>
+				<column colName="ops"   length="10"  name="ops"        type="NUMBER" description="操作统计"></column>
+				<column colName="asc"   length="32"  name="oasc"       type="TEXT"   description="SaaS中心ID"></column>
+				<column colName="at"    length="32"  name="oat"        type="TEXT"   description="应用系统类型"></column>
+				<column colName="op"    length="255" name="op"         type="TEXT"   description="操作"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"   name="toph"       type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+<!-- 按照操作以及应用系统类型和SaaS中心日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_ops_Goasc_oat_op" table="d_ops_Goasc_oat_op">
+			<columns>
+				<column colName="ops"   length="10"  name="ops"        type="NUMBER" description="操作统计"></column>
+				<column colName="asc"   length="32"  name="oasc"       type="TEXT"   description="SaaS中心ID"></column>
+				<column colName="at"    length="32"  name="oat"        type="TEXT"   description="应用系统类型"></column>
+				<column colName="op"    length="255" name="op"         type="TEXT"   description="操作"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+<!-- 按照操作以及SaaS中心 24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_ops_Goasc_op" table="h_ops_Goasc_op">
+			<columns>
+				<column colName="ops"   length="10"  name="ops"        type="NUMBER" description="操作统计"></column>
+				<column colName="asc"   length="32"  name="oasc"       type="TEXT"   description="SaaS中心ID"></column>
+				<column colName="op"    length="255" name="op"         type="TEXT"   description="操作"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"   name="toph"       type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+<!-- 按照操作以及SaaS中心日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_ops_Goasc_op" table="d_ops_Goasc_op">
+			<columns>
+				<column colName="ops"    length="10"  name="ops"        type="NUMBER" description="操作统计"></column>
+				<column colName="asc"   length="32"  name="oasc"       type="TEXT"   description="SaaS中心ID"></column>
+				<column colName="op"    length="255" name="op"         type="TEXT"   description="操作"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+	</matrixes>
+	<pipline>
+		<!-- 按照操作24汇总（全域） -->
+		<processor fromMatrix="day_log" toMatrix="h_gOps_Gop"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)"  value="gOps" />
+				<property key="op"        value="op" />
+				<property key="date$"    value="#date" />
+				<property key="toph"     value="h" />
+			</properties>
+		</processor>	
+		<!-- 按照操作日汇总（全域） -->
+		<processor fromMatrix="day_log" toMatrix="d_gOps_Gop"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)"  value="gOps" />
+				<property key="op"       value="op" />
+				<property key="date$"    value="#date" />
+				<property key="y$"       value="#year" />
+				<property key="m$"       value="#month" />
+				<property key="topd"     value="d" />
+				<property key="wd$"      value="#dayOfWeek" />
+			</properties>
+		</processor>	
+		<!-- 按照操作以及应用系统ID24汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_ops_Gappid_op"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="ops" />
+				<property key="oaid"     value="aid" />
+				<property key="op"       value="op" />
+				<property key="date$"    value="#date" />
+				<property key="toph"     value="h" />
+			</properties>
+		</processor>
+		<!-- 按照操作以及应用系统ID日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_ops_Gappid_op"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="ops" />
+				<property key="oaid"     value="aid" />
+				<property key="op"       value="op" />
+				<property key="date$"    value="#date" />
+				<property key="y$"       value="#year" />
+				<property key="m$"       value="#month" />
+				<property key="topd"     value="d" />
+				<property key="wd$"      value="#dayOfWeek" />
+			</properties>
+		</processor>
+		<!-- 按照操作以及应用系统类型和SaaS中心24小时汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_ops_Goasc_oat_op"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="ops" />
+				<property key="oasc"     value="asc" />
+				<property key="oat"      value="at" />
+				<property key="op"       value="op" />
+				<property key="date$"    value="#date" />
+				<property key="toph"     value="h" />
+			</properties>
+		</processor>		
+		<!-- 按照操作以及应用系统类型和SaaS中心日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_ops_Goasc_oat_op"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="ops" />
+				<property key="oasc"     value="asc" />
+				<property key="oat"      value="at" />
+				<property key="op"       value="op" />
+				<property key="date$"    value="#date" />
+				<property key="y$"       value="#year" />
+				<property key="m$"       value="#month" />
+				<property key="topd"     value="d" />
+				<property key="wd$"      value="#dayOfWeek" />
+			</properties>
+		</processor>
+		<!-- 按照操作以及SaaS中心24小时汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_ops_Goasc_op"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="ops" />
+				<property key="oasc"     value="asc" />
+				<property key="op"       value="op" />
+				<property key="date$"    value="#date" />
+				<property key="toph"     value="h" />
+			</properties>
+		</processor>		
+		<!-- 按照操作以及SaaS中心日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_ops_Goasc_op"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="ops" />
+				<property key="oasc"     value="asc" />
+				<property key="op"       value="op" />
+				<property key="date$"    value="#date" />
+				<property key="y$"       value="#year" />
+				<property key="m$"       value="#month" />
+				<property key="topd"     value="d" />
+				<property key="wd$"      value="#dayOfWeek" />
+			</properties>
+		</processor>
+	</pipline>
+</report>	

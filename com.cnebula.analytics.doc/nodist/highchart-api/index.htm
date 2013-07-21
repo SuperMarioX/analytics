@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://api.highcharts.com/highcharts -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Highcharts API Reference</title>
+
+<link href="./cssjs/ref.css" rel="stylesheet" type="text/css">
+<link href="./cssjs/ref.css" rel="stylesheet" type="text/css">
+<link href="./cssjs/jquery.ui.all.css" rel="stylesheet" type="text/css">
+
+
+<script type="text/javascript">
+	var PRODUCTNAME = 'Highcharts'.toLowerCase();
+	var RESOURCE = "http://api.highcharts.com";
+
+	$(function() {
+		function updateHeight() {
+			var height = $(window).height() - $('#top').height();
+			$("#wrapper").height(height);					
+			$("#nav-wrap").height(height);
+			$("#details-wrap").height(height);
+		};
+
+		updateHeight();
+
+		$(window).resize(updateHeight);
+		
+		// Make the Highcharts/Highstock links dynamic
+		$('#highstock-link, #highcharts-link').click(function () {
+			this.href += location.hash;
+		});
+		
+		// Login shortcut (hot corner)
+		$("<a href='http://api.highcharts.com/auth/login'></a>")
+			.css({
+				position: 'absolute',
+				display: 'block',
+				width: '10px',
+				height: '10px',
+				right: 0
+			})
+			.attr({ title: 'Log in' })
+			.appendTo('#top');
+	});
+</script>
+
+<script src="./cssjs/ref.js" type="text/javascript"></script>
+	
+</head>
+<body youdao="bind">
+	<div id="top">
+		<!-- 
+		<ul>		
+			<li><a id="highcharts-link" href="http://api.highcharts.com/highcharts">Highcharts</a></li>
+			<li><a id="highstock-link" href="http://api.highcharts.com/highstock">Highstock</a></li>
+		</ul>
+		-->
+		<a href="http://www.highcharts.com/" title="Highcharts Home Page" id="logo"><img alt="Highcharts Home Page" src="./cssjs/Highcharts-icon-160px.png" border="0"></a>
+		<h1>Highcharts Options Reference</h1>
+				
+	<a href="http://api.highcharts.com/auth/login" style="position: absolute; display: block; width: 10px; height: 10px; right: 0px;" title="Log in"></a></div>
+	<div id="wrapper" style="height: 679px;">
+		<div id="nav-wrap" style="height: 679px;">
+			<div id="nav">
+			
+				<div class="ui-widget" id="search-div">
+					<!--  label for="search">Search:</label -->
+					<input id="search">
+				</div>
+				<div class="nav-section">
+					<h3 id="options-header">Configuration options</h3>
+					<div id="options-tree">						
+						<code>var chart = new Highcharts.Chart({</code>
+						<div id="options"><div class="menuitem collapsed"><a href="chart.htm">chart</a>:&nbsp;{<span class="dots">...</span><div id="chart-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="colors.htm">colors</a>:&nbsp;[{<span class="dots">...</span><div id="colors-menu" style="display:none"><div></div></div>}]</div><div class="menuitem collapsed"><a href="credits.htm">credits</a>:&nbsp;{<span class="dots">...</span><div id="credits-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="exporting.htm">exporting</a></a>:&nbsp;{<span class="dots">...</span><div id="exporting-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="global.htm">global</a>:&nbsp;{<span class="dots">...</span><div id="global-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="labels-items.htm">labels</a>:&nbsp;{<span class="dots">...</span><div id="labels-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="lang.htm">lang</a>:&nbsp;{<span class="dots">...</span><div id="lang-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="legend.htm">legend</a>:&nbsp;{<span class="dots">...</span><div id="legend-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="loading.htm">loading</a>:&nbsp;{<span class="dots">...</span><div id="loading-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="navigation.htm">navigation</a>:&nbsp;{<span class="dots">...</span><div id="navigation-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="pane.htm">pane</a>:&nbsp;{<span class="dots">...</span><div id="pane-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="plotOptions.htm">plotOptions</a>:&nbsp;{<span class="dots">...</span><div id="plotOptions-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="series.htm">series</a>:&nbsp;[{<span class="dots">...</span><div id="series-menu" style="display:none"><div></div></div>}]</div><div class="menuitem collapsed"><a href="subtitle.htm">subtitle</a>:&nbsp;{<span class="dots">...</span><div id="subtitle-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="title.htm">title</a>:&nbsp;{<span class="dots">...</span><div id="title-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="tooltip.htm">tooltip</a>:&nbsp;{<span class="dots">...</span><div id="tooltip-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="xaxis.htm">xAxis</a>:&nbsp;{<span class="dots">...</span><div id="xAxis-menu" style="display:none"><div></div></div>}</div><div class="menuitem collapsed"><a href="yaxis.htm">yAxis</a>:&nbsp;{<span class="dots">...</span><div id="yAxis-menu" style="display:none"><div></div></div>}</div></div>
+						<code>});</code>
+					</div>
+				</div>
+				
+				<div class="nav-section">
+					<h3>Methods and properties</h3>
+					<div id="methods-and-properties-toc"><ul><li><a href="http://api.highcharts.com/highcharts#object-Axis">The Axis object</a></li><li><a href="http://api.highcharts.com/highcharts#object-Chart">The Chart object</a></li><li><a href="http://api.highcharts.com/highcharts#object-Element">The Element object</a></li><li><a href="http://api.highcharts.com/highcharts#object-Highcharts">The Highcharts Namespace</a></li><li><a href="http://api.highcharts.com/highcharts#object-Point">The Point object</a></li><li><a href="http://api.highcharts.com/highcharts#object-Renderer">Highcharts.Renderer</a></li><li><a href="http://api.highcharts.com/highcharts#object-Series">The Series object</a></li></ul></div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body></html>

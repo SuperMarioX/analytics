@@ -1,0 +1,92 @@
+<!--#if(type == "calis"){  #-->
+<div class="site-child" id="saasChildSite" style="display: none">
+	<ul>
+   	<li>
+   		<a id="provinceAll" filter="oasc<> '100000'">全部</a>
+   	</li>
+	<!--#
+	for(var i = 0; i < provinceList.size(); i++){
+	var provinceOb = provinceList.get(i);
+	var provinceSName=provinceOb[4];
+	var oasc=provinceOb[2];
+#-->
+	<li id="provinceId">
+		<a id="+-oasc-+"  filter="oasc='+-oasc-+'">+-provinceSName-+</a>
+	</li>
+<!--#
+	}
+#-->
+	</ul>
+</div>
+<!--# } #-->
+<div class="site-child" id="librarychildsite" style="display: none">
+<span class="font_bold_12">您所在的图书馆：</span>
+<div class="imageInputWrapper" style="float:left;margin : 4px 0px 0px 0px;">
+ <input type="text" id="keyword" class="site-input"  site=""/><img src="./img/bank.png" id="librarychildsiteselect"/>
+ </div>
+ <input type="button" value="确定" id="enterId" class="enterId"></input>
+</div>
+<div id="dialog" class="dialog" style="display: none">
+<div id="selSize">
+选择所在省份：
+<!--#if(libraryqtStr == ""){  #-->
+<select id="provinceSelId" >
+<!--#  
+	for(var i = 0; i < libraryqtList.size(); i++){
+		var libraryOb = libraryqtList.get(i);
+		var librarySName=libraryOb[4];
+		var oasc=libraryOb[2];
+		#-->
+<option  value="+-oasc-+">+-librarySName-+</option>
+<!--#
+			
+		}
+	
+#-->
+	</select>
+<!--#
+	}else{
+	 for(var i = 0; i < libraryqtList.size(); i++){
+		var libraryOb = libraryqtList.get(i);
+		var librarySName=libraryOb[4];
+		var oasc=libraryOb[2];
+		if(oasc==libraryqtStr){
+#-->
+	+-librarySName-+
+<!--#		
+			}
+		}
+	}
+#-->
+
+<br/><br/>
+</div>
+<ul id="sizechild">
+<!--# 
+	if(libraryqtStr == ""){
+		var libraryKeys= libraryqtMap.keySet();
+		for(var i = 0; i < libraryKeys.length; i++){
+			var librarychildSOb = libraryqtMap.get(libraryKeys[i]);
+			for(var j=0;j<librarychildSOb.size();j++)
+			{
+			var librarychildSList=librarychildSOb.get(j);
+			var librarychildSName=librarychildSList[2];
+			var centerCode=librarychildSList[0];
+#-->
+<li class="+-libraryKeys[i]-+" style="display: none"><a id="size+-i-++-j-+" libName="+-librarychildSName-+" site="+-centerCode-+" >+-librarychildSName-+</a></li>
+<!--#		
+			}
+		}
+	}else{
+	for(j=0;j<libraryqtMap.size();j++){
+				var dataList=libraryqtMap.get(j);
+				var oaten=dataList[0];	
+				var name=dataList[2];	
+#-->
+<li><a id="size+-j-+" libName="+-name-+" site="+-oaten-+" >+-name-+</a></li>
+<!--#		
+		}
+	}
+#-->
+</ul>
+</div>

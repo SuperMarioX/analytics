@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>highcharts</title>
+<style type="text/css"><!--
+/* @group RESET */
+/* --------------------------------------------------------------
+
+  Reset.css
+  * Resets default browser CSS styles.
+
+  Created by Erik Meyer:
+  * meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/
+-------------------------------------------------------------- */
+
+* html {
+  overflow-y: auto;
+}
+html, body {
+    height: 100%;
+}
+--></style>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/zyxwiki.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shThemeDefault.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shCore.css"/>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCpp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCSharp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCss.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushGroovy.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJavaFX.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJScript.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPerl.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPhp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPlain.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPowerShell.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPython.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushRuby.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushScala.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushSql.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushVb.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushXml.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJava.js"></script>
+<script type="text/javascript">
+SyntaxHighlighter.config.clipboardSwf = '_cssAndJsDir_/clipboard.swf'
+SyntaxHighlighter.all();
+</script>
+  </head>
+  <body>
+
+<div id="xwikimaincontainer">
+<div id="xwikimaincontainerinner">
+<h1><span id="Highcharts图表框架">Highcharts图表框架</span></h1>
+
+<div class="xwikiToc"><ul>
+<li class="toc_level_1"><a href="#Highcharts图表框架"><span class="toctext">Highcharts图表框架</span></a></li>
+<li class="toc_level_2"><a href="#1_概述"><span class="toctext">1 概述</span></a></li>
+<li class="toc_level_2"><a href="#2_Highcharts说明"><span class="toctext">2 Highcharts说明</span></a></li>
+<li class="toc_level_2"><a href="#3_曲线图"><span class="toctext">3 曲线图</span></a></li>
+<li class="toc_level_3"><a href="#样例"><span class="toctext">样例</span></a></li>
+<li class="toc_level_3"><a href="#数据结构"><span class="toctext">数据结构</span></a></li>
+<li class="toc_level_2"><a href="#4_柱状图"><span class="toctext">4 柱状图</span></a></li>
+<li class="toc_level_3"><a href="#4.1样例"><span class="toctext">4.1样例</span></a></li>
+<li class="toc_level_4"><a href="#完整的代码如下"><span class="toctext">完整的代码如下</span></a></li>
+<li class="toc_level_4"><a href="#数据结构"><span class="toctext">数据结构</span></a></li>
+<li class="toc_level_4"><a href="#错误的数据结构,数组为空时"><span class="toctext">错误的数据结构,数组为空时</span></a></li>
+<li class="toc_level_4"><a href="#错误的数据结构,数组为空时图例"><span class="toctext">错误的数据结构,数组为空时图例</span></a></li>
+<li class="toc_level_4"><a href="#错误的数据结构,数组元素等于0时"><span class="toctext">错误的数据结构,数组元素等于0时</span></a></li>
+<li class="toc_level_4"><a href="#错误的数据结构,数组元素等于0时图例"><span class="toctext">错误的数据结构,数组元素等于0时图例</span></a></li>
+<li class="toc_level_3"><a href="#4.2样例"><span class="toctext">4.2样例</span></a></li>
+<li class="toc_level_4"><a href="#数据结构"><span class="toctext">数据结构</span></a></li>
+<li class="toc_level_3"><a href="#4.3样例"><span class="toctext">4.3样例</span></a></li>
+<li class="toc_level_4"><a href="#数据结构"><span class="toctext">数据结构</span></a></li>
+<li class="toc_level_2"><a href="#5_饼状图"><span class="toctext">5 饼状图</span></a></li>
+<li class="toc_level_3"><a href="#样例"><span class="toctext">样例</span></a></li>
+<li class="toc_level_3"><a href="#数据结构"><span class="toctext">数据结构</span></a></li>
+<li class="toc_level_2"><a href="#6_API使用总结"><span class="toctext">6 API使用总结</span></a></li>
+<li class="toc_level_3"><a href="#日期格式说明"><span class="toctext">日期格式说明</span></a></li>
+<li class="toc_level_3"><a href="#常用API"><span class="toctext">常用API</span></a></li>
+<li class="toc_level_2"><a href="#7_服务接口"><span class="toctext">7 服务接口</span></a></li>
+<li class="toc_level_3"><a href="#图表服务接口"><span class="toctext">图表服务接口</span></a></li>
+</ul>
+</div>
+
+<h2><span id="1_概述">1 概述</span></h2>
+<p>日志系统中现有的图表框架jqplot，已不能满足需求中的各种图表。
+在基于文档的完善、现有代码重构的代价、开发人员的技术范畴、需求几个方面考虑调研后，决定采用Highcharts图表框架替代jqplot。</p>
+<h2><span id="2_Highcharts说明">2 Highcharts说明</span></h2>
+<p>Highcharts是一个制作图表的纯Javascript类库，主要特性如下：</p>
+<ul><li>兼容性：兼容当今所有的浏览器，包括iPhone、IE和火狐等等；</li>
+<li>纯JavaScript；</li>
+<li>支持大部分的图表类型：直线图，曲线图、区域图、区域曲线图、柱状图、饼装图、散布图、仪表盘图、反转图（或者是反转轴）；</li>
+<li>跨语言：不管是PHP、Asp.net还是Java都可以使用，它只需要2个JS文件：一个是Highcharts的核心文件highcharts.js，还有一个是Jquery类库、MooTools类库、Prototype类库中的一个；</li>
+<li>提示功能：鼠标移动到图表的某一点上有提示信息；</li>
+<li>放大功能：选中图表部分放大，近距离观察图表；</li>
+<li>易用性：无需要特殊的开发技能，只需要设置一下选项就可以制作适合自己的图表；</li>
+<li>时间轴：可以精确到毫秒；</li>
+<li>支持动态图表。（我们在做实时监控时可以尝试使用）</li>
+<li>支持导出和打印。</li>
+<li>支持轴上文字的旋转。（对于x轴的上的类别比较多时，文字的旋转可以使类别名称不至于重合）</li></ul>
+<p>官方地址：<a href="http://www.highcharts.com/" rel="nofollow">http://www.highcharts.com/</a> <br/>
+官方样例：<a href="http://www.highcharts.com/demo/" rel="nofollow">http://www.highcharts.com/demo/</a></p>
+<h2><span id="3_曲线图">3 曲线图</span></h2>
+<h3><span id="样例">样例</span></h3>
+<h3><span id="数据结构">数据结构</span></h3>
+<p>时间趋势图形的x轴均采用时间类型数据结构，即：
+<div class="code"><pre class="brush:java">
+
+var chartHourData = [{
+				    data : [1, 12, 13, 4, 5, 16, 7, 8, 9, 10, 1, 12, 13, 4, 5, 16, 7, 8, 9, 10, 18, 21, 32, 23],
+    name : &quot;浏览量&quot;,
+    pointInterval: 1 * 3600 * 1000,
+    pointStart: Date.UTC(2006, 0, 01)
+    	}, {
+    data : [12, 13, 13, 4, 15, 16, 7, 8, 9, 10, 11, 12, 13, 4, 5, 16, 7, 8, 9, 10, 8, 31, 42, 13],
+    	name : &quot;访问次数&quot;,
+    	pointInterval: 1 * 3600 * 1000,
+    pointStart: Date.UTC(2006, 0, 01)
+}];
+在本项目中的曲线图的x轴坐标均采用日期类型,完整的数据结构为：
+new Highcharts.Chart({
+            chart: {
+                renderTo: _target,
+                type: &#39;line&#39;,        // 图表类型			
+                marginRight: 10                
+            },
+            title : {
+            	text : &quot;&lt;br&gt;&quot;
+            },
+            exporting : {
+
+            },
+            xAxis: {
+         				type: &#39;datetime&#39;,              // x轴坐标类型，日期类型
+         				minTickInterval : _minTimeInterval[_ap],	           //最小时间间隔
+         				dateTimeLabelFormats: _timeFormats[_ap]	            //显示的时间格式，参考“日期格式说明”
+         		},
+            yAxis: {
+            		min : 0,
+            		minTickInterval : 1,
+            		title : {
+            				text : &quot;&quot;
+            		}
+            },
+            tooltip: {
+            	xDateFormat : _xDateFormat[_ap],
+            	shared : true
+            },
+
+            series:  seriesData
+        });
+其中seriesData是从后台传回的已经组装好的数据结构。
+使用的三个公共变量为：
+// 图表中显示的时间格式
+	var _timeFormats = {
+			&quot;toph&quot; : {
+				day : &#39;%H&#39;,
+				hour : &#39;%H&#39;,
+			},
+			&quot;topd&quot; : {
+				hour : &quot;&quot;,
+				day : &#39;%m月%e日&#39;,
+				month : &#39;%m月%e日&#39;,
+				year : &#39;%m月%e日&#39;,
+			},
+			&quot;topm&quot; : {
+				day : &#39;%y年%m月&#39;,
+				month : &#39;%y年%m月&#39;,
+				year : &#39;%y年%m月&#39;
+			}
+	};
+	// 图标中的点的最小间隔
+	var _minTimeInterval = {
+			&quot;toph&quot; : 3600 * 1000,
+			&quot;topd&quot; : 24 * 3600 * 1000,
+			&quot;topm&quot; : 30 * 24 * 3600 * 1000
+	};
+	// 图标提示文本中的x轴显示内容
+	var _xDateFormat = {
+			&quot;toph&quot; : &quot;&lt;b&gt;%H时&lt;/b&gt;&quot;,
+			&quot;topd&quot; : &quot;&lt;b&gt;%m月%e日&lt;/b&gt;&quot;,
+			&quot;topm&quot; : &quot;&lt;b&gt;%y年%m月&lt;/b&gt;&quot;
+	};
+</pre></div>
+</p>
+<h2><span id="4_柱状图">4 柱状图</span></h2>
+<h3><span id="4.1样例">4.1样例</span></h3>
+<p><img src="img/Highcharts/columnWithRotatedLabels.png" alt="折线图例子" title="折线图例子" /><br/></p>
+<h4><span id="完整的代码如下">完整的代码如下</span></h4>
+<p><div class="code"><pre class="brush:java">
+
+首先需要导入的js文件，以实际目录为准.
+&lt;script src=&quot;http://code.highcharts.com/highcharts.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;http://code.highcharts.com/modules/exporting.js&quot;&gt;&lt;/script&gt;
+&lt;div id=&quot;container&quot; style=&quot;min-width: 400px; height: 400px; margin: 0 auto&quot;&gt;&lt;/div&gt;
+实现上面图表需要的数据结构为：
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: &#39;container&#39;,
+                type: &#39;column&#39;,
+                margin: [ 50, 50, 100, 80]
+            },
+            title: {
+                text: &#39;World\&#39;s largest cities per 2008&#39;
+            },
+            xAxis: {
+                categories: [
+                    &#39;Tokyo&#39;,
+                    &#39;Jakarta&#39;,
+                    &#39;New York&#39;,
+                    &#39;Seoul&#39;,
+                    &#39;Manila&#39;,
+                    &#39;Mumbai&#39;,
+                    &#39;Sao Paulo&#39;,
+                    &#39;Mexico City&#39;,
+                    &#39;Dehli&#39;,
+                    &#39;Osaka&#39;,
+                    &#39;Cairo&#39;,
+                    &#39;Kolkata&#39;,
+                    &#39;Los Angeles&#39;,
+                    &#39;Shanghai&#39;,
+                    &#39;Moscow&#39;,
+                    &#39;Beijing&#39;,
+                    &#39;Buenos Aires&#39;,
+                    &#39;Guangzhou&#39;,
+                    &#39;Shenzhen&#39;,
+                    &#39;Istanbul&#39;
+                ],
+                labels: {
+                    rotation: -45,
+                    align: &#39;right&#39;,
+                    style: {
+                        fontSize: &#39;13px&#39;,
+                        fontFamily: &#39;Verdana, sans-serif&#39;
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: &#39;Population (millions)&#39;
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                formatter: function() {
+                    return &#39;&lt;b&gt;&#39;+ this.x +&#39;&lt;/b&gt;&lt;br/&gt;&#39;+
+                        &#39;Population in 2008: &#39;+ Highcharts.numberFormat(this.y, 1) +
+                        &#39; millions&#39;;
+                }
+            },
+            series: [{
+                name: &#39;Population&#39;,
+                data: [34.4, 21.8, 20.1, 20, 19.6, 19.5, 19.1, 18.4, 18,
+                    17.3, 16.8, 15, 14.7, 14.5, 13.3, 12.8, 12.4, 11.8,
+                    11.7, 11.2],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: &#39;#FFFFFF&#39;,
+                    align: &#39;right&#39;,
+                    x: 4,
+                    y: 10,
+                    style: {
+                        fontSize: &#39;13px&#39;,
+                        fontFamily: &#39;Verdana, sans-serif&#39;
+                    }
+                }
+            }]
+        });
+    });
+
+});
+</pre></div>
+ </p>
+<h4><span id="数据结构">数据结构</span></h4>
+<p><div class="code"><pre class="brush:java">
+
+ series: [{
+                name: &#39;Population&#39;,
+                data: [34.4, 21.8, 20.1, 20, 19.6, 19.5, 19.1, 18.4, 18,
+                    17.3, 16.8, 15, 14.7, 14.5, 13.3, 12.8, 12.4, 11.8,
+                    11.7, 11.2],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: &#39;#FFFFFF&#39;,
+                    align: &#39;right&#39;,
+                    x: 4,
+                    y: 10,
+                    style: {
+                        fontSize: &#39;13px&#39;,
+                        fontFamily: &#39;Verdana, sans-serif&#39;
+                    }
+                }
+            }]
+</pre></div>
+</p>
+<h4><span id="错误的数据结构,数组为空时">错误的数据结构,数组为空时</span></h4>
+<p><div class="code"><pre class="brush:java">
+
+ series: [{
+                name: &#39;Population&#39;,
+                data: [],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: &#39;#FFFFFF&#39;,
+                    align: &#39;right&#39;,
+                    x: 4,
+                    y: 10,
+                    style: {
+                        fontSize: &#39;13px&#39;,
+                        fontFamily: &#39;Verdana, sans-serif&#39;
+                    }
+                }
+            }]
+</pre></div>
+  </p>
+<h4><span id="错误的数据结构,数组为空时图例">错误的数据结构,数组为空时图例</span></h4>
+<p><img src="img/Highcharts/columnError.png" alt="折线图例子" title="折线图例子" /><br/></p>
+<h4><span id="错误的数据结构,数组元素等于0时">错误的数据结构,数组元素等于0时</span></h4>
+<p><div class="code"><pre class="brush:java">
+
+ series: [{
+                name: &#39;Population&#39;,
+                data: [0,0,0,0,0,0,0,0,0,0,0,0],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: &#39;#FFFFFF&#39;,
+                    align: &#39;right&#39;,
+                    x: 4,
+                    y: 10,
+                    style: {
+                        fontSize: &#39;13px&#39;,
+                        fontFamily: &#39;Verdana, sans-serif&#39;
+                    }
+                }
+            }]
+</pre></div>
+  </p>
+<h4><span id="错误的数据结构,数组元素等于0时图例">错误的数据结构,数组元素等于0时图例</span></h4>
+<p><img src="img/Highcharts/error2.png" alt="折线图例子" title="折线图例子" /><br/></p>
+<h3><span id="4.2样例">4.2样例</span></h3>
+<p><img src="img/Highcharts/rainfall.png" alt="多数组柱状图例子" title="多数组柱状图例子" /><br/>
+<div class="code"><pre class="brush:java">
+
+html页面元素以及需要导入的js文件
+&lt;&lt;script src=&quot;http://code.highcharts.com/highcharts.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;http://code.highcharts.com/modules/exporting.js&quot;&gt;&lt;/script&gt;
+
+&lt;div id=&quot;container&quot; style=&quot;min-width: 400px; height: 400px; margin: 0 auto&quot;&gt;&lt;/div&gt;
+实现图表的代码
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: &#39;container&#39;,
+                type: &#39;column&#39;
+            },
+            title: {
+                text: &#39;Monthly Average Rainfall&#39;
+            },
+            subtitle: {
+                text: &#39;Source: WorldClimate.com&#39;
+            },
+            xAxis: {
+                categories: [
+                    &#39;Jan&#39;,
+                    &#39;Feb&#39;,
+                    &#39;Mar&#39;,
+                    &#39;Apr&#39;,
+                    &#39;May&#39;,
+                    &#39;Jun&#39;,
+                    &#39;Jul&#39;,
+                    &#39;Aug&#39;,
+                    &#39;Sep&#39;,
+                    &#39;Oct&#39;,
+                    &#39;Nov&#39;,
+                    &#39;Dec&#39;
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: &#39;Rainfall (mm)&#39;
+                }
+            },
+            legend: {
+                layout: &#39;vertical&#39;,
+                backgroundColor: &#39;#FFFFFF&#39;,
+                align: &#39;left&#39;,
+                verticalAlign: &#39;top&#39;,
+                x: 100,
+                y: 70,
+                floating: true,
+                shadow: true
+            },
+            tooltip: {
+                formatter: function() {
+                    return &#39;&#39;+
+                        this.x +&#39;: &#39;+ this.y +&#39; mm&#39;;
+                }
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+                series: [{
+                name: &#39;Tokyo&#39;,
+                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+
+            }, {
+                name: &#39;New York&#39;,
+                data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+
+            }, {
+                name: &#39;London&#39;,
+                data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
+
+            }, {
+                name: &#39;Berlin&#39;,
+                data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+
+            }]
+        });
+    });
+
+});
+</pre></div>
+</p>
+<h4><span id="数据结构">数据结构</span></h4>
+<p><div class="code"><pre class="brush:java">
+
+ xAxis: {
+                categories: [
+                    &#39;Jan&#39;,
+                    &#39;Feb&#39;,
+                    &#39;Mar&#39;,
+                    &#39;Apr&#39;,
+                    &#39;May&#39;,
+                    &#39;Jun&#39;,
+                    &#39;Jul&#39;,
+                    &#39;Aug&#39;,
+                    &#39;Sep&#39;,
+                    &#39;Oct&#39;,
+                    &#39;Nov&#39;,
+                    &#39;Dec&#39;
+                ]
+            },
+            series: [{
+                name: &#39;Tokyo&#39;,
+                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+
+            }, {
+                name: &#39;New York&#39;,
+                data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+
+            }, {
+                name: &#39;London&#39;,
+                data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
+
+            }, {
+                name: &#39;Berlin&#39;,
+                data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+
+            }]
+</pre></div>
+</p>
+<h3><span id="4.3样例">4.3样例</span></h3>
+<p><img src="img/Highcharts/negative.png" alt="负值柱状图例子" title="负值柱状图例子" /><br/>
+<div class="code"><pre class="brush:java">
+
+&lt;script src=&quot;http://code.highcharts.com/highcharts.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;http://code.highcharts.com/modules/exporting.js&quot;&gt;&lt;/script&gt;
+
+&lt;div id=&quot;container&quot; style=&quot;min-width: 400px; height: 400px; margin: 0 auto&quot;&gt;&lt;/div&gt;
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: &#39;container&#39;,
+                type: &#39;column&#39;
+            },
+            title: {
+                text: &#39;Column chart with negative values&#39;
+            },
+            xAxis: {
+                categories: [&#39;Apples&#39;, &#39;Oranges&#39;, &#39;Pears&#39;, &#39;Grapes&#39;, &#39;Bananas&#39;]
+            },
+            tooltip: {
+                formatter: function() {
+                    return &#39;&#39;+
+                        this.series.name +&#39;: &#39;+ this.y +&#39;&#39;;
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: &#39;John&#39;,
+                data: [5, 3, 4, 7, 2]
+            }, {
+                name: &#39;Jane&#39;,
+                data: [2, -2, -3, 2, 1]
+            }, {
+                name: &#39;Joe&#39;,
+                data: [3, 4, 4, -2, 5]
+            }]
+        });
+    });
+
+});
+</pre></div>
+</p>
+<h4><span id="数据结构">数据结构</span></h4>
+<p><div class="code"><pre class="brush:java">
+
+ series: [{
+                name: &#39;John&#39;,
+                data: [5, 3, 4, 7, 2]
+            }, {
+                name: &#39;Jane&#39;,
+                data: [2, -2, -3, 2, 1]
+            }, {
+                name: &#39;Joe&#39;,
+                data: [3, 4, 4, -2, 5]
+            }]
+</pre></div>
+</p>
+<h2><span id="5_饼状图">5 饼状图</span></h2>
+<h3><span id="样例">样例</span></h3>
+<p><div class="code"><pre class="brush:java">
+
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+&lt;title&gt;hello chart&lt;/title&gt;
+&lt;script src=&quot;../jquery/jquery-1.6.4.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;highcharts.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;exporting.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+$(function () {
+    var chart;
+
+    $(document).ready(function () {
+
+    	// Build the chart
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: &#39;container&#39;,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: &#39;Browser market shares at a specific website, 2010&#39;//标题
+            },
+            tooltip: {
+        	    pointFormat: &#39;{series.name}: &lt;b&gt;{point.percentage}%&lt;/b&gt;&#39;,
+            	percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: &#39;pointer&#39;,
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: &#39;pie&#39;,
+                name: &#39;Browser share&#39;,
+                data: [
+                     { 
+                        name: &#39;Firefox&#39;,
+                        y: 45.0
+                     },
+                     { 
+                         name: &#39;Safari&#39;,
+                         y: 8.5
+                      },
+                     { 
+                         name: &#39;Opera&#39;,
+                         y: 6.2
+                      },
+                     { 
+                         name: &#39;Others&#39;,
+                         y: 0.7
+                      },
+                    {
+                        name: &#39;Chrome&#39;,
+                        y: 12.8,
+                        sliced: true,
+                        selected: true
+                    }
+                ]
+            }]
+        });
+    });
+
+});
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;container&quot; style=&quot;min-width: 400px; height: 400px; margin: 0 auto&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+
+饼状图实例图片
+<img src="img/Highcharts/chart_pie.png" alt="饼状图例子" title="饼状图例子" /><br/>
+当<div class="code"><pre class="brush:java">
+data:[[&quot;&quot;:0]]</pre></div>
+
+<img src="img/Highcharts/chartnull.png" alt="饼状图例子" title="饼状图例子" /><br/>
+当<div class="code"><pre class="brush:java">
+data:[&#39;Firefox&#39;,0],
+       [&#39;IE&#39;,0],
+       {
+          name: &#39;Chrome&#39;,
+          y:0,
+          sliced: true,
+          selected: true//默认被选中
+       },
+       [&#39;Safari&#39;,0],
+       [&#39;Opera&#39;,0],
+       [&#39;Others&#39;,0]]</pre></div>
+
+<img src="img/Highcharts/nullchart.png" alt="饼状图例子" title="饼状图例子" /><br/>
+数值位置不能为null</p>
+<h3><span id="数据结构">数据结构</span></h3>
+<p>第一种：
+<div class="code"><pre class="brush:java">
+
+data: [
+                     { 
+                        name: &#39;Firefox&#39;,
+                        y: 45.0
+                     },
+                     { 
+                         name: &#39;Safari&#39;,
+                         y: 8.5
+                      },
+                     { 
+                         name: &#39;Opera&#39;,
+                         y: 6.2
+                      },
+                     { 
+                         name: &#39;Others&#39;,
+                         y: 0.7
+                      },
+                    {
+                        name: &#39;Chrome&#39;,
+                        y: 12.8,
+                        sliced: true,
+                        selected: true//选一个默认被选中的
+                    }
+       ]
+</pre></div>
+
+第二种：
+<div class="code"><pre class="brush:java">
+
+data: [
+                    [&#39;Firefox&#39;,   45.0],
+                    [&#39;IE&#39;,       26.8],
+                    {
+                        name: &#39;Chrome&#39;,
+                        y: 12.8,
+                        sliced: true,
+                        selected: true//默认被选中
+                    },
+                    [&#39;Safari&#39;,    8.5],
+                    [&#39;Opera&#39;,     6.2],
+                    [&#39;Others&#39;,   0.7]
+
+       ]
+</pre></div>
+
+第三种：大分类下有小分类
+<div class="code"><pre class="brush:java">
+
+		            categories = [&#39;MSIE&#39;, &#39;Firefox&#39;, &#39;Chrome&#39;, &#39;Safari&#39;, &#39;Opera&#39;],
+            name = &#39;Browser brands&#39;,
+            data = [{
+                    y: 55.11,
+                    color: colors[0],
+                    drilldown: {
+                        name: &#39;MSIE versions&#39;,
+                        categories: [&#39;MSIE 6.0&#39;, &#39;MSIE 7.0&#39;, &#39;MSIE 8.0&#39;, &#39;MSIE 9.0&#39;],
+                        data: [10.85, 7.35, 33.06, 2.81],
+                        color: colors[0]
+                    }
+                }, {
+                    y: 21.63,
+                    color: colors[1],
+                    drilldown: {
+                        name: &#39;Firefox versions&#39;,
+                        categories: [&#39;Firefox 2.0&#39;, &#39;Firefox 3.0&#39;, &#39;Firefox 3.5&#39;, &#39;Firefox 3.6&#39;, &#39;Firefox 4.0&#39;],
+                        data: [0.20, 0.83, 1.58, 13.12, 5.43],
+                        color: colors[1]
+                    }
+                }, {
+                    y: 11.94,
+                    color: colors[2],
+                    drilldown: {
+                        name: &#39;Chrome versions&#39;,
+                        categories: [&#39;Chrome 5.0&#39;, &#39;Chrome 6.0&#39;, &#39;Chrome 7.0&#39;, &#39;Chrome 8.0&#39;, &#39;Chrome 9.0&#39;,
+                            &#39;Chrome 10.0&#39;, &#39;Chrome 11.0&#39;, &#39;Chrome 12.0&#39;],
+                        data: [0.12, 0.19, 0.12, 0.36, 0.32, 9.91, 0.50, 0.22],
+                        color: colors[2]
+                    }
+                }, {
+                    y: 7.15,
+                    color: colors[3],
+                    drilldown: {
+                        name: &#39;Safari versions&#39;,
+                        categories: [&#39;Safari 5.0&#39;, &#39;Safari 4.0&#39;, &#39;Safari Win 5.0&#39;, &#39;Safari 4.1&#39;, &#39;Safari/Maxthon&#39;,
+                            &#39;Safari 3.1&#39;, &#39;Safari 4.1&#39;],
+                        data: [4.55, 1.42, 0.23, 0.21, 0.20, 0.19, 0.14],
+                        color: colors[3]
+                    }
+                }, {
+                    y: 2.14,
+                    color: colors[4],
+                    drilldown: {
+                        name: &#39;Opera versions&#39;,
+                        categories: [&#39;Opera 9.x&#39;, &#39;Opera 10.x&#39;, &#39;Opera 11.x&#39;],
+                        data: [ 0.12, 0.37, 1.65],
+                        color: colors[4]
+                    }
+                }];
+</pre></div>
+
+将categories和data解析成两个data（如第一种第二种）用于显示</p>
+<h2><span id="6_API使用总结">6 API使用总结</span></h2>
+<h3><span id="日期格式说明">日期格式说明</span></h3>
+<p>在api对dateFormat 解释中说明，highcharts的日期格式是<a href="http://php.net/manual/en/function.strftime.php" rel="nofollow">PHP&#39;s strftime function.</a>的format列表中的一个子集</p>
+<table border='1'><tr><th>format</th><th>Description</th><th>Example returned values</th></tr>
+<tr><td><strong>Day</strong></td><td></td><td></td></tr>
+<tr><td>%a	</td><td>An abbreviated textual representation of the day	</td><td>Sun through Sat</td></tr>
+<tr><td>%A	</td><td>A full textual representation of the day	</td><td>Sunday through Saturday</td></tr>
+<tr><td>%d	</td><td>Two-digit day of the month (with leading zeros)	</td><td>01 to 31</td></tr>
+<tr><td>%e	</td><td>Day of the month, with a space preceding single digits. Not implemented as described on Windows. See below for more information.	 </td><td>1 to 31</td></tr>
+<tr><td>%j	</td><td>Day of the year, 3 digits with leading zeros	</td><td>001 to 366</td></tr>
+<tr><td>%u	</td><td>ISO-8601 numeric representation of the day of the week	</td><td>1 (for Monday) though 7 (for Sunday)</td></tr>
+<tr><td>%w	</td><td>Numeric representation of the day of the week	</td><td>0 (for Sunday) through 6 (for Saturday)</td></tr>
+<tr><td><strong>Week</strong></td><td></td><td></td></tr>
+<tr><td>%U	</td><td>Week number of the given year, starting with the first Sunday as the first week	</td><td>13 (for the 13th full week of the year)</td></tr>
+<tr><td>%V	</td><td>ISO-8601:1988 week number of the given year, starting with the first week of the year with at least 4 weekdays, with Monday being the start of the week	</td><td>01 through 53 (where 53 accounts for an overlapping week)</td></tr>
+<tr><td>%W	</td><td>A numeric representation of the week of the year, starting with the first Monday as the first week	</td><td>46 (for the 46th week of the year beginning with a Monday)</td></tr>
+<tr><td><strong>Month</strong></td><td></td><td></td></tr>
+<tr><td>%b	</td><td>Abbreviated month name, based on the locale	</td><td>Jan through Dec</td></tr>
+<tr><td>%B	</td><td>Full month name, based on the locale	</td><td>January through December</td></tr>
+<tr><td>%h	</td><td>Abbreviated month name, based on the locale (an alias of %b)	</td><td>Jan through Dec</td></tr>
+<tr><td>%m	</td><td>Two digit representation of the month	</td><td>01 (for January) through 12 (for December)</td></tr>
+<tr><td><strong>Year</strong></td><td></td><td></td></tr>
+<tr><td>%C	</td><td>Two digit representation of the century (year divided by 100, truncated to an integer)	</td><td>19 for the 20th Century</td></tr>
+<tr><td>%g	</td><td>Two digit representation of the year going by ISO-8601:1988 standards (see %V)	</td><td>Example: 09 for the week of January 6, 2009</td></tr>
+<tr><td>%G	</td><td>The full four-digit version of %g	</td><td>Example: 2008 for the week of January 3, 2009</td></tr>
+<tr><td>%y	</td><td>Two digit representation of the year	</td><td>Example: 09 for 2009, 79 for 1979</td></tr>
+<tr><td>%Y	</td><td>Four digit representation for the year	</td><td>Example: 2038</td></tr>
+<tr><td><strong>Time</strong></td><td></td><td></td></tr>
+<tr><td>%H	</td><td>Two digit representation of the hour in 24-hour format	</td><td>00 through 23</td></tr>
+<tr><td>%k	</td><td>Two digit representation of the hour in 24-hour format, with a space preceding single digits	 </td><td>0 through 23</td></tr>
+<tr><td>%I	</td><td>Two digit representation of the hour in 12-hour format	</td><td>01 through 12</td></tr>
+<tr><td>%l (</td><td>lower-case &#39;L&#39;)	Hour in 12-hour format, with a space preceding single digits	 </td><td>1 through 12</td></tr>
+<tr><td>%M	</td><td>Two digit representation of the minute	</td><td>00 through 59</td></tr>
+<tr><td>%p	</td><td>UPPER-CASE &#39;AM&#39; or &#39;PM&#39; based on the given time	</td><td>Example: AM for 00:31, PM for 22:23</td></tr>
+<tr><td>%P	</td><td>lower-case &#39;am&#39; or &#39;pm&#39; based on the given time	</td><td>Example: am for 00:31, pm for 22:23</td></tr>
+<tr><td>%r	</td><td>Same as &quot;%I:%M:%S %p&quot;	</td><td>Example: 09:34:17 PM for 21:34:17</td></tr>
+<tr><td>%R	</td><td>Same as &quot;%H:%M&quot;	</td><td>Example: 00:35 for 12:35 AM, 16:44 for 4:44 PM</td></tr>
+<tr><td>%S	</td><td>Two digit representation of the second	</td><td>00 through 59</td></tr>
+<tr><td>%T	</td><td>Same as &quot;%H:%M:%S&quot;	</td><td>Example: 21:34:17 for 09:34:17 PM</td></tr>
+<tr><td>%X	</td><td>Preferred time representation based on locale, without the date	</td><td>Example: 03:59:16 or 15:59:16</td></tr>
+<tr><td>%z	</td><td>The time zone offset. Not implemented as described on Windows. See below for more information.	</td><td>Example: -0500 for US Eastern Time</td></tr>
+<tr><td>%Z	</td><td>The time zone abbreviation. Not implemented as described on Windows. See below for more information.	</td><td>Example: EST for Eastern Time</td></tr>
+<tr><td><strong>Time and Date Stamps	</strong></td><td></td><td></td></tr>
+<tr><td>%c	</td><td>Preferred date and time stamp based on locale	</td><td>Example: Tue Feb 5 00:45:10 2009 for February 5, 2009 at 12:45:10 AM</td></tr>
+<tr><td>%D	</td><td>Same as &quot;%m/%d/%y&quot;	</td><td>Example: 02/05/09 for February 5, 2009</td></tr>
+<tr><td>%F	</td><td>Same as &quot;%Y-%m-%d&quot; (commonly used in database datestamps)	</td><td>Example: 2009-02-05 for February 5, 2009</td></tr>
+<tr><td>%s	</td><td>Unix Epoch Time timestamp (same as the time() function)	</td><td>Example: 305815200 for September 10, 1979 08:40:00 AM</td></tr>
+<tr><td>%x	</td><td>Preferred date representation based on locale, without the time	</td><td>Example: 02/05/09 for February 5, 2009</td></tr>
+</table>
+<h3><span id="常用API">常用API</span></h3>
+<p>Chart:图表区选项</p>
+<table border='1'><tr><th>参数 </th><th>描述 </th><th>默认值</th></tr>
+<tr><td>plotBackgroundColor </td><td>主图表区背景色即X轴不Y轴围成的区域的背景色 </td><td>null </td></tr>
+<tr><td>plotBorderWidth </td><td>主图表区边框的宽度 </td><td>0 </td></tr>
+<tr><td>shadow </td><td>是否设置阴影需要设置背景色backgroundColor </td><td>false </td></tr>
+<tr><td>type </td><td>数据列类型支持 area, areaspline, bar, column, line, pie, scatter or spline </td><td>line </td></tr>
+<tr><td>renderTo </td><td>图表放置的容器一般在html中放置一个DIV获取DIV的id属性值 </td><td>null </td></tr>
+</table>
+<p>title:标题选项</p>
+<table border='1'><tr><th>参数 </th><th>描述 </th><th>默认值</th></tr>
+<tr><td>text </td><td>标题文本内容 </td><td>Chart title  </td></tr>
+</table>
+<p>exporting:图片导出选项</p>
+<table border='1'><tr><th>参数 </th><th>描述 </th><th>默认值</th></tr>
+<tr><td>enabled </td><td>是否不能导出图片 </td><td>false  </td></tr>
+</table>
+<p>tooltip:数据点提示框选项</p>
+<table border='1'><tr><th>参数 </th><th>描述 </th><th>默认值</th></tr>
+<tr><td>enabled </td><td>是否显示提示框 </td><td>true  </td></tr>
+<tr><td>pointFormat </td><td>提示信息 </td><td></td></tr>
+<tr><td>percentageDecimals </td><td>小数点后的位数 </td><td>3  </td></tr>
+</table>
+<p>plotOptions:数据点选项</p>
+<table border='1'><tr><th>参数 </th><th>描述 </th><th>默认值</th></tr>
+<tr><td>allowPointSelect </td><td>是否允许使用鼠标选中数据点 </td><td>false  </td></tr>
+<tr><td>showInLegend </td><td>是否显示图例 </td><td>false  </td></tr>
+<tr><td>dataLabels </td><td>是否允许显示数据标签 </td><td>enabled : true  </td></tr>
+<tr><td>cursor </td><td>光标样式 </td><td></td></tr>
+</table>
+<p>series:数据列选项</p>
+<table border='1'><tr><th>参数 </th><th>描述 </th><th>默认值</th></tr>
+<tr><td>data </td><td>显示在图表中的数据列可以为数组或者JSON格式的数据。如data:<a href="#0," rel="nofollow">5, 3, 5</a>或 data: <a href="#{name:" rel="nofollow">&#39;Point 1&#39;,y: 0}, {name: &#39;Point 2&#39;,y: 5}</a> </td><td>&#39;&#39;  </td></tr>
+<tr><td>name </td><td>显示数据列的名称 </td><td>&#39;&#39;  </td></tr>
+<tr><td>size </td><td>（饼状图里圈）所占比例大小 </td><td></td></tr>
+<tr><td>innerSize </td><td>（饼状图外圈）所占比例大小 </td><td></td></tr>
+</table>
+<p>xAxis:X轴选项</p>
+<table border='1'><tr><th>参数 </th><th>描述 </th><th>默认值</th></tr>
+<tr><td>min </td><td>X轴最小值(categories为空时)如果为null则最小值会根据X轴数据自动匹配一个最小值。 </td><td>array  </td></tr>
+<tr><td>minTickInterval </td><td>显示数据刻度 （坐标点）</td><td></td></tr>
+<tr><td>type </td><td>数据类型  </td><td></td></tr>
+</table>
+<p>yAxis:Y轴选项  与X轴基本一致</p>
+<h2><span id="7_服务接口">7 服务接口</span></h2>
+<h3><span id="图表服务接口">图表服务接口</span></h3>
+<p><div class="code"><pre class="brush:java">
+
+public interface IChartService {
+
+	//曲线图数据结构
+	public ChartBean getLineChart(List&lt;DataExportRequest&gt; requestList);
+
+	//柱状图数据结构
+	public ChartBean getBarChart(List&lt;DataExportRequest&gt; requestList);
+
+	//饼状图数据结构
+	public ChartBean getPieChart(List&lt;DataExportRequest&gt; requestList);
+}
+</pre></div>
+</p>
+</div>
+</div>
+  </body>
+</html>

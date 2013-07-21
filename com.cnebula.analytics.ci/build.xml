@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Build Core" default="summary">
+	<import file="build-util_1_0.xml" />
+
+	<!--导入由BUILD_PROPERTY_LOCATION指定路径的属性文件的属性-->
+	<property file="${BUILD_PROPERTY_LOCATION}">
+	</property>
+	<property file="preset.properties">
+	</property>
+	<property file="${local.root}/local-build.properties">
+	</property>
+	<property file="build-global.properties">
+	</property>
+	<path id="oracle.driver.path">
+		<fileset dir="${target.platform.root}/drivers">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<target name="init">
+		<init.cobertura />
+		<init.deploy.root />
+	</target>
+	<target name="build.app.bundles" depends="init">
+		<build.bundle bundle.name="com.cnebula.analytics.common" />
+		<build.bundle bundle.name="com.cnebula.analytics.analyzeserver" />
+		<build.bundle bundle.name="com.cnebula.analytics.logserver" />
+		<build.bundle bundle.name="com.cnebula.analytics.reportserver" />
+	</target>
+
+	<!-- 构建测试Bundles-->
+	<target name="build.unittest.bundles" depends="build.app.bundles">
+		<build.unittest.bundle bundle.name="com.cnebula.analytics.unitest" />
+	</target>
+	<target name="build.comtest.bundles" depends="build.unittest.bundles">
+		<build.comtest.bundle bundle.name="com.cnebula.analytics.comtest" />
+	</target>
+
+	<target name="cobertura.app.bundles" depends="build.comtest.bundles">
+		<build.cobertura.bundle bundle.name="com.cnebula.analytics.common" />
+		<build.cobertura.bundle bundle.name="com.cnebula.analytics.analyzeserver" />
+		<build.cobertura.bundle bundle.name="com.cnebula.analytics.logserver" />
+		<build.cobertura.bundle bundle.name="com.cnebula.analytics.reportserver" />
+		<merge.cobertura.bundles />
+	</target>
+	<target name="deploy_app" depends="cobertura.app.bundles">
+		<deploy.runtime />
+	</target>
+	<!-- 运行checkstyle检查代码规范 -->
+	<taskdef resource="checkstyletask.properties" classpath="${target.platform.root}/target/plugins/checkstyle-5.6-all.jar" />
+	<target name="checkstyle" depends="deploy_app">
+		<checkstyle failOnViolation="false" config="${workspace.root}/com.cnebula.analytics.ci/checkstyle.xml">
+			<fileset dir="${workspace.root}">
+				<include name="**/*.java" />
+			</fileset>
+			<formatter type="plain" />
+			<formatter type="xml" toFile="${local.root}/checkstyle_errors.xml" />
+		</checkstyle>
+	</target>
+	<!--单元测试-->
+	<target name="unit.test" depends="checkstyle">
+		<general.junit bundle.name="com.cnebula.analytics.unitest" tested.bundle="com.cnebula.analytics.analyzeserver" test.pattern="com/cnebula/analytics/analyzeserver/Test*.class" fail.property="fail.unit.test" />
+		<general.junit bundle.name="com.cnebula.analytics.unitest" tested.bundle="com.cnebula.analytics.analyzeserver.processor" test.pattern="com/cnebula/analytics/analyzeserver/processor/Test*.class" fail.property="fail.unit.test" />
+		<general.junit bundle.name="com.cnebula.analytics.unitest" tested.bundle="com.cnebula.analytics.common" test.pattern="com/cnebula/analytics/common/Test*.class" fail.property="fail.unit.test" />
+		<general.junit bundle.name="com.cnebula.analytics.unitest" tested.bundle="com.cnebula.analytics.logserver" test.pattern="com/cnebula/analytics/logserver/Test*.class" fail.property="fail.unit.test" />
+		<general.junit bundle.name="com.cnebula.analytics.unitest" tested.bundle="com.cnebula.analytics.reportserver" test.pattern="com/cnebula/analytics/reportserver/Test*.class" fail.property="fail.unit.test" />
+	</target>
+	<!--启动服务-->
+	<target name="start.app.instance" depends="unit.test">
+		<start.instance systembundleversion="3.3.0.ES_1_0" />
+		<sleep seconds="${server.start.time}" />
+	</target>
+	<!--检查服务是否启动完毕-->
+	<target name="check.instance" depends="start.app.instance">
+		<sleep seconds="${server.start.time}" />
+		<es.check.status host="${http_host}" port="${http_port}"/>
+	</target>
+	<!--集成测试 -->
+	<target name="com.test" depends="check.instance">
+		<es.comtest bundle.name="com.cnebula.analytics.comtest" test.pattern="**/Test*.class" fail.property="fail.com.test" />
+	</target>
+	<!--关闭服务-->
+	<target name="close.instance" depends="com.test">
+		<es.close host="${http_host}" port="${http_port}" />
+		<sleep seconds="${server.start.time}" />
+	</target>
+	<!--测试报告-->
+	<target name="test.report" depends="close.instance">
+		<general.junit.report />
+		<es.comtest.report />
+	</target>
+	<target name="cobertura.report" depends="test.report">
+		<waitfor checkeveryunit="second" checkevery="5" maxwaitunit="second" maxwait="60">
+			<available file="${deploy.root}/cobertura/cobertura.ser">
+			</available>
+		</waitfor>
+		<waitfor checkeveryunit="second" checkevery="5" maxwaitunit="second" maxwait="60">
+			<available file="${deploy.root}/cobertura/com.cnebula.server.ser">
+			</available>
+		</waitfor>
+		<cobertura-merge datafile="${deploy.root}/cobertura/summary-cobertura.ser">
+			<fileset dir="${deploy.root}/cobertura">
+				<include name="**/*.ser" />
+			</fileset>
+		</cobertura-merge>
+		<cobertura-report datafile="${deploy.root}/cobertura/summary-cobertura.ser" format="${cobertura.report.type}" destdir="${cobertura.report.root}">
+			<fileset dir="${workspace.root}/com.cnebula.analytics.common/src">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${workspace.root}/com.cnebula.analytics.analyzeserver/src">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${workspace.root}/com.cnebula.analytics.logserver/src">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${workspace.root}/com.cnebula.analytics.reportserver/src">
+				<include name="**/*.java" />
+			</fileset>
+		</cobertura-report>
+	</target>
+	<target name="summary" depends="cobertura.report">
+		<fail message="Test Failed">
+			<condition>
+				<or>
+					<isset property="fail.com.test" />
+				</or>
+			</condition>
+		</fail>
+	</target>
+</project>

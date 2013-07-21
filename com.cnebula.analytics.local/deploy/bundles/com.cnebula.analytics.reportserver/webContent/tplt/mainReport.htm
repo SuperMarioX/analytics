@@ -1,0 +1,102 @@
+
+<div class="content">
+	<div class="title-bar">
+		<h1>+-title-+</h1>
+	</div>
+	<div id="systemEnvPanel" class="nav">
+		<span>客户端属性：</span> 
+		<label for='opersys'> <input id='opersys'
+			type='radio' name='systemenv' checked /> 操作系统
+		</label> <label for='browse'> <input id='browse' type='radio'
+			name='systemenv' /> 浏览器
+		</label>
+	</div>
+	<div class="control-bar-wrapper" id="dateBar">
+		<div class="control-bar">
+			<div id="dateDiv">
+			<div id="DateSelectBar" class="l date-select-bar">
+				<a class="date-bar-single-day" href="#" id='bsnMdelYesterday'>昨天</a> 
+				<a class="date-bar-single-day" href="#" id='bsnMdelLastMonth'>上月</a>
+			</div>
+			<div id="DateSelect" class="l clearfix">
+				<div id="date-range-field" class="dateRange">
+				  	<span>'自定义开始日期'</span>
+				    <a href="#" >&#9660;</a>
+				  </div>
+				  <div id="datepicker-calendar" class="absolute"></div>
+			</div>
+			</div>
+			<!-- 部分功能不需要时间刻度，如果需要时间刻度，必须进行显示的配置 -->
+
+			<div id="TimeSpan" class="l time-span clearfix">
+				<a id="ByHour" class="l first" href="javascript:void(0)">按时</a>
+				<a id="ByDay" class="l" href="javascript:void(0)">按日</a>
+				<a id="ByMonth" class="l last" href="javascript:void(0)">按月</a>
+			</div>
+
+			<div class="l dropdown" id="applist">
+				<dl>
+		        	<dt id="applistdt"><a href="#"><span class="ui-icon"></span><span class="titleText">应用系统：</span><span id="apptext"></span></a></dt>
+		        	<dd id="applistdd" style="display:none">
+			            <ul>
+			                <!--#
+								for(var i=0; i < appList.length; i++) {
+									var app = appList[i];
+									var appName;
+									var appFilter;
+									if(apps.get(app) == null){
+										appName = app;
+										appFilter = "oat='"+app+"'";
+									}else{
+										appName = apps.get(app).name;
+										appFilter = apps.get(app).filter;
+									}
+									
+							#-->
+								<li><a id="+-app-+" href="#" filter="+-appFilter-+">+-appName-+</a></li>
+							<!--#
+								}
+							#-->
+			            </ul>
+			        </dd>			       
+			    </dl>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div id="chartMetricsIndicator" class="chart-metrics-indicator">
+		<div id="chartMetricsIndicatorWrapper"
+			class="chart-metrics-indicator-wrapper">
+			+-metricName-+<a><span id="chartMetricsIndicatorText"
+				class="chart-metrics-indicator-text"></span></a>
+		</div>
+	</div>
+	<div id="chartMetricsOptionContainer"
+		class="chart-metrics-indicator-container layer">
+		<div id="chartMetricsOptionIndicator">
+		</div>
+	</div>
+
+	<div id="chart" class="chart-indicator" style="height: 400px;"></div>
+
+	<div class="nav" id="advfilterBar">
+		<div class="tabs filter-tabs" id="filterTabs">
+			<ul class="clearfix">
+				<li><a href="#customMetrics">自定义指标</a></li>
+				<!-- <li><a href="#advanced-filters">高级筛选</a></li> -->
+			</ul>
+			<div>
+				<div id="customMetrics" class="tab-contents group">
+					<div id="customMetricsOptionIndicator">
+					</div>
+					<input type="button" id="btn1" value="查看报表" />
+				</div>
+				<!-- <div id="advanced-filters" class="tab-contents">这里添加机构的过滤</div> -->
+			</div>
+		</div>
+	</div>
+
+	<div id="datetables" class="datatables-indicator"></div>
+
+</div>

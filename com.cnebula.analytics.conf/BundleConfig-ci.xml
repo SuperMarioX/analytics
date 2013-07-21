@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config system="analytics" defaultLevel="4">
+ <bundles>
+  <bundle name="cobertura" startLevel="-1" autoStart="true"/>
+  <bundle name="com.caucho.hessian" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.analytics.analyzeserver" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.analytics.common" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.analytics.logserver" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.analytics.reportserver" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.common.conf.impl" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.common.db" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.common.ejb.impl" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.common.ejb.manage" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.common.i18n.impl" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.common.log.impl" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.common.management.impl" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.common.remote.core" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.common.remote.ws" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.common.servlet.impl" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.common.xml.impl" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.junit" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.limit" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.platform.admin" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.rcs" startLevel="-1" autoStart="true"/>
+  <bundle name="javax.persistence" startLevel="-1" autoStart="true"/>
+  <bundle name="javax.servlet" startLevel="-1" autoStart="true"/>
+  <bundle name="org.apache.common.lang" startLevel="-1" autoStart="true"/>
+  <bundle name="org.apache.commons.collections" startLevel="-1" autoStart="true"/>
+  <bundle name="org.apache.commons.logging" startLevel="-1" autoStart="true"/>
+  <bundle name="org.eclipse.equinox.event" startLevel="-1" autoStart="true"/>
+  <bundle name="org.eclipse.equinox.http.jetty" startLevel="-1" autoStart="true"/>
+  <bundle name="org.eclipse.equinox.http.servlet" startLevel="-1" autoStart="true"/>
+  <bundle name="org.eclipse.equinox.log" startLevel="-1" autoStart="true"/>
+  <bundle name="org.eclipse.osgi" startLevel="0" autoStart="true"/>
+  <bundle name="org.eclipse.osgi.services" startLevel="-1" autoStart="true"/>
+  <bundle name="org.h2" startLevel="-1" autoStart="true"/>
+  <bundle name="org.jboss.netty" startLevel="-1" autoStart="true"/>
+  <bundle name="org.junit4" startLevel="-1" autoStart="true"/>
+  <bundle name="org.knopflerfish.bundle.component" startLevel="-1" autoStart="true"/>
+  <bundle name="org.mortbay.jetty" startLevel="-1" autoStart="true"/>
+  <bundle name="com.cnebula.um.ejb" startLevel="-1" autoStart="false"/>
+ </bundles>
+</Config>

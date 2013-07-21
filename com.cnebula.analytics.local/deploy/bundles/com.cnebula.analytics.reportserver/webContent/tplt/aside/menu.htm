@@ -1,0 +1,67 @@
+<ul class="nav">
+	<!--# 
+		var topMenuList = funcPchildMap.get("topMenu");
+		for(var i = 0;i<topMenuList.size();i++){
+		var oneMenuID = topMenuList.get(i);
+		var showList = ownList.intersection(funcMap.get(oneMenuID));
+		var supOneSite= funcInfoMap.get(oneMenuID)[9];
+			if(showList.length != 0&& supOneSite.indexOf(topmenu) != -1) {
+				var oneMenuInfo =funcInfoMap.get(oneMenuID);
+				var topMenuName=oneMenuInfo[0];
+	#-->
+	<li id="asidemenu+-i-+"><a class="open" href="#">+-topMenuName-+</a>
+	<!--# 
+				var twoMenuList = funcPchildMap.get(oneMenuID);
+				
+				for(var j=0;j<twoMenuList.size();j++){
+					var twoMenuID = twoMenuList.get(j);
+					var showTwoList = ownList.intersection(funcMap.get(twoMenuID));
+					var supTwoSite= funcInfoMap.get(twoMenuID)[9];
+					if(showTwoList.length != 0&& supTwoSite.indexOf(topmenu) != -1) {
+						var twoMenuInfo =funcInfoMap.get(twoMenuID);
+						var twoMenuName=twoMenuInfo[0];
+						var threeMenuList = funcPchildMap.get(twoMenuID);
+						
+						if(threeMenuList==null){
+	#-->
+		<ul>
+			<li><a id="+-twoMenuID-+" class="asideMenu"
+				href="javascript:void(0)">+-twoMenuName-+</a></li>
+		</ul>	
+	<!--#
+						}else{
+							
+	#-->
+		<ul>
+			<li><a id="+-twoMenuID-+" class="twoMenu" value="gb">+-twoMenuName-+</a></li>
+	<!--#					
+							
+							for(var k=0;k<threeMenuList.size();k++){
+								var threeMenuID = threeMenuList.get(k);
+								var threeMenuInfo =funcInfoMap.get(threeMenuID);
+								var showThreeList = ownList.intersection(funcMap.get(threeMenuID));
+								var supThreeSite= funcInfoMap.get(threeMenuID)[9];
+								if(showThreeList.length != 0&& supThreeSite.indexOf(topmenu) != -1){
+									var threeMenuName=threeMenuInfo[0];
+	#-->
+			<ul class="threeMenuUL" cstyle="display: none">
+				<li ><a id="+-threeMenuID-+" class="threeMenu"
+					href="javascript:void(0)">+-threeMenuName-+</a></li>
+			</ul>
+	<!--# 
+								}
+							}
+	#-->
+		</ul>
+	<!--# 
+							
+						}
+					}
+				}
+	#-->
+	</li>
+	<!--# 			
+			}
+		}
+	#-->
+</ul>

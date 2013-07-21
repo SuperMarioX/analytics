@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frameworkInfo>
+	<bundleInfo symbolicName="com.cnebula.analytics.reportserver">
+		<serviceInfo classname="com.cnebula.analytics.reportserver.aas.ReportAccessProvider"
+		interfaceName="com.cnebula.common.security.auth.ILoginValidateService"></serviceInfo>
+	</bundleInfo>
+</frameworkInfo>

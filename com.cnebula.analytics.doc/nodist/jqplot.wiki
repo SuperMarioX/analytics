@@ -1,0 +1,284 @@
+=jqPlot画图工具调研=
+#toc
+==1 简介==
+基于JQuery的一套绘图软件（插件），纯JavaScript编写。
+==2 API==
+===2.1 类库===
+由于依赖JQuery，因此需要引入其类库，同时需要引入jqPlot类库。
+{{code}}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>标题</title>
+	<link class="include" rel="stylesheet" type="text/css" href="../jquery.jqplot.min.css" />
+  	<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="../excanvas.js"></script><![endif]-->
+    	<script class="include" type="text/javascript" src="../jquery.min.js"></script>
+	<!-- jqplot plugins go here -->
+	<script class="include" type="text/javascript" src="../jquery.jqplot.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.barRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.pieRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.categoryAxisRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.pointLabels.min.js"></script>
+	<!-- End additional plugins -->
+</head>
+<body>
+...
+...
+<body>
+</html>
+{{/code}}
+本文档例子中的路径关系如下图所示。\\
+{{img/jqplot/jsLib.png|柱状图例子}}\\
+**注意：实际开发时，里面类库的路径需要根据实际路径作对应更改**。
+===2.1 绘图API===
+基本绘图API代码如下：
+{{code}}
+mychart = $.jqplot('chart', dataSeries, optionsObj);
+{{/code}}
+其中，
+*chart:绘图区域的页面ID，也就是存放图形的区域，一般用页面块元素，如"div"元素。
+*dataSeries：数据，存放在一个数组当中。
+*optionsObj：可选参数，用来设置绘图区域的效果。详细信息参见：http://www.jqplot.com/docs/files/jqPlotOptions-txt.html。\\实际开发时，需要根据需求设定所需的效果
+==3 例子==
+API比较抽象，对应例子比较明了，以下通过柱状图、条形图、折线图和饼图作为例子进行说明。\\
+**注:下面的例子均摘自官方例子，自己做了更改，同时在浏览器（IE6-9、Firefox）测试通过。**
+===3.1 柱状图===
+完整代码示例如下
+{{code}}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>基本柱状图</title>
+	<link class="include" rel="stylesheet" type="text/css" href="../jquery.jqplot.min.css" />
+  	<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="../excanvas.js"></script><![endif]-->
+    <script class="include" type="text/javascript" src="../jquery.min.js"></script>
+	<!-- jqplot plugins go here -->
+	<script class="include" type="text/javascript" src="../jquery.jqplot.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.barRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.pieRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.categoryAxisRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.pointLabels.min.js"></script>
+	<!-- End additional plugins -->
+</head>
+<body>
+	<!-- 注意：div的高度和宽度必须设置!
+		这里作为示例直接写在style里面，实际开发建议写在css中 。
+		例如本例中可以写成
+		#chart1{
+			width:300px; height:300px;
+		}
+	-->
+	<div id="chart1" style="width:300px; height:300px;"></div>
+	<script class="code" type="text/javascript">
+		$(document).ready(function(){
+			$.jqplot.config.enablePlugins = true;
+			var s1 = [2, 6, 7, 10];
+			var ticks = ['a', 'b', 'c', 'd'];
+			var options = {
+			    //animate: !$.jqplot.use_excanvas,//如果去除本注释，将显示动画效果：注意IE8（包括IE8）以下不会出现动画效果
+			    title: '柱状图标题',
+			    seriesDefaults:{
+			        renderer:$.jqplot.BarRenderer,
+			        pointLabels: { show: true }
+			    },
+			    axes: {
+			        xaxis: {
+			        	label: "X轴",
+			            renderer: $.jqplot.CategoryAxisRenderer,
+			            ticks: ticks
+			        },
+			        yaxis: {
+				    	label: "Y轴"
+				  	}
+			    }
+			};
+			plot1 = $.jqplot('chart1', [s1], options);
+		});
+	</script>
+</body>
+</html>
+{{/code}}
+IE9浏览器的效果截图如下。
+{{img/jqplot/bar1.png|柱状图例子}}\\
+===3.2 条形图===
+条形图例子的完整代码如下
+{{code}}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>基本柱状图之条形图</title>
+	<link class="include" rel="stylesheet" type="text/css" href="../jquery.jqplot.min.css" />
+  	<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="../excanvas.js"></script><![endif]-->
+    <script class="include" type="text/javascript" src="../jquery.min.js"></script>
+	<!-- jqplot plugins go here -->
+	<script class="include" type="text/javascript" src="../jquery.jqplot.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.barRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.pieRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.categoryAxisRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.pointLabels.min.js"></script>
+	<!-- End additional plugins -->
+</head>
+<body>
+	<!-- 注意：div的高度和宽度必须设置!
+		这里作为示例直接写在style里面，实际开发建议写在css中 。
+		例如本例中可以写成
+		#chart2b{
+			width:400px; 
+			height:400px;
+		}
+	-->
+	<div id="chart2b" style="width:400px; height:400px;"></div>
+	<script class="code" type="text/javascript">
+		$(document).ready(function(){
+			var data = [[[2,1], [4,2], [6,3], [3,4]], [[5,1], [1,2], [3,3], [4,4]], [[4,1], [7,2], [1,3], [2,4]]];
+			var options = {
+		    	title: '条形图标题',
+		    	seriesDefaults: {
+		            renderer:$.jqplot.BarRenderer,
+		            pointLabels: { show: true, location: 'e', edgeTolerance: -15 },
+		            shadowAngle: 135,
+		            rendererOptions: {
+		                barDirection: 'horizontal'
+		            }
+		        },
+		        axes: {
+		        	xaxis: {
+			        	label: "X轴",
+			            renderer: $.jqplot.CategoryAxisRenderer,
+			        },
+		            yaxis: {
+		            	label: "Y轴",
+		                renderer: $.jqplot.CategoryAxisRenderer
+		            }
+		        }
+			};
+		    plot2b = $.jqplot('chart2b', data, options);
+		});
+	</script>
+</body>
+</html>
+{{/code}}
+IE9浏览器的效果截图如下。
+{{img/jqplot/bar2.png|条形图例子}}\\
+===3.3 折线图===
+折线图例子的完整代码如下
+{{code}}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>折线图</title>
+	<link class="include" rel="stylesheet" type="text/css" href="../jquery.jqplot.min.css" />
+  	<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="../excanvas.js"></script><![endif]-->
+	<script class="include" type="text/javascript" src="../jquery.min.js"></script>
+	<!-- jqplot plugins go here -->
+	<script class="include" type="text/javascript" src="../jquery.jqplot.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.barRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.pieRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.categoryAxisRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.pointLabels.min.js"></script>
+	<!-- End additional plugins -->
+</head>
+<body>
+	<!-- 注意：div的高度和宽度必须设置!
+		这里作为示例直接写在style里面，实际开发建议写在css中 。
+		例如本例中可以写成
+		#chart1{
+			width:500px; 
+			height:300px;
+		}
+	-->
+	<div id="chart1" style="height:300px; width:500px;"></div>
+	<script class="code" type="text/javascript">
+		var options = {
+			title:'折线图标题',
+			axesDefaults: {
+				labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+			},
+			seriesDefaults: {
+				lineWidth: 1
+			},
+			axes: {
+			  	xaxis: {
+			    	label: "X轴",
+			   		pad: 0
+			  	},
+			  	yaxis: {
+			    	label: "Y轴"
+			  	}
+			}
+		};
+		$(document).ready(function(){
+		  var plot1 = $.jqplot ('chart1', [[3,7,9,1,5,3,8,2,5],[2,8,3,8,7,6,12,1,5]],options);
+		});
+	</script>
+</body>
+</html>
+{{/code}}
+IE9浏览器的效果截图如下。
+{{img/jqplot/line.png|折线图例子}}\\
+===3.4 饼图===
+饼图例子的完整代码如下
+{{code}}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>饼图</title>
+	<link class="include" rel="stylesheet" type="text/css" href="../jquery.jqplot.min.css" />
+  	<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="../excanvas.js"></script><![endif]-->
+	<script class="include" type="text/javascript" src="../jquery.min.js"></script>
+	<!-- jqplot plugins go here -->
+	<script class="include" type="text/javascript" src="../jquery.jqplot.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.barRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.pieRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.categoryAxisRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="../plugins/jqplot.pointLabels.min.js"></script>
+	<!-- End additional plugins -->
+</head>
+<body>
+	<!-- 注意：div的高度和宽度必须设置!
+		这里作为示例直接写在style里面，实际开发建议写在css中 。
+		例如本例中可以写成
+		#pie1{
+			width:300px; 
+			height:300px;
+		}
+	-->
+	<div id="pie1" style="width:300px; height:300px;"></div>
+	<script class="code" type="text/javascript">
+		$(document).ready(function(){
+			var data = [[['a',25],['b',14],['c',7]]];//数据，数组格式，以下的例子相同
+			var options = {//选项，以下的例子相同
+				gridPadding: {top:0, bottom:38, left:0, right:0},
+				seriesDefaults:{
+				    renderer:$.jqplot.PieRenderer, 
+				    trendline:{ show:false }, 
+				    rendererOptions: { padding: 8, showDataLabels: true }
+				},
+				legend:{
+				    show:true, 
+				    placement: 'outside', 
+				    rendererOptions: {
+				        numberRows: 1
+				    }, 
+				    location:'s',
+				    marginTop: '15px'
+				} 
+			};
+		    var plot1 = $.jqplot('pie1', data, options);
+		});
+	</script>
+</body>
+</html>
+{{/code}}
+IE9浏览器的效果截图如下。
+{{img/jqplot/pie.png|饼图例子}}\\
+==4 参考==
+|=网址|=说明
+|http://www.jqplot.com/index.php|官网首页
+|http://www.jqplot.com/tests/|官网例子页面
+|http://www.jqplot.com/docs/files/usage-txt.html|API说明

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>changlog</title>
+<style type="text/css"><!--
+/* @group RESET */
+/* --------------------------------------------------------------
+
+  Reset.css
+  * Resets default browser CSS styles.
+
+  Created by Erik Meyer:
+  * meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/
+-------------------------------------------------------------- */
+
+* html {
+  overflow-y: auto;
+}
+html, body {
+    height: 100%;
+}
+--></style>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/zyxwiki.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shThemeDefault.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shCore.css"/>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCpp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCSharp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCss.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushGroovy.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJavaFX.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJScript.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPerl.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPhp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPlain.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPowerShell.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPython.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushRuby.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushScala.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushSql.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushVb.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushXml.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJava.js"></script>
+<script type="text/javascript">
+SyntaxHighlighter.config.clipboardSwf = '_cssAndJsDir_/clipboard.swf'
+SyntaxHighlighter.all();
+</script>
+  </head>
+  <body>
+
+<div id="xwikimaincontainer">
+<div id="xwikimaincontainerinner">
+<p>CALIS日志统计与监控系统更新历史</p>
+<h2><span id="从_build167升级到_build?">从 build167升级到 build?</span></h2>
+<ol><li>中心站、共享域站、成员馆站点增加今日统计、实时分析功能</li></ol>
+<h2><span id="从_build130升级到_build167">从 build130升级到 build167</span></h2>
+<ol><li>图表控件替换为highcharts</li>
+<li>图表支持打印、导出PNG、JPEG、PDF、SVG矢量图功能</li>
+<li>增加实时分析、今日统计功能</li>
+<li>增加受访页面、全部来源、IP来源、外部链接、系统环境报表</li>
+<li>表格支持excel的导出、打印、拷贝功能</li>
+<li>更新日期控件为日期范围选择控件</li></ol>
+<h2><span id="从_build70升级到_build130">从 build70升级到 build130</span></h2>
+<ol><li>CALIS日志统计与监控系统升级到v1.1.0版本</li>
+<li>支持多指标报表</li>
+<li>支持可查看全站级别的各个应用系统的报表 </li>
+<li>增加对教参系统的报表集成</li>
+<li>增加功能菜单的配置管理（conf/menu/menu_config.xml）</li>
+<li>增加对rcs数据的过滤配置管理（conf/rcsFilter/rcsFilter_config.xml）</li></ol>
+<h2><span id="从_build64升级到_build70">从 build64升级到 build70</span></h2>
+<ol><li>修复bug1453:日志系统js端114版本某些时候采集_caam的值为0，</li>
+<li>建议日志系统同步数据的地址做成可配置项</li>
+<li>修复bug1841日志系统运行1~2周后不定期出现NPE</li></ol>
+<p>升级办法：</p>
+<p>在原var.propertes中添加：</p>
+<table border='1'><tr><td><div class="code"><pre class="brush:java">
+
+#从RCS获取信息的配置
+rcsHost=rcs.calis.edu.cn
+rcsPort=80
+#rcs中获取信息需提供的订阅者ID，目前正式环境可用calis中心uas的ID
+appId=app:100000.uas_000
+</pre></div>
+</td></tr>
+</table>
+</div>
+</div>
+  </body>
+</html>

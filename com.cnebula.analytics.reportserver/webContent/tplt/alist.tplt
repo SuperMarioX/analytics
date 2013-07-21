@@ -1,0 +1,23 @@
+<!--#
+	if(lClass){
+#-->
+		<select class="+-lClass-+" onchange="+-clickFunc-+(this);">
+<!--#
+	}else{
+#-->
+		<select onchange="+-clickFunc-+(this);">
+<!--#
+	}
+	for(var i = 0; i < applist.size(); i++){
+		var a = applist.get(i);
+		var aId = a[1];
+		var aNodeName = a[11];
+		var aName = a[2];
+		var aVersion = a[7];
+		var selectDisplay = aNodeName + aName + aVersion;
+#-->
+	<option value="+-aId-+">+-selectDisplay-+</option>
+<!--#
+	}
+#-->
+</select>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CALogRecord table="log_visit">
+	<columns>
+<!-- <column prime="true" 		colName="id"     name="id"      type="TEXT"     length="20"   description="数据表主键" nullAble="false" ></column> -->
+					<column colName="tlv"    name="tlv"     type="INT"     length="0"    description="会话访问时间:上次访问时间" ></column>
+					<column colName="tss"    name="tss"     type="INT"     length="0"    description="会话访问时间:开始时间" ></column>
+					<column colName="tglv"   name="tglv"    type="INT"     length="0"    description="全局会话访问时间:上次访问时间" ></column>
+					<column colName="tgss"   name="tgss"    type="INT"     length="0"    description="全局会话访问时间:开始时间" ></column>
+					<column colName="topy"   name="topy"    type="NUMBER"   length="4"    description="操作时间:年" ></column>
+					<column colName="topm"   name="topm"    type="NUMBER"   length="2"    description="操作时间:月" ></column>
+					<column colName="topd"   name="topd"    type="NUMBER"   length="2"    description="操作时间:日" ></column>
+					<column colName="toph"   name="toph"    type="NUMBER"   length="2"    description="操作时间:小时" ></column>
+					<column colName="topms"  name="topms"   type="TEXT"     length="5"    description="操作时间:分秒" ></column>
+					<column colName="lip"    name="lip"     type="TEXT"     length="40"   description="网络地点:IP" ></column>
+					<column colName="lorg"   name="lorg"    type="TEXT"     length="32"   description="网络地点:学校/单位代码" ></column>
+					<!-- CN、US、EN -->
+					<column colName="lcn"    name="lcn"     type="TEXT"     length="8"    description="网络地点:国家代码" ></column>
+					<!-- 京、藏、疆、台湾 UTF-8 -->
+					<column colName="lst"    name="lst"     type="TEXT"     length="12"   description="网络地点:省/直辖市代码" ></column>
+					<column colName="lfrm"   name="lfrm"    type="TEXT"     length="2000" description="访问途径" ></column>
+					<column colName="ldev"   name="ldev"    type="TEXT"     length="32"   description="设备" ></column>
+					<column colName="lsr"    name="lsr"     type="TEXT"  	length="20"	  description="分辨率" ></column>
+					<column colName="los"    name="los"     type="TEXT" 	length="20"	  description="操作系统:类型" ></column>
+					<!-- 还未实现 -->
+					<column colName="losv"   name="losv"    type="TEXT"     length="20"   description="操作系统:版本" ></column>
+					<column colName="lbt"    name="lbt"     type="TEXT"     length="20"   description="浏览器:类型" ></column>
+					<column colName="lbv"    name="lbv"     type="TEXT"     length="20"   description="浏览器:版本" ></column>
+					<column colName="lbid"   name="lbid"    type="TEXT"     length="36"   description="浏览器:全局即为web访问日志中全局（跨域）唯一身份ID" ></column>
+					<column colName="lbaid"  name="lbaid"   type="TEXT"     length="36"   description="浏览器:局部即为web访问日志中相对某个应用系统唯一身份ID" ></column>
+					<column colName="lbl"    name="lbl"     type="TEXT"     length="12"   description="浏览器:语言" ></column>
+					<column colName="lbpd"   name="lbpd"    type="NUMBER"   length="1"    description="浏览器:插件director" ></column>
+					<column colName="lbpj"   name="lbpj"    type="NUMBER"   length="1"    description="浏览器:插件java" ></column>
+					<column colName="lbpf"   name="lbpf"    type="NUMBER"   length="1"    description="浏览器:插件flash" ></column>
+					<column colName="lbpq"   name="lbpq"    type="NUMBER"   length="1"    description="浏览器:插件quicktime" ></column>
+					<column colName="lbpp"   name="lbpp"    type="NUMBER"   length="1"    description="浏览器:插件pdf" ></column>
+					<column colName="lbpm"   name="lbpm"    type="NUMBER"   length="1"    description="浏览器:插件windows media" ></column>
+					<column colName="lbpg"   name="lbpg"    type="NUMBER"   length="1"    description="浏览器:插件gears" ></column>
+					<column colName="lbps"   name="lbps"    type="NUMBER"   length="1"    description="浏览器:插件silverlight" ></column>
+					<column colName="sorg"   name="sorg"    type="TEXT"     length="32"   description="归属:学校/单位代码(登录后用户从用户信息取)"></column>
+					<column colName="sten"   name="sten"    type="TEXT"     length="32"   description="归属:所属租客(登录后用户从用户信息取)" ></column>
+					<!-- 会话ID是否和lbaid重了 -->
+					<column colName="ssn"    name="ssn"     type="TEXT"   length="36"    description="归属:会话ID" ></column>
+					<!-- 
+					<column colName="ssnc"   name="ssnc"    type="NUMBER"   length="6"    description="归属:会话计数" ></column>
+					 -->
+					<!-- 全局会话ID是否和lbid重了 -->
+					<column colName="sgsn"   name="sgsn"    type="TEXT"   length="36"    description="归属:全局会话ID" ></column>
+					<!-- 
+					<column colName="sgsnc"  name="sgsnc"   type="NUMBER"   length="6"    description="归属:全局会话计数" ></column>
+					 -->
+					<column colName="sid"    name="sid"     type="TEXT"     length="255"  description="身份:ID(登录后用户从用户信息取)" ></column>
+					<column colName="st"     name="st"      type="TEXT"     length="128"  description="身份:用户类型(登录后用户从用户信息取)" ></column>
+					<column colName="op"     name="op"      type="TEXT"     length="255"  description="动作" ></column>
+					<column colName="oaid"   name="oaid"    type="TEXT"     length="64"   description="应用系统:APPID" ></column>
+					<column colName="oat"    name="oat"     type="TEXT"     length="32"   description="应用系统:应用系统类型" ></column>
+					<column colName="oaten"  name="oaten"   type="TEXT"     length="32"   description="应用系统:应用系统所属租客" ></column>
+					<!-- 可建数据字典  -->
+					<column colName="oadm"   name="oadm"    type="NUMBER"   length="10"   description="应用系统:当前访问域" ></column>
+					<!-- 共享域代码  -->
+					<column colName="oasc"   name="oasc"    type="TEXT"     length="32"   description="应用系统:应用系统所属共享域" ></column>
+					<column colName="ort"    name="ort"     type="TEXT"     length="128"  description="资源:资源类型" ></column>
+					<!-- 可建数据字典  -->
+					<column colName="orid"   name="orid"    type="TEXT"    length="255"   description="资源:资源ID" ></column>
+					<column colName="otil"   name="otil"    type="TEXT"    length="2000"  description="DC描述:名称" ></column>
+					<column colName="ocrt"   name="ocrt"    type="TEXT"    length="512"   description="DC描述:作者" ></column>
+					<column colName="osub"   name="osub"    type="TEXT"    length="2000"  description="DC描述:主题" ></column>
+					<column colName="opub"   name="opub"    type="TEXT"    length="255"   description="DC描述:出版者" ></column>
+					<column colName="ocor"   name="ocor"    type="TEXT"    length="512"   description="DC描述:其他贡献人" ></column>
+					<column colName="odt"    name="odt"     type="DATE"    length="0"     description="DC描述:日期" ></column>
+					<column colName="oct"    name="oct"     type="TEXT"    length="255"   description="DC描述:类型" ></column>
+					<column colName="ofmt"   name="ofmt"    type="TEXT"    length="32"    description="DC描述:格式" ></column>
+					<!-- 可建数据字典  -->
+					<column colName="osrc"   name="osrc"    type="TEXT"    length="255"   description="DC描述:来源" ></column>
+					<!-- 需要标准的输入，例如使用JAVA中local的语言描述 -->
+					<column colName="oln"    name="oln"     type="TEXT"    length="12"    description="DC描述:语言" ></column>
+					<column colName="orel"   name="orel"    type="TEXT"    length="2000"  description="DC描述:期刊" ></column>
+					<column colName="rvc"    name="rvc"     type="NUMBER"  length="1"  	  description="计数:浏览量计数(PV记1，其他动作记0)" ></column>
+					<column colName="rsc"    name="rsc"     type="NUMBER"  length="1"     description="计数:访问次数计数(casn和casc同时存在时为0,否则为1)" ></column>
+					<column colName="rgnc"   name="rgnc"    type="NUMBER"  length="1"     description="计数:全局新增唯一用户计数(cagm存在为0，否则为1)" ></column>
+					<column colName="rnc"    name="rnc"     type="NUMBER"  length="1"     description="计数:新增唯一用户计数(caam存在为0，否则为1)" ></column>
+					<column colName="rrs"    name="rrs"     type="TEXT"    length="255"  description="响应状态:" ></column>
+	</columns>
+</CALogRecord>

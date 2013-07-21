@@ -1,0 +1,22 @@
+<div class='control-bar site'>
+<!--# 
+	for(var i=0; i < siteList.size(); i++) {
+		var siteInfo = siteMap.get(siteList.get(i));
+		var id = siteInfo.id;
+		var name = siteInfo.name;
+		var filter = siteInfo.filter;
+		var hasMore = false;
+		if(siteInfo.childSitesList != null && siteInfo.childSitesList != undefined)
+			hasMore = true;
+		if(i == 0) {
+#-->
+			<a id="+-id-+" class="site-selector site-selector-first" hasContainer="+-hasMore-+" filter="+-filter-+">| +-name-+ |</a>
+<!--# 
+		} else {
+ #-->
+			<a id="+-id-+" class="site-selector" hasContainer="+-hasMore-+" filter="+-filter-+">| +-name-+ |</a>
+<!--#
+		}
+	}
+#-->
+</div>

@@ -1,0 +1,49 @@
+
+<div class="content">
+	<div class="title-bar">
+		<h1>+-title-+</h1>
+	</div>
+	<div class="control-bar-wrapper" id="dateBar">
+		<div class="control-bar">
+
+			<div class="l dropdown" id="applist">
+				<dl>
+		        	<dt id="applistdt"><a href="#"><span class="ui-icon"></span><span class="titleText">应用系统：</span><span id="apptext"></span></a></dt>
+		        	<dd id="applistdd" style="display:none">
+			            <ul>
+			                <!--#
+								for(var i=0; i<oatList.length; i++) {
+									var oat = oatList[i];
+									var oatName = oatInfoMap.get(oat)[0];
+									var oatFilter = oatInfoMap.get(oat)[1];
+							#-->
+								<li><a id="+-oat-+" href="#" value='+-oat-+' filter="+-oatFilter-+">+-oatName-+</a></li>
+							<!--#
+								}
+							#-->
+			            </ul>
+			        </dd>			       
+			    </dl>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div id="chartMetricsIndicator" class="chart-metrics-indicator">
+		<div id="chartMetricsIndicatorWrapper"
+			class="chart-metrics-indicator-wrapper">
+			+-metricName-+<a><span id="chartMetricsIndicatorText"
+				class="chart-metrics-indicator-text"></span></a>
+		</div>
+	</div>
+	<div id="chartMetricsOptionContainer"
+		class="chart-metrics-indicator-container layer">
+		<div id="chartMetricsOptionIndicator">
+		</div>
+	</div>
+
+	<div id="chart" class="chart-indicator" style="height: 400px;"></div>
+
+	
+
+</div>

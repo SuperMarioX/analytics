@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CALIS_Server>
+	<!-- 系统常规日志配置 -->
+	<cfg confPoint="com.cnebula.common.log.imp.LogImp" include="log.xml">
+	</cfg>
+	<!-- jrmiRegister -->
+	<cfg confPoint="jrmiRegister">
+		<jrmiRegister port="2199" />
+	</cfg>
+	<cfg confPoint="jmx">
+		<JMXServerConfig host="#{jmx_host}" port="#{jmx_port}"></JMXServerConfig>
+	</cfg>
+	<!-- HTTP 服务配置 -->
+	<cfg confPoint="httpServer">
+		<HttpServer host="#{http_host}" port="#{http_port}" maxFormContentSize="4096000"
+			minThread="#{http_minThread}" maxThread="#{http_maxThread}"
+			sessionMaxTimeout="1800" httpEnabled="true" httpsEnabled="false">
+			<log enable="false" logFile="accessLog/web-yyyy_mm_dd.log"
+				retainDays="90" extended="false" />
+		</HttpServer>
+	</cfg>
+	<cfg confPoint="CADatasource">
+		<h2DataSourceConfigs>
+		
+			<H2DataSourceConfig name="jdbc/logds"  url="jdbc:h2:#{logpath}/calog;CACHE_SIZE=40960"  user="sa" password=""/>
+			<H2DataSourceConfig name="jdbc/analyticsds"  url="jdbc:h2:#{logpath}/caan;CACHE_SIZE=40960"  user="sa" password=""/>
+			<H2DataSourceConfig name="jdbc/logds2"  url="jdbc:h2:#{logpath}/calog;CACHE_SIZE=40960;LOG=0;LOCK_MODE=0;UNDO_LOG=0"  user="sa" password=""/>
+			
+			 <!--
+			<H2DataSourceConfig name="jdbc/logds"  url="jdbc:h2:#{logpath}/calog;CACHE_SIZE=40960;LOG=0;LOCK_MODE=0;UNDO_LOG=0"  user="sa" password=""/>
+			<H2DataSourceConfig name="jdbc/analyticsds"  url="jdbc:h2:#{logpath}/caan;CACHE_SIZE=40960;LOG=0;LOCK_MODE=0;UNDO_LOG=0"  user="sa" password=""/>
+			  -->
+			<!-- 
+			<H2DataSourceConfig name="jdbc/logds"  url="jdbc:h2:tcp://localhost/~/test"  user="sa" password=""/>
+			<H2DataSourceConfig name="jdbc/analyticsds"  url="jdbc:h2:tcp://localhost/~/test"  user="sa" password=""/>
+			 -->
+			 
+		</h2DataSourceConfigs>
+	</cfg>
+	<cfg confPoint="StaticRolesConfig" include="StaticRolesConfig.xml"/>
+	<cfg confPoint="CALogServerConf">
+		<CALogServer host="#{logger_host}" port="#{logger_port}"  >
+		</CALogServer>
+	</cfg>
+	<cfg confPoint="CAReportServerConf">
+		<CALogServer uasHost="#{uasHost}" uasPort="#{uasPort}">
+		</CALogServer>
+	</cfg>
+	<cfg confPoint="com.cnebula.analytics.common.rd.RCSDataQueryConfig">
+	    <RCSDataQueryConfig rcsHost="#{rcsHost}" rcsPort="#{rcsPort}" appId="#{appId}"></RCSDataQueryConfig>
+	</cfg>
+</CALIS_Server>

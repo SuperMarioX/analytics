@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<titile></titile>
+
+<link rel="stylesheet" type="text/css" href="css/ztree/zTreeStyle.css" >
+<link rel="stylesheet" type="text/css" href="css/jqplot/jquery.jqplot.min.css" />
+<link type="text/css" rel="stylesheet" href="css/tab/tabs.css"></link>
+<link type="text/css" rel="stylesheet" href="css/jquery.toastmessage.css"></link>
+<link type="text/css" rel="stylesheet" href="css/ca/business.css"></link>
+<link type="text/css" rel="stylesheet" href="css/jqueryui/jquery.ui.all.css">
+<link type="text/css" rel="stylesheet" href="css/dataTables/jquery.dataTables_themeroller.css"></link>
+<!-- <link type="text/css" rel="stylesheet" href="css/demos.css"></link> -->
+
+
+<script src="js/jquery/jquery-1.8.0.js"></script>
+<script src="js/ztree/jquery.ztree.all-3.1.min.js"></script>
+<!--[if lt IE 9]><script  src="js/jqplot/excanvas.js"></script><![endif]-->
+<!-- jqplot plugins go here -->
+<script  src="js/jqplot/jquery.jqplot.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.barRenderer.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.pointLabels.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.highlighter.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.highlighter.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.cursor.min.js"></script>
+<script  src="js/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script  src="js/jquery/date.js"></script>
+<script  src="js/jquery/jquery.qtip-1.0.0-rc3.min.js"></script>
+<script  src="js/jquery/jquery.toastmessage.js"></script>
+<script  src="js/jquery/ui/jquery.ui.core.js"></script>
+<script  src="js/jquery/ui/jquery.ui.widget.js"></script>
+<script  src="js/jquery/ui/jquery.ui.mouse.js"></script>
+<script  src="js/jquery/ui/jquery.ui.draggable.js"></script>
+<script  src="js/jquery/ui/jquery.ui.position.js"></script>
+<script  src="js/jquery/ui/jquery.ui.resizable.js"></script>
+<script  src="js/jquery/ui/jquery.ui.datepicker.js"></script>
+<script  src="js/jquery/ui/jquery.ui.button.js"></script>
+<script  src="js/jquery/ui/jquery.ui.dialog.js"></script>
+<script  src="js/jquery/ui/jquery.effects.core.js"></script>
+<script  src="js/jquery/ui/jquery.effects.blind.js"></script>
+<script  src="js/jquery/ui/jquery.effects.explode.js"></script>
+<script  src="js/jquery/jquery.dataTables.min.js"></script>
+
+<script src="/easyservice-util/EasyServiceClientFullZ.js"></script>
+<script src="/easyservice/com.cnebula.common.security.auth.ILoginService?json"></script> 
+<script src="/easyservice/com.cnebula.analytics.reportservice.ICAReportService?json&amp;v=2"></script>
+<script src="/easyservice/com.cnebula.analytics.common.rd.IRCSDataQueryService?json&amp;v=1"></script>
+<script src="/easyservice/com.cnebula.common.remote.core.comet.ICometService?json"></script>
+<script src="/easyservice/com.cnebula.analytics.reportservice.IComplexReportService?json&amp;v=3"></script>
+<script src="js/dateSelector.js"></script>
+<script src="js/datafeed_newV2.js"></script>
+<script src="js/uimodel.js"></script>
+<script src="js/model/business.js"></script>
+<script type="text/javascript">
+
+
+$(document).ready(function() {
+//	parent.document.getElementById("dataFrame").style.height = document.body.scrollHeight;
+//	parent.document.getElementById("dataFrame").style.width = document.body.scrollWidth;
+
+});
+</script>
+</head> 
+<body>
+	<div id="statResult">
+			<div id='timeConditions'>
+				<b>时间：</b>
+					<span>
+						<a href='javascript:void(0);' id='bsnMdelYesterday'>昨天</a>
+						<a href='javascript:void(0);' id='bsnMdelLastMonth'>上月</a>
+					</span>
+					<span>
+						时间段：<input type='text' id='dateFrom' value='--请选择--'> —
+						<input type='text' id='dateTo' value='--请选择--''>
+					</span>
+					<button>确定</button>
+					<input type="hidden" id="startDate" value=""/>
+					<input type="hidden" id="endDate" value=""/>
+					<select id="bsnMdelAppType">
+						<option value="eduChina">eduChina</option>
+						<option value="yidu">yidu</option>
+						<option value="ues">ues</option>
+						<option value="aopac">aopac</option>
+						<option value="elocal">elocal</option>
+						<option value="uas">uas</option>
+						<option value="nav">nav</option>
+						<option value="ill">ill</option>
+						<option value="ztc">ztc</option>
+						<option value="ccc">ccc</option>
+						<option value="cal">cal</option>
+						<option value="ubs">ubs</option>
+						<option value="nps">nps</option>
+						<option value="opac">opac</option>
+						<option value="cvrs">cvrs</option>
+						<option value="auopac">auopac</option>
+						<option value="iri">iri</option>
+					</select>
+			</div>
+			<iframe id="bsnReportFrame" name="bsnReportFrame" frameBorder="0"></iframe>
+	</div>
+	<div class="clear"></div>
+</body>
+<script language="javascript">
+
+</script>
+</html>

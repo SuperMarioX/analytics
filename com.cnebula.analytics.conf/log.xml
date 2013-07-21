@@ -1,0 +1,30 @@
+<LogConfig>
+	<targetDefinition>
+		<target id="ft" type="file">
+			<paramList>
+				<param name="rootdir" value="./log" />
+			</paramList>
+			<formatter type="fieldList" />
+		</target>
+		<target id="ct" type="console">
+			<formatter type="fieldList" />
+		</target>
+	</targetDefinition>
+	<logDefinition>
+		<log>
+			<packageList>
+				<package name="org.mortbay" filter="error" />
+			</packageList>
+			<targetList>
+				<target value="ft" />
+				<target value="ct" />
+			</targetList>
+		</log>
+	</logDefinition>
+	<defaultLog level="info">
+		<targetList>
+			<target value="ct" />
+			<target value="ft" />
+		</targetList>
+	</defaultLog>
+</LogConfig>

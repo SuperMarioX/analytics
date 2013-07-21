@@ -1,0 +1,28 @@
+<html>
+<head>
+<script src="/easyservice-util/EasyServiceClientFullZ.js"></script>
+</head>
+<script type="text/javascript">
+	var download = function(params) {
+		var ac = "/easyservice/com.cnebula.analytics.reportservice.ICAReportService";
+		var fname = "/abc.csv";
+		var f = document.getElementById('download');
+		f.action = ac + fname;
+		f.request.value = EasyServiceRuntime.toEJson( {"id" : '00001', "method" : "convert_2", "params" : params}); 
+		f.submit();
+	};
+	window.onload = function() {
+		download([[ '1', '2' ],[ [ '1,', '2' ], [ '1', '2' ] ]]);
+	};
+</script>
+<body>
+	<form id="download" method="POST" target="_blank"
+		style="visibility: hidden;"
+		action="/easyservice/com.cnebula.analytics.reportservice.ICAReportService/aa.csv">
+		<input type="text" id="req" name="request" value="" /> 
+		<input type="text"  name=".pf" value="es:ws-raw-http" />
+		<input type="text" name=".contentType" value="application/vnd.ms-excel" /> 
+	</form>
+	<iframe></iframe>
+</body>
+</html>

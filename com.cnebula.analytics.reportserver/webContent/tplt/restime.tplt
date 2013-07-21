@@ -1,0 +1,34 @@
+<span>+-d1Name-+ ：</span>
+<select onchange='ctx.shiftResource(this,null);'>
+<!--#
+	for(var i=0;i<d1.length;i++){
+		var v = d1[i];
+		if(v == d1Selected){
+#-->
+			<option value='+-v-+' selected='true'>+-v-+</option>
+<!--#
+		}else{
+#-->	
+			<option value='+-v-+'>+-v-+</option>
+<!--#
+		}	
+	}
+#-->
+</select>
+<span>+-d2Name-+ ：</span>
+<select onchange='ctx.shiftResource(null,this);'>
+<!--#
+	for(var i=0;i<d2.length;i++){
+		var v = d2[i];
+		if(v == d2Selected){
+#-->
+			<option value='+-v-+' selected='true'>+-v-+</option>
+<!--#
+		}else{
+#-->	
+			<option value='+-v-+'>+-v-+</option>
+<!--#
+		}	
+	}
+#-->
+</select>

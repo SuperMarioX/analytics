@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="init core build enviroment" default="init">
+
+	<import file="init-util_1_0.xml"/>
+
+	<property file="${BUILD_PROPERTY_LOCATION}">
+	</property>
+
+	<property file="preset.properties">
+	</property>
+
+	<property name="ftp.server" value="192.168.2.212"></property>
+	<property name="ftp.userid" value="anonymous"></property>
+	<property name="ftp.password" value="anonymous"></property>
+	<property name="remote.dist.root" value="/cnebula_dist"></property>
+
+	<target name="init">
+		<init.local/>
+		<init.target.platform/>
+		<get.remote remote.dir="/cnebula_dist/drivers/" local.dir="drivers"/>
+		<get.ci version="1.0"/>
+		<get.deploy.lib version="1.0"/>
+		<get.bootstrap version="1.0"/>
+		
+		<get.dist.lib.build id="core" buildnumber="53"/>
+		<get.dist.lib.build id="system" buildnumber="45"/>
+		<get.dist.lib.build id="db" buildnumber="10"/>
+		<get.dist.lib.build id="remote" buildnumber="73"/>
+		<get.dist.lib.build id="ejb" buildnumber="29"/>
+		<get.dist.lib.build id="webapp" buildnumber="21"/>
+		<get.dist.lib.build id="nserver" buildnumber="62"/>
+		<get.dist.lib.build id="um" buildnumber="162"/>
+		
+		<get.lib.bundle.build id="ci" buildnumber="29" bundle.jar.name="com.cnebula.junit_1.0.0.jar"/>
+		<get.lib.bundle.build id="ci" buildnumber="29" bundle.jar.name="com.cnebula.platform.admin_1.0.0.jar"/>			
+		
+		<get.thirdparty.bundle bundle.name="cobertura" version="1.9.2"/>
+		<get.thirdparty.bundle bundle.name="httpunit" version="1.6.2"/>
+		<inject.thirdparty/>
+	</target>
+
+</project>

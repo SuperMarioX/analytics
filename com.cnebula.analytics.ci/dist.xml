@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Core Lib Distribution" default="distribute">
+	<import file="dist-util_1_0.xml" />
+
+	<property file="${BUILD_PROPERTY_LOCATION}">
+	</property>
+	<property name="local.dist.root" value="/var/ftp/product_dist/">
+	</property>
+	<property file="build-global.properties">
+	</property>
+	<property file="preset.properties">
+	</property>
+
+	<target name="distribute">
+		<echo>${es.config.path}</echo>
+		<mkdir dir="${deploy.root}/instance/doc" />
+		<mkdir dir="${deploy.root}/instance/doc/api" />
+		<mkdir dir="${deploy.root}/instance/doc/changelog" />
+		<mkdir dir="${deploy.root}/instance/doc/install" />
+		<mkdir dir="${deploy.root}/instance/doc/manual" />
+		<copy todir="${deploy.root}/instance/doc/api">
+			<fileset dir="${workspace.root}/com.cnebula.analytics.doc/api" />
+		</copy>
+		<copy todir="${deploy.root}/instance/doc/changelog">
+			<fileset dir="${workspace.root}/com.cnebula.analytics.doc/changelog" />
+		</copy>
+		<copy todir="${deploy.root}/instance/doc/install">
+			<fileset dir="${workspace.root}/com.cnebula.analytics.doc/install" />
+		</copy>
+		<copy todir="${deploy.root}/instance/doc/manual">
+			<fileset dir="${workspace.root}/com.cnebula.analytics.doc/manual" />
+		</copy>
+		<es.archive application.config.path="conf/server.xml" />
+		<dist.product name="${product.name}" />
+	</target>
+
+</project>

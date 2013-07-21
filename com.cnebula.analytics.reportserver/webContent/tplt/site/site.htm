@@ -1,0 +1,62 @@
+<div class='control-bar site'>
+<!--# 
+	var saasSite = null;
+	var libSite = null;
+	var ALLSITE = "";
+	if(siteMap.containsKey("all")){
+		var site = siteMap.get("all");
+		var id = site.id;
+		var name = site.name;
+	
+#-->
+		<a id="+-id-+" class="site-selector site-selector-first">| +-name-+ |</a>
+<!--# 
+	}
+	if(siteMap.containsKey("calis")) {
+		var site = siteMap.get("calis");
+		var id = site.id;
+		var name = site.name;
+ #-->
+		<a id="+-id-+" class="site-selector">| +-name-+ |</a>
+<!--# 
+	}
+	if(siteMap.containsKey("saas")) {
+		var site = siteMap.get("saas");
+		saasSite = site;
+		var id = site.id;
+		var name = site.name;
+ #-->
+		<a id="+-id-+" class="site-selector">| +-name-+ |</a>
+<!--# 
+	}
+	if(siteMap.containsKey("library")) {
+		var site = siteMap.get("library");
+		libSite = site;
+		var id = site.id;
+		var name = site.name;
+ #-->
+		<a id="+-id-+" class="site-selector">| +-name-+ |</a>
+<!--#		
+	}
+#-->
+
+</div>
+<!--# if(saasSite != null && saasSite != undefined){ #-->
+<div class="site-child" id="saasChildSite" style="display: none">
+	<ul>
+	<!--#
+	var childSite = saasSite.children;
+	for(var i = 0; i < childSite.size(); i++){
+		var siteInfo = childSite.get(i);
+		var id = siteInfo.id;
+		var name = siteInfo.sName || siteInfo.name;
+	#-->
+	<li id="childSaas">
+		<a id="+-id-+">+-name-+</a>
+	</li>
+	<!--#
+	}
+	#-->
+	</ul>
+</div>
+<!--# } #-->

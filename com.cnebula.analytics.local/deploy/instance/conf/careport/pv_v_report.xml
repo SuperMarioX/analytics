@@ -1,0 +1,846 @@
+<report reportName="pv_v_report"  processTime="02:00">
+	<!--
+		按照全站级别统计的报表
+		
+		包括：
+			按照应用系统类型、应用系统Id、资源类型、资源名称分类的浏览量和访问量的报表
+	 -->
+	<metricsList>
+		<metrics name="pageView"  	description="针对应用系统(对应于不同的域名) 浏览量"></metrics>
+		<metrics name="visits"     	description="针对应用系统(对应于不同的域名) 访问量"></metrics>
+		<metrics name="webView"     description="针对应用系统(对应于不同的域名)的网页 浏览量"></metrics>
+	</metricsList>
+	<matrixes>
+		<matrix url="jdbc/logds"  name="day_log" reportMatrix="false" table="lv{yyyyMMdd}">
+			<columns>
+				<column colName="los"    name="los"  	type="TEXT" 	length="20"	 	description="操作系统:类型" ></column>
+				<column colName="losv"   name="losv"  	type="TEXT"     length="20" 	description="操作系统:版本" ></column>
+				<column colName="lbt"    name="lbt"   	type="TEXT"     length="20"  	description="浏览器:类型" ></column>
+				<column colName="lbv"    name="lbv"    	type="TEXT"     length="20"   	description="浏览器:版本" ></column>
+				<column colName="topy"   name="topy"    type="NUMBER"   length="4"    description="操作时间:年" ></column>
+				<column colName="topm"   name="topm"    type="NUMBER"   length="2"    description="操作时间:月" ></column>
+				<column colName="topd"   name="topd"    type="NUMBER"   length="2"    description="操作时间:日" ></column>
+				<column colName="toph"   name="toph"    type="NUMBER"   length="2"    description="操作时间:小时" ></column>
+				<column colName="lorg"   name="lorg"    type="TEXT"     length="255"  description="网络地点:学校/单位代码" ></column>
+				<column colName="op"     name="op"      type="TEXT"     length="255"  description="动作" ></column>
+				<column colName="oasc"   name="oasc"    type="TEXT"     length="32"   description="应用系统:应用系统所属共享域" ></column>
+				<column colName="oat"    name="oat"     type="TEXT"     length="32"   description="应用系统:应用系统类型" ></column>
+				<column colName="oaid"   name="oaid"    type="TEXT"     length="64"   description="应用系统:APPID" ></column>
+				<column colName="ort"    name="ort"     type="TEXT"     length="32"   description="资源:类型" ></column>
+				<column colName="orid"   name="orid"    type="TEXT"     length="2048"   description="资源:资源ID" ></column>
+				<column colName="otil"   name="otil"    type="TEXT"     length="2000"   description="资源:名称" ></column>
+				<column colName="osub"   name="osub"    type="TEXT"     length="2000"   description="资源:学科/主题" ></column>
+				<column colName="osrc"   name="osrc"    type="TEXT"    	length="255"    description="DC描述:来源" ></column>
+				<column colName="rvc"    name="rvc"     type="NUMBER"   length="1"    description="计数:浏览量计数(PV记1，其他动作记0)" ></column>
+				<column colName="rsc"    name="rsc"     type="NUMBER"   length="1"    description="计数:访问次数计数(casn和casc同时存在时为0,否则为1)" ></column>
+				<column colName="rgsc"   name="rgsc"    type="NUMBER"   length="1"    description="计数:全局访问次数计数(当cagsn和cagsc同时存在时为0，否则为1)" ></column>
+				<column colName="lip"    name="lip"     type="TEXT"     length="40"   description="网络地点:IP" ></column>			
+				<column colName="lfrm"   name="lfrm"    type="TEXT"     length="2000" description="访问途径" ></column>
+				<column colName="oadm"   name="oadm"    type="TEXT"     length="64"   description="应用系统:当前访问域" ></column>
+			</columns>
+		</matrix>
+<!-- 报表数据矩阵的命名规则，开头包含时间刻度： h、d、m、y -->
+		<!-- 按照CALIS域全部24小时汇总-->
+		<matrix url="jdbc/analyticsds" name="h_pv_v" table="h_pv_v" index="date_h">
+			<columns>
+				<column colName="pv" 	length="10" name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v" 	length="10" name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="date"  length="8"  name="date"        type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"  name="toph"        type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+		<!-- 按照CALIS域全部日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v" table="d_pv_v" index="date">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView" type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"    type="NUMBER" description="访问量"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+
+		
+		<!-- 按照应用系统类型、受访页面url 24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_webView_Goat_orid" table="h_webView_Goat_orid" index="oat_orid_date_h">
+			<columns>
+				<column colName="pv"	length="10"  	name="webView"  	type="NUMBER" 	description="浏览量"></column>
+				<column colName="oat"   length="32" 	name="oat"    		type="TEXT"   	description="应用系统类型"></column>
+				<column colName="orid"  length="2048" 	name="orid"    		type="TEXT"     description="资源:资源ID，本处为url" ></column>
+				<column colName="date"  length="8"   	name="date"       	type="NUMBER" 	description="日期,如20120102"></column>
+				<column colName="h"     length="2"   	name="toph"       	type="NUMBER" 	description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>		
+<!-- 按照应用系统类型、受访页面url 日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_webView_Goat_orid" table="d_webView_Goat_orid" index="oat_orid_date">
+			<columns>
+				<column colName="pv"	length="10"  	name="webView"  	type="NUMBER" 	description="浏览量"></column>
+				<column colName="oat"   length="32" 	name="oat"    		type="TEXT"   	description="应用系统类型"></column>
+				<column colName="orid"  length="2048" 	name="orid"    		type="TEXT"     description="资源:资源ID，本处为url" ></column>
+				<column colName="date"  length="8"   	name="date"       	type="NUMBER" 	description="日期,如20120102"></column>
+				<column colName="y"     length="4"   	name="topy"       	type="NUMBER" 	description="年"></column>
+				<column colName="m"     length="2"   	name="topm"       	type="NUMBER" 	description="月，从1~12"></column>
+				<column colName="d"     length="2"   	name="topd"       	type="NUMBER" 	description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   	name="topwd"      	type="NUMBER" 	description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+		
+		<!-- 按照 操作系统类型，操作系统版本 24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Goat_Opersystem_OpersystemDet" table="h_pv_v_Goat_Opersystem_OpersystemDet" index="Opersystem_OpersystemDet_date_h">
+			<columns>
+				<column colName="pv"    	length="10"  	name="pageView"  	type="NUMBER" 	description="浏览量"></column>
+				<column colName="v"     	length="10"  	name="visits"   	type="NUMBER" 	description="访问量"></column>
+				<column colName="oat"   	length="32"  	name="oat"   		type="TEXT"   	description="应用系统类型"></column>
+				<column colName="Opersystem"    	length="20"		name="Opersystem"  		type="TEXT" 	description="操作系统" ></column>
+				<column colName="OpersystemDet"   	length="40"		name="OpersystemDet"  		type="TEXT"     description="操作系统:详细" ></column>
+				<column colName="date"  	length="8"   	name="date" 		type="NUMBER" 	description="日期,如20120102"></column>
+				<column colName="h"     	length="2"   	name="toph" 		type="NUMBER" 	description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+		<!-- 按照 操作系统类型，操作系统版本 日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Goat_Opersystem_OpersystemDet" table="d_pv_v_Goat_Opersystem_OpersystemDet" index="Opersystem_OpersystemDet_date">
+			<columns>
+				<column colName="pv"    	length="10"  	name="pageView"  	type="NUMBER" 	description="浏览量"></column>
+				<column colName="v"     	length="10"  	name="visits"   	type="NUMBER" 	description="访问量"></column>
+				<column colName="oat"   	length="32"  	name="oat"   	type="TEXT"   	description="应用系统类型"></column>
+				<column colName="Opersystem"    	length="20"		name="Opersystem"  	type="TEXT" 	description="操作系统" ></column>
+				<column colName="OpersystemDet"   	length="40"		name="OpersystemDet"  	type="TEXT"     description="操作系统:详细" ></column>
+				<column colName="date"  	length="8"   	name="date"    	type="NUMBER" 	description="日期,如20120102"></column>
+				<column colName="y"     	length="4"   	name="topy"     type="NUMBER" 	description="年"></column>
+				<column colName="m"     	length="2"   	name="topm"  	type="NUMBER" 	description="月，从1~12"></column>
+				<column colName="d"     	length="2"   	name="topd"   	type="NUMBER" 	description="月中的日，从1~31"></column>
+				<column colName="wd"    	length="2"   	name="topwd"   	type="NUMBER" 	description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+		
+		
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Goat" table="h_pv_v_Goat" index="oat_date_h">
+			<columns>
+				<column colName="pv"    	length="10"  	name="pageView"  	type="NUMBER" 	description="浏览量"></column>
+				<column colName="v"     	length="10"  	name="visits"   	type="NUMBER" 	description="访问量"></column>
+				<column colName="oat"   	length="32"  	name="oat"   		type="TEXT"   	description="应用系统类型"></column>
+				<column colName="date"  	length="8"   	name="date" 		type="NUMBER" 	description="日期,如20120102"></column>
+				<column colName="h"     	length="2"   	name="toph" 		type="NUMBER" 	description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+		<!-- 按照 操作系统类型，操作系统版本 日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Goat" table="d_pv_v_Goat" index="oat_date">
+			<columns>
+				<column colName="pv"    	length="10"  	name="pageView"  	type="NUMBER" 	description="浏览量"></column>
+				<column colName="v"     	length="10"  	name="visits"   	type="NUMBER" 	description="访问量"></column>
+				<column colName="oat"   	length="32"  	name="oat"   	type="TEXT"   	description="应用系统类型"></column>
+				<column colName="date"  	length="8"   	name="date"    	type="NUMBER" 	description="日期,如20120102"></column>
+				<column colName="y"     	length="4"   	name="topy"     type="NUMBER" 	description="年"></column>
+				<column colName="m"     	length="2"   	name="topm"  	type="NUMBER" 	description="月，从1~12"></column>
+				<column colName="d"     	length="2"   	name="topd"   	type="NUMBER" 	description="月中的日，从1~31"></column>
+				<column colName="wd"    	length="2"   	name="topwd"   	type="NUMBER" 	description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+		
+		
+		<!-- 按照 浏览器类型，浏览器版本 24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Goat_Browser_BrowserDet" table="h_pv_v_Goat_Browser_BrowserDet" index="Browser_BrowserDet_date_h">
+			<columns>
+				<column colName="pv"    	length="10"  	name="pageView"  	type="NUMBER" 	description="浏览量"></column>
+				<column colName="v"     	length="10"  	name="visits"   	type="NUMBER" 	description="访问量"></column>
+				<column colName="oat"   	length="32"  	name="oat"   		type="TEXT"   	description="应用系统类型"></column>
+				<column colName="Browser"    	length="20"		name="Browser"   		type="TEXT"     description="浏览器" ></column>
+				<column colName="BrowserDet"    	length="40"		name="BrowserDet"    		type="TEXT"   	description="浏览器:详细" ></column>
+				<column colName="date"  	length="8"   	name="date" 		type="NUMBER" 	description="日期,如20120102"></column>
+				<column colName="h"     	length="2"   	name="toph" 		type="NUMBER" 	description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+		<!-- 按照 浏览器类型，浏览器版本 日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Goat_Browser_BrowserDet" table="d_pv_v_Goat_Browser_BrowserDet" index="Browser_BrowserDet_date">
+			<columns>
+				<column colName="pv"    	length="10"  	name="pageView"  	type="NUMBER" 	description="浏览量"></column>
+				<column colName="v"     	length="10"  	name="visits"   	type="NUMBER" 	description="访问量"></column>
+				<column colName="oat"   	length="32"  	name="oat"   	type="TEXT"   	description="应用系统类型"></column>
+				<column colName="Browser"    	length="20"		name="Browser"   	type="TEXT"     description="浏览器" ></column>
+				<column colName="BrowserDet"    	length="40"		name="BrowserDet"    	type="TEXT"   	description="浏览器:详细" ></column>
+				<column colName="date"  	length="8"   	name="date"    	type="NUMBER" 	description="日期,如20120102"></column>
+				<column colName="y"     	length="4"   	name="topy"     type="NUMBER" 	description="年"></column>
+				<column colName="m"     	length="2"   	name="topm"  	type="NUMBER" 	description="月，从1~12"></column>
+				<column colName="d"     	length="2"   	name="topd"   	type="NUMBER" 	description="月中的日，从1~31"></column>
+				<column colName="wd"    	length="2"   	name="topwd"   	type="NUMBER" 	description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+		
+		<!-- 按照网络地点（学校/单位）24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Glorg" table="h_pv_v_Glorg" index="lorg_date_h">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="lorg"  length="255" name="lorg"        type="TEXT"   description="学校/单位"></column>
+				<column colName="date"  length="8"   name="date"        type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"    name="toph"       type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>		
+		<!-- 按照网络地点（学校/单位）日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Glorg" table="d_pv_v_Glorg" index="lorg_date">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="lorg"  length="255" name="lorg"        type="TEXT"   description="学校/单位"></column>
+				<column colName="date"  length="8"   name="date"        type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"        type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"        type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"        type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"       type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+		<!-- 按照网络地点（学校/单位）以及应用系统ID 24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Goaid_lorg" table="h_pv_v_Goaid_lorg" index="aid_lorg_date_h">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="aid"   length="64"  name="oaid"       type="TEXT"   description="应用系统id"></column>
+				<column colName="lorg"  length="255" name="lorg"       type="TEXT"   description="学校/单位"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"    name="toph"       type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+		<!-- 按照网络地点（学校/单位）以及应用系统ID日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Goaid_lorg" table="d_pv_v_Goaid_lorg" index="aid_lorg_date">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="aid"   length="64"  name="oaid"       type="TEXT"   description="应用系统id"></column>
+				<column colName="lorg"  length="255" name="lorg"       type="TEXT"   description="学校/单位"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+		
+		<!-- 按照应用系统(AppID)24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Goaid" table="h_pv_v_Goaid" index="aid_date_h">
+			<columns>
+				<column colName="pv"   length="10"  name="pageView" type="NUMBER" description="浏览量"></column>
+				<column colName="v"    length="10"  name="visits"    type="NUMBER" description="访问量"></column>
+				<column colName="aid"  length="64"  name="oaid"      type="TEXT"   description="应用系统id"></column>
+				<column colName="date" length="8"   name="date"      type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"    length="2"   name="toph"      type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+		<!-- 按照应用系统(APPID)日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Goaid" table="d_pv_v_Goaid" index="aid_date">
+			<columns>
+				<column colName="pv"   length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"    length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="aid"  length="64"  name="oaid"       type="TEXT"   description="应用系统id"></column>
+				<column colName="date" length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"    length="4"   name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"    length="2"   name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"    length="2"   name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"   length="2"   name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+		
+		<!-- 按照资源类型24小时汇总(全域) -->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Gort" table="h_pv_v_Gort" index="ort_date_h">
+			<columns>
+				<column colName="pv"     length="10"   name="pageView" type="NUMBER" description="浏览量"></column>
+				<column colName="v"      length="10"   name="visits"    type="NUMBER" description="访问量"></column>
+				<column colName="ort"    length="255"  name="ort"        type="TEXT"   description="资源类型"></column>
+				<column colName="date"   length="8"    name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"      length="2"    name="toph"       type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>		
+		<!-- 按照资源类型日汇总(全域) -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Gort" table="d_pv_v_Gort" index="ort_date">
+			<columns>
+				<column colName="pv"     length="10"   name="pageView" type="NUMBER" description="浏览量"></column>
+				<column colName="v"      length="10"   name="visits"    type="NUMBER" description="访问量"></column>
+				<column colName="ort"    length="255"  name="ort"        type="TEXT"   description="资源类型"></column>
+				<column colName="date"   length="8"    name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"      length="4"    name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"      length="2"    name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"      length="2"    name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"     length="2"    name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+		
+		<!-- 按照资源类型和名称24小时汇总(全域) -->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Gort_ortil" table="h_pv_v_Gort_ortil" index="ort_ortil_date_h">
+			<columns>
+				<column colName="pv"     length="10"   name="pageView" type="NUMBER" description="浏览量"></column>
+				<column colName="v"      length="10"   name="visits"    type="NUMBER" description="访问量"></column>
+				<column colName="ort"    length="255"  name="ort"        type="TEXT"   description="资源类型"></column>
+				<column colName="ortil"  length="2048"  name="otil"      type="TEXT"   description="资源名称"></column>
+				<column colName="date"   length="8"    name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"      length="2"    name="toph"       type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>		
+<!-- 按照资源类型和名称日汇总(全域) -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Gort_ortil" table="d_pv_v_Gort_ortil" index="ort_ortil_date">
+			<columns>
+				<column colName="pv"     length="10"   name="pageView" type="NUMBER" description="浏览量"></column>
+				<column colName="v"      length="10"   name="visits"    type="NUMBER" description="访问量"></column>
+				<column colName="ort"    length="255"  name="ort"        type="TEXT"   description="资源类型"></column>
+				<column colName="ortil"  length="2048"  name="otil"      type="TEXT"   description="资源名称"></column>
+				<column colName="date"   length="8"    name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"      length="4"    name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"      length="2"    name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"      length="2"    name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"     length="2"    name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+<!-- 按照资源类型以及应用系统ID 24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Gappid_ort" table="h_pv_v_Gappid_ort" index="aid_ort_date_h">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="aid"   length="64"  name="oaid"       type="TEXT"   description="应用系统id"></column>
+				<column colName="ort"   length="255" name="ort"        type="TEXT"   description="资源类型"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"   name="toph"       type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+<!-- 按照资源类型以及应用系统ID 日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Gappid_ort" table="d_pv_v_Gappid_ort" index="aid_ort_date">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="aid"   length="64"  name="oaid"       type="TEXT"   description="应用系统id"></column>
+				<column colName="ort"   length="255" name="ort"        type="TEXT"   description="资源类型"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>		
+<!-- 按照资源类型和名称以及应用系统ID 24小时汇总 -->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Gappid_ort_ortil" table="h_pv_v_Gappid_ort_ortil" index="aid_ort_ortil_date_h">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="aid"   length="64"  name="oaid"       type="TEXT"   description="应用系统id"></column>
+				<column colName="ort"   length="255" name="ort"        type="TEXT"   description="资源类型"></column>
+				<column colName="ortil" length="2048" name="otil"      type="TEXT"   description="资源名称"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"   name="toph"       type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+<!-- 按照资源类型和名称以及应用系统ID 日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Gappid_ort_ortil" table="d_pv_v_Gappid_ort_ortil" index="aid_ort_ortil_date">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="aid"   length="64"  name="oaid"       type="TEXT"   description="应用系统id"></column>
+				<column colName="ort"   length="255" name="ort"        type="TEXT"   description="资源类型"></column>
+				<column colName="ortil" length="2048" name="otil"      type="TEXT"   description="资源名称"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+		<!-- 按照IP来源分析24小时汇总-->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Goat_lip" table="h_pv_v_Goat_lip" index="oat_lip_date_h">
+			<columns>
+				<column colName="pv" 	length="10" name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v" 	length="10" name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="oat"   	length="32"  	name="oat"   	type="TEXT"   	description="应用系统类型"></column>
+				<column colName="lip" 	length="40" name="lip"     type="TEXT" description="IP来源"></column>
+				<column colName="date"  length="8"  name="date"        type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"  name="toph"        type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+		<!-- 按照IP来源分析日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Goat_lip" table="d_pv_v_Goat_lip" index="oat_lip_date">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView" type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"    type="NUMBER" description="访问量"></column>
+				<column colName="oat"   	length="32"  	name="oat"   	type="TEXT"   	description="应用系统类型"></column>
+				<column colName="lip" 	length="40" name="lip"     type="TEXT" description="IP来源"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+		
+		<!-- 按照全部来源分析24小时汇总-->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Goat_sourceType_sourceDetailType" table="h_pv_v_Goat_sourceType_sourceDetailType" index="oat_sourceType_sourceDetailType_date_h">
+			<columns>
+				<column colName="pv" 	length="10" name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v" 	length="10" name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="oat"   	length="32"  	name="oat"   	type="TEXT"   	description="应用系统类型"></column>
+				<column colName="sourceType" 	length="2000" name="sourceType"     type="TEXT" description="全部来源"></column>
+				<column colName="sourceDetailType" 	length="2000" name="sourceDetailType"     type="TEXT" description="全部来源"></column>
+				<column colName="date"  length="8"  name="date"        type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"  name="toph"        type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+		<!-- 按照全部来源分析日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Goat_sourceType_sourceDetailType" table="d_pv_v_Goat_sourceType_sourceDetailType" index="oat_sourceType_sourceDetailType_date">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView" type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"    type="NUMBER" description="访问量"></column>
+				<column colName="oat"   	length="32"  	name="oat"   	type="TEXT"   	description="应用系统类型"></column>
+				<column colName="sourceType" 	length="2000" name="sourceType"     type="TEXT" description="全部来源"></column>
+				<column colName="sourceDetailType" 	length="2000" name="sourceDetailType"     type="TEXT" description="全部来源"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+		
+		<!-- 按照Web链接来源分析24小时汇总-->
+		<matrix url="jdbc/analyticsds" name="h_pv_v_Goat_lfrm" table="h_pv_v_Goat_lfrm" index="oat_lfrm_date_h">
+			<columns>
+				<column colName="pv" 	length="10" name="pageView"  type="NUMBER" description="浏览量"></column>
+				<column colName="v" 	length="10" name="visits"     type="NUMBER" description="访问量"></column>
+				<column colName="oat"   	length="32"  	name="oat"   	type="TEXT"   	description="应用系统类型"></column>
+				<column colName="lfrm"   	length="2000"  	name="lfrm"   	type="TEXT"   	description="访问途径"></column>
+				<column colName="date"  length="8"  name="date"        type="NUMBER" description="日期,如20120102"></column>
+				<column colName="h"     length="2"  name="toph"        type="NUMBER" description="每小时一条记录，也就是24小时值，从1（表示00:00-01:00))）开始，依次2(表示01:00-02:00)"></column>
+			</columns>
+		</matrix>
+		<!-- 按照Web链接来源分析日汇总 -->
+		<matrix url="jdbc/analyticsds" name="d_pv_v_Goat_lfrm" table="d_pv_v_Goat_lfrm" index="oat_lfrm_date">
+			<columns>
+				<column colName="pv"    length="10"  name="pageView" type="NUMBER" description="浏览量"></column>
+				<column colName="v"     length="10"  name="visits"    type="NUMBER" description="访问量"></column>
+				<column colName="oat"   	length="32"  	name="oat"   	type="TEXT"   	description="应用系统类型"></column>
+				<column colName="lfrm"   	length="2000"  	name="lfrm"   	type="TEXT"   	description="访问途径"></column>
+				<column colName="date"  length="8"   name="date"       type="NUMBER" description="日期,如20120102"></column>
+				<column colName="y"     length="4"   name="topy"       type="NUMBER" description="年"></column>
+				<column colName="m"     length="2"   name="topm"       type="NUMBER" description="月，从1~12"></column>
+				<column colName="d"     length="2"   name="topd"       type="NUMBER" description="月中的日，从1~31"></column>
+				<column colName="wd"    length="2"   name="topwd"      type="NUMBER" description="周中的日，星期日（1）~星期六(7)"></column>
+			</columns>
+		</matrix>
+		
+	</matrixes>
+	<pipline>
+		
+		<!-- 按照Web链接来源分析24小时汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Goat_lfrm"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)"  value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oat"      	value="oat" />
+				<property key="lfrm"      	value="lfrm" />
+				<property key="date$"     value="#date" />
+				<property key="toph"      value="h" />
+				<property key="#where"    value="public.sourcecategories(lfrm, oadm)='外部链接'" />
+			</properties>
+		</processor>
+		<!-- 按照Web链接来源分析日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Goat_lfrm"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oat"      	value="oat" />
+				<property key="lfrm"      	value="lfrm" />
+				<property key="date$"  value="#date" />
+				<property key="y$"     value="#year" />
+				<property key="m$"     value="#month" />
+				<property key="topd"   value="d" />
+				<property key="wd$"    value="#dayOfWeek" />
+				<property key="#where"    value="public.sourcecategories(lfrm, oadm)='外部链接'" />
+			</properties>
+		</processor>
+		
+		<!-- 按照全部来源分析24小时汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Goat_sourceType_sourceDetailType"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)"  value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oat"      	value="oat" />
+				<property key="public.sourcecategories(lfrm, oadm)" value="sourceType" />
+				<property key="public.sourcedetailcategories(lfrm, oadm)" value="sourceDetailType" />
+				<property key="date$"     value="#date" />
+				<property key="toph"      value="h" />
+				<property key="#where"    value="public.sourcecategories(lfrm, oadm)!='站内跳转'" />
+			</properties>
+		</processor>
+		<!-- 按照全部来源分析日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Goat_sourceType_sourceDetailType"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oat"      	value="oat" />
+				<property key="public.sourcecategories(lfrm, oadm)" value="sourceType" />
+				<property key="public.sourcedetailcategories(lfrm, oadm)" value="sourceDetailType" />
+				<property key="date$"  value="#date" />
+				<property key="y$"     value="#year" />
+				<property key="m$"     value="#month" />
+				<property key="topd"   value="d" />
+				<property key="wd$"    value="#dayOfWeek" />
+				<property key="#where"    value="public.sourcecategories(lfrm, oadm)!='站内跳转'" />
+			</properties>
+		</processor>
+		
+		<!-- 按照IP来源分析24小时汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Goat_lip"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)"  value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oat"      	value="oat" />
+				<property key="lip" value="lip" />
+				<property key="date$"     value="#date" />
+				<property key="toph"      value="h" />
+			</properties>
+		</processor>
+		<!-- 按照IP来源分析日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Goat_lip"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oat"      	value="oat" />
+				<property key="lip" value="lip" />
+				<property key="date$"  value="#date" />
+				<property key="y$"     value="#year" />
+				<property key="m$"     value="#month" />
+				<property key="topd"   value="d" />
+				<property key="wd$"    value="#dayOfWeek" />
+			</properties>
+		</processor>
+	
+		<!-- 按照CALIS域全部24小时汇总-->
+		<processor fromMatrix="day_log" toMatrix="h_pv_v"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)"  value="pv" />
+				<property key="sum(rgsc)" value="v" />
+				<property key="date$"     value="#date" />
+				<property key="toph"      value="h" />
+				<property key="#where"    value="op='v'" />
+			</properties>
+		</processor>
+		<!-- 按照CALIS域全部日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_pv_v"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rgsc)" value="v" />
+				<property key="date$"  value="#date" />
+				<property key="y$"     value="#year" />
+				<property key="m$"     value="#month" />
+				<property key="topd"   value="d" />
+				<property key="wd$"    value="#dayOfWeek" />
+				<property key="#where"      value="op='v'" />
+			</properties>
+		</processor>
+		
+		
+
+		<processor fromMatrix="day_log" toMatrix="h_webView_Goat_orid"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" 	value="pv" />
+				<property key="oat"      	value="oat" />
+				<property key="orid"	 	value="orid"/>
+				<property key="date$"    	value="#date" />
+				<property key="toph"     	value="h" />
+				<property key="#where"		value="ort='p' and orid is not NULL and orid!=''" />
+			</properties>
+		</processor>		
+
+		<processor fromMatrix="day_log" toMatrix="d_webView_Goat_orid"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" 	value="pv" />
+				<property key="oat"      	value="oat" />
+				<property key="orid"	 	value="orid"/>
+				<property key="date$"    	value="#date" />
+				<property key="y$"       	value="#year" />
+				<property key="m$"       	value="#month" />
+				<property key="topd"     	value="d" />
+				<property key="wd$"      	value="#dayOfWeek" />
+				<property key="#where"		value="ort='p' and orid is not NULL and orid!=''" />
+			</properties>
+		</processor>
+		
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Goat_Opersystem_OpersystemDet"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" 	value="pv" />
+				<property key="sum(rsc)" 	value="v" />
+				<property key="oat" 		value="oat" />
+				<property key="public.opersystem(los)" 		value="Opersystem" />
+				<property key="public.opersystemdet(los, losv)" 		value="OpersystemDet" />
+				<property key="date$"   	value="#date" />
+				<property key="toph"    	value="h" />
+			</properties>
+		</processor>
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Goat_Opersystem_OpersystemDet"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" 	value="pv" />
+				<property key="sum(rsc)" 	value="v" />
+				<property key="oat" 		value="oat" />
+				<property key="public.opersystem(los)" 		value="Opersystem" />
+				<property key="public.opersystemdet(los, losv)" 		value="OpersystemDet" />
+				<property key="date$"    	value="#date" />
+				<property key="y$"       	value="#year" />
+				<property key="m$"       	value="#month" />
+				<property key="topd"     	value="d" />
+				<property key="wd$"      	value="#dayOfWeek" />
+			</properties>
+		</processor>
+		
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Goat"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" 	value="pv" />
+				<property key="sum(rsc)" 	value="v" />
+				<property key="oat" 		value="oat" />
+				<property key="date$"   	value="#date" />
+				<property key="toph"    	value="h" />
+			</properties>
+		</processor>
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Goat"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" 	value="pv" />
+				<property key="sum(rsc)" 	value="v" />
+				<property key="oat" 		value="oat" />
+				<property key="date$"    	value="#date" />
+				<property key="y$"       	value="#year" />
+				<property key="m$"       	value="#month" />
+				<property key="topd"     	value="d" />
+				<property key="wd$"      	value="#dayOfWeek" />
+			</properties>
+		</processor>
+		
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Goat_Browser_BrowserDet"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" 	value="pv" />
+				<property key="sum(rsc)" 	value="v" />
+				<property key="oat" 		value="oat" />
+				<property key="public.browser(lbt)" 		value="Browser" />
+				<property key="public.browserdet(lbt, lbv)" 		value="BrowserDet" />
+				<property key="date$"   	value="#date" />
+				<property key="toph"    	value="h" />
+			</properties>
+		</processor>
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Goat_Browser_BrowserDet"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" 	value="pv" />
+				<property key="sum(rsc)" 	value="v" />
+				<property key="oat" 		value="oat" />
+				<property key="public.browser(lbt)" 		value="Browser" />
+				<property key="public.browserdet(lbt, lbv)" 		value="BrowserDet" />
+				<property key="date$"    	value="#date" />
+				<property key="y$"       	value="#year" />
+				<property key="m$"       	value="#month" />
+				<property key="topd"     	value="d" />
+				<property key="wd$"      	value="#dayOfWeek" />
+			</properties>
+		</processor>
+		
+		<!-- 按照网络地点（学校/单位）24小时汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Glorg"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)"  value="pv" />
+				<property key="sum(rgsc)" value="v" />
+				<property key="lorg"     value="lorg" />
+				<property key="date$"    value="#date" />
+				<property key="toph"     value="h" />
+				<property key="#where"   value="op='v'" />
+			</properties>
+		</processor>	
+		<!-- 按照网络地点（学校/单位）日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Glorg"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)"  value="pv" />
+				<property key="sum(rgsc)" value="v" />
+				<property key="lorg"     value="lorg" />
+				<property key="date$"    value="#date" />
+				<property key="y$"       value="#year" />
+				<property key="m$"       value="#month" />
+				<property key="topd"     value="d" />
+				<property key="wd$"      value="#dayOfWeek" />
+				<property key="#where"   value="op='v'" />
+			</properties>
+		</processor>
+		<!-- 按照网络地点（学校/单位）以及应用系统ID24小时汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Goaid_lorg"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oaid"     value="aid" />
+				<property key="lorg"     value="lorg" />
+				<property key="date$"    value="#date" />
+				<property key="toph"     value="h" />
+				<property key="#where"   value="op='v'" />
+			</properties>
+		</processor>		
+		<!-- 按照网络地点（学校/单位）以及应用系统ID日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Goaid_lorg"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oaid"     value="aid" />
+				<property key="lorg"     value="lorg" />
+				<property key="date$"    value="#date" />
+				<property key="y$"       value="#year" />
+				<property key="m$"       value="#month" />
+				<property key="topd"     value="d" />
+				<property key="wd$"      value="#dayOfWeek" />
+				<property key="#where"   value="op='v'" />
+			</properties>
+		</processor>
+		<!-- 按照应用系统(AppID)24小时汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Goaid"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oaid"     value="aid" />
+				<property key="date$"    value="#date" />
+				<property key="toph"     value="h" />
+				<property key="#where"   value="op='v'" />
+			</properties>
+		</processor>
+		<!-- 按照应用系统(APPID)日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Goaid"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oaid"     value="aid" />
+				<property key="date$"    value="#date" />
+				<property key="y$"       value="#year" />
+				<property key="m$"       value="#month" />
+				<property key="topd"     value="d" />
+				<property key="wd$"      value="#dayOfWeek" />
+				<property key="#where"   value="op='v'" />
+			</properties>
+		</processor>
+		
+		<!-- 按照资源类型24汇总（全域） -->
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Gort"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)"  value="pv" />
+				<property key="sum(rgsc)" value="v" />
+				<property key="ort"      value="ort" />
+				<property key="date$"    value="#date" />
+				<property key="toph"     value="h" />
+			</properties>
+		</processor>	
+		<!-- 按照资源类型日汇总（全域） -->
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Gort"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)"  value="pv" />
+				<property key="sum(rgsc)" value="v" />
+				<property key="ort"      value="ort" />
+				<property key="date$"    value="#date" />
+				<property key="y$"       value="#year" />
+				<property key="m$"       value="#month" />
+				<property key="topd"     value="d" />
+				<property key="wd$"      value="#dayOfWeek" />
+			</properties>
+		</processor>	
+		<!-- 按照资源类型和名称24汇总（全域） -->
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Gort_ortil"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)"  value="pv" />
+				<property key="sum(rgsc)" value="v" />
+				<property key="ort"      value="ort" />
+				<property key="otil"     value="ortil" />
+				<property key="date$"    value="#date" />
+				<property key="toph"     value="h" />
+			</properties>
+		</processor>	
+		<!-- 按照资源类型和名称日汇总 （全域）-->
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Gort_ortil"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)"  value="pv" />
+				<property key="sum(rgsc)" value="v" />
+				<property key="ort"      value="ort" />
+				<property key="otil"     value="ortil" />
+				<property key="date$"    value="#date" />
+				<property key="y$"       value="#year" />
+				<property key="m$"       value="#month" />
+				<property key="topd"     value="d" />
+				<property key="wd$"      value="#dayOfWeek" />
+			</properties>
+		</processor>
+		<!-- 按照资源类型以及应用系统ID24汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Gappid_ort"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oaid"     value="aid" />
+				<property key="ort"      value="ort" />
+				<property key="date$"    value="#date" />
+				<property key="toph"     value="h" />
+			</properties>
+		</processor>
+		<!-- 按照资源类型以及应用系统ID日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Gappid_ort"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oaid"     value="aid" />
+				<property key="ort"      value="ort" />
+				<property key="date$"    value="#date" />
+				<property key="y$"       value="#year" />
+				<property key="m$"       value="#month" />
+				<property key="topd"     value="d" />
+				<property key="wd$"      value="#dayOfWeek" />
+			</properties>
+		</processor>
+		<!-- 按照资源类型和名称以及应用系统ID24汇总 -->
+		<processor fromMatrix="day_log" toMatrix="h_pv_v_Gappid_ort_ortil"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oaid"     value="aid" />
+				<property key="ort"      value="ort" />
+				<property key="otil"     value="ortil" />
+				<property key="date$"    value="#date" />
+				<property key="toph"     value="h" />
+			</properties>
+		</processor>
+		<!-- 按照资源类型和名称以及应用系统ID日汇总 -->
+		<processor fromMatrix="day_log" toMatrix="d_pv_v_Gappid_ort_ortil"
+			processor="com.cnebula.analytics.analyzeserver.processor.CADayReportProcessor">
+			<properties>
+				<property key="sum(rvc)" value="pv" />
+				<property key="sum(rsc)" value="v" />
+				<property key="oaid"     value="aid" />
+				<property key="ort"      value="ort" />
+				<property key="otil"     value="ortil" />
+				<property key="date$"    value="#date" />
+				<property key="y$"       value="#year" />
+				<property key="m$"       value="#month" />
+				<property key="topd"     value="d" />
+				<property key="wd$"      value="#dayOfWeek" />
+			</properties>
+		</processor>
+	</pipline>
+</report>	

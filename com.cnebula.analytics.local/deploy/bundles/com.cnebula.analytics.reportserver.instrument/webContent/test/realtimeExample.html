@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TestPager</title>
+<style type="text/css">
+ul{
+	margin:0;
+	padding:0;
+}
+.curPage{
+	float: left;
+	padding-left: 10px; 
+	color: red;
+	cursor: pointer; 
+	font-weight: bold;
+}
+.commonPage{
+	float: left;
+	padding-left: 10px;
+	cursor: pointer; 
+	text-decoration: underline;
+}
+.edgePage{
+	float: left;
+	padding-left: 10px; 
+	color: blue;
+	cursor: pointer; 
+	text-decoration: underline;
+}
+.pagerInfo{
+	list-style: none; 
+	float: right;
+	height:18px;
+}
+.totalPage{
+	display: block; 
+	float: left;
+	height:18px;
+}
+</style>
+<script src="/easyservice-util/EasyServiceClientFull.js"></script>
+<script type="text/javascript">
+function Pager(){
+	this.curPage = 1;
+	this.MAX_PAGENUM_STEP = 3;
+	this.perpageLength = 10;
+	this.arrayNumber=50;
+	this.recordCount=0;
+	this.result = [];
+	this.pos = 0;
+	this.addRecord = function(arr){
+		if(--this.pos < 0){
+			this.pos = this.arrayNumber - 1;
+		}
+		this.result[this.pos] = arr;
+		if(++this.recordCount >= this.arrayNumber){
+			this.recordCount = this.arrayNumber;
+		}
+		return this;
+	};
+	this.init = function(){
+		this.result = new Array(this.arrayNumber);
+		this.pos = this.arrayNumber;
+	};
+	this.getResultByPage = function(pageNum){
+		var rt = [];
+		var logicStart = this.pos + (pageNum - 1) * this.perpageLength;
+		var logicEnd = this.pos + pageNum * this.perpageLength;
+		for(var i = logicStart; i < logicEnd; i++){
+			if(i > this.arrayNumber - 1){
+				if(this.result[i - this.arrayNumber]){
+					rt.push(this.result[i - this.arrayNumber]);
+				}
+			}else{
+				if(this.result[i]){
+					rt.push(this.result[i]);
+				}
+			}
+		}
+		return rt;
+	};
+	this.gotoPage = function(pageNum){//pageNum从1开始
+		var ctx = ejs.initContext();
+		this.curPage = pageNum;
+		ctx.curPage = this.curPage;
+		ctx.perpageLength = this.perpageLength;
+		ctx.MAX_PAGENUM_STEP = this.MAX_PAGENUM_STEP;
+		ctx.recordCount = this.recordCount;
+		ctx.result = this.getResultByPage(pageNum);
+		ctx._pager = this;
+		ejs.renderComplexNode('#tmpl', '#content', ctx);
+	}
+}
+
+var num = 0;;
+var p = new Pager();
+p.init();
+function insertRecordAndDisplay(){
+	p.addRecord([++num,'name' + num]);
+	p.gotoPage(p.curPage);
+}
+window.onload = function(){
+	setInterval(insertRecordAndDisplay, 2000);
+}
+</script>
+</head>
+<body>
+<textarea id="tmpl" style="display:none;">
+	<div id="dataList">
+		<ul>
+			<!--#
+			for(var r = 0; r < result.length; r++){
+			#-->	
+			<li>+-result[r][0]-+,+-result[r][1]-+</li>
+			<!--#
+			}
+			#-->
+		</ul>
+	</div>
+	<!--#
+		var totalPages = Math.ceil(recordCount/perpageLength);
+	#-->
+	<div>
+		<div class="totalPage">共+-totalPages-+页</div>
+		<ul class="pagerInfo">
+			<li class="edgePage"><a onclick='p.gotoPage(1);return false;'>首页</a></li>
+	<!--#								
+		if(curPage <= MAX_PAGENUM_STEP + 1){
+			for(var i=1; i<=(curPage + MAX_PAGENUM_STEP) && i <= totalPages; i++){
+				if( i == curPage ){
+	#-->			
+					<li class="curPage"><a onclick='p.gotoPage(+-i-+);return false;'>+-i-+</a></li>
+	<!--#
+				}else{
+	#-->			
+					<li class="commonPage"><a onclick='p.gotoPage(+-i-+);return false;'>+-i-+</a></li>
+	<!--#	 			
+				}
+			}
+		}else{
+			for(var i =(curPage - MAX_PAGENUM_STEP < 1 ? 1 : curPage - MAX_PAGENUM_STEP); i <= (curPage + MAX_PAGENUM_STEP) && i <= totalPages; i++){
+				if( i == curPage ){
+	#-->		
+					<li class="curPage"><a onclick='p.gotoPage(+-i-+);return false;'>+-i-+</a></li>
+	<!--#					
+				}else{
+	#-->				
+					<li class="commonPage"><a onclick='p.gotoPage(+-i-+);return false;'>+-i-+</a></li>
+	<!--#					
+				}
+			}
+		}
+	#-->	
+			<li class="edgePage"><a onclick='p.gotoPage(+-totalPages-+);return false;'>末页</a></li>
+		</ul>
+		<div style="clear:both;"></div>
+	</div>
+</textarea>
+<div id="content"></div>
+</body>
+</html>

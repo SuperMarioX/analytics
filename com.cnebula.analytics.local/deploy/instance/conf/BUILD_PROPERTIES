@@ -1,0 +1,1 @@
+APP_FULL_VER=analytics_1.1.0_${env.BUILD_NUMBER}_20130320

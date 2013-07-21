@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RCSTable table="rcs_db">
+	<columns>
+					<column colName="rcs_a_t"   name="_type_"           type="TEXT"    length="32" ></column>
+					<column colName="rcs_aid"   name="appId"            type="TEXT"    length="128"></column>
+					<column colName="rcs_an"    name="appName"          type="TEXT"    length="255"></column>
+					<column colName="rcs_av"    name="appVersion"       type="TEXT"    length="32" ></column>
+					<column colName="rcs_ah"    name="host"             type="TEXT"    length="255"></column>
+					<column colName="rcs_ap"    name="port"             type="TEXT"    length="12" ></column>
+					<column colName="rcs_atn"   name="appType.name"     type="TEXT"    length="255"></column>
+					<column colName="rcs_atfn"  name="appType.fullName" type="TEXT"    length="255"></column>
+					<column colName="rcs_atc"   name="appType.code"     type="TEXT"    length="64" ></column>
+					<column colName="rcs_att"   name="appType.type"     type="TEXT"    length="32" ></column>
+					<column colName="rcs_atv"   name="appType.version"  type="TEXT"    length="32" ></column>
+					<column colName="rcs_as"    name="status"           type="TEXT"    length="32" ></column>
+					<column colName="rcs_acrt"  name="createTime"       type="TEXT"    length="24" ></column>
+					<column colName="rcs_almt"  name="lastModifyTime"   type="TEXT"    length="24" ></column>
+					<column colName="rcs_n_t"   name="nodeInfo._type_"  type="TEXT"    length="32" ></column>
+					<column colName="rcs_nid"   name="nodeInfo.nodeId"  type="TEXT"    length="128"></column>
+					<column colName="rcs_nn"    name="nodeInfo.name"    type="TEXT"    length="255"></column>
+					<column colName="rcs_nsn"   name="nodeInfo.shortName"           type="TEXT"    length="255"></column>
+					<column colName="rcs_nt"    name="nodeInfo.type"                type="TEXT"    length="128"></column>
+					<column colName="rcs_nc"    name="nodeInfo.code"                type="TEXT"    length="128"></column>
+					<column colName="rcs_ncc"   name="nodeInfo.centerCode"          type="TEXT"    length="128"></column>
+					<column colName="rcs_npl"   name="nodeInfo.provinceOfLocation"  type="TEXT"    length="128"></column>
+					<column colName="rcs_ncl"   name="nodeInfo.cityOfLocation"      type="TEXT"    length="128"></column>
+	</columns>
+</RCSTable>

@@ -1,0 +1,236 @@
+@CHARSET "UTF-8";
+html,body,div,ul,textarea,table,td,tr,form,select,p {
+	padding: 0;
+	margin: 0;
+}
+body {
+	font-size: 12px;
+}
+iframe {
+	border: 0;
+	width: 840px;
+	height: 800px;
+	overflow-y: hidden;
+}
+h3 {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+button{
+	line-height:15px;/*for IE only*/	
+}
+#header {
+	background: url("../../img/rz_r1_c5.jpg") repeat-x scroll 0 0 transparent;
+	height: 96px;
+	position: relative;
+}
+#logo {
+	height: 100%;
+	width: 400px;
+	float: left;
+	background: url("../../img/rz_r1_c1.jpg") no-repeat scroll left center
+		transparent;
+}
+.login {
+	height: 100%;
+	width: 200px;
+	text-align: right;
+	float: right;
+}
+#header,#logo {
+	border: 0 none;
+}
+#innerHeader {
+	background: url("../../img/rz_r2_c1.jpg") repeat-x scroll left center transparent;
+	height: 35px;
+}
+#appTree {
+	border: 1px solid #0391D1;
+	height: 459px;
+	min-height:459px; 
+    height:auto !important; 
+    overflow:visible;
+	width: 310px;
+	margin-left: 20px;
+	*display: inline; /*TODO:监测是否修复IE6的双边距bug*/
+}
+#statResult {
+	width: 70%;
+}
+#middleDiv {
+	width: 40px;
+	height: 60px;
+}
+#appTree,#middleDiv,#statResult  {
+	float: left;
+}
+#data {
+	margin: 20px 0 50px 0;
+}
+#rightTb,#leftTb {
+	width: 48%;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.clear {
+	clear: both;
+}
+#footer {
+	height: 98px;
+	width: 854px;
+	border-top: 1px solid #8C8C8C;
+	margin: 0 auto; /*TODO:修复IE6不居中的bug*/
+	text-align: center
+}
+#footer div {
+	height: 25px;
+	line-height: 45px;
+}
+.appTitle {
+	background: url("../../img/ht_r1_c3.jpg") repeat-x scroll left center
+		transparent;
+	height: 30px;
+}
+.hide {
+	display: none;
+}
+.showInline {
+	display: inline;
+}
+.showBlock {
+	display: block;
+}
+.selTime {
+	color: red;
+	text-decoration: none;
+	cursor: default;
+}
+.unSelTime {
+	color: #0000EE;
+}
+.browser,.realtime {
+	border-collapse: collapse;
+	/*font-family: Arial;*/
+	margin: 0 auto;
+	text-align: left;
+	font-size: 12px;
+	width: 840px;
+	position:relative;
+	table-layout: fixed;
+}
+.browser caption,.realtime caption {
+	color: #000000;
+	font-weight: bold;
+	padding: 6px 0;
+	text-align: left;
+}
+.browser thead th {
+	border-bottom-width: 1px;
+	color: #000000;
+	background: url("../../img/m-bg.jpg") repeat-x scroll left center transparent;
+}
+.browser th,.browser td {
+	border: 1px solid #AAAAAA;
+	height: 15px;
+	width:70px;
+	word-wrap: break-word;
+	word-break: keep-all;
+}
+.browser tfoot td {
+	border-width: 0;
+	color: #777777;
+	text-align: right;
+}
+.chart {
+	height: 400px;
+}
+#pvChart,#resourceChart,#resourceChart1,#opChart,#opChart1 {
+	width: 890px;
+	margin: 0 auto;
+	left:-20px;
+	left: -10px\0/;	/*IE8-9*/
+	*left: -10px;	/*IE6-7*/	
+}
+.resourceTab {
+	list-style: none;
+	font-size: 12px;
+	padding-left: 20px;
+}
+.resourceTab li {
+	text-decoration: underline;
+	float: left;
+	padding-left: 30px;
+	cursor: pointer;
+}
+.resourceTabSelected {
+	text-decoration: none;
+	color: red;
+}
+#resource,#resource1 {
+	padding-top: 20px;
+}
+#resourceTime,#opTime {
+	padding:20px 0 0 52px;
+}
+#operation,#operation1 {
+	padding-top: 20px;
+}
+/*.pager{//去除，改由通过父容器div进行控制
+	height:35px;
+	line-height:35px;
+	position:relative;
+	left:25px;
+}*/
+#pvPager,#realtimePVPager,#resourcePager,#resourcePager1,#opPager,#opPager1,#realtimeOPPager{
+	position:relative;
+	left:50px;
+	left: 10px\0/;	/*IE8-9*/
+	height:35px;
+	line-height:35px;
+}
+#timeConditions{
+	height:45px;
+	line-height:45px;
+	margin-bottom: 5px;
+}
+.realtime th,td{
+	border: 1px solid #AAAAAA;
+	height: 15px;
+}
+.realtime .th0,.realtime .th2,.realtime .th3,.realtime .th4{
+	width:90px;
+}
+.realtime .th1{
+	width:110px;
+}
+.selDate {
+	color: red;
+	text-decoration: none;
+}
+.unSelDate {
+	color: #0000EE;
+	text-decoration: none;
+}
+.orglist td{
+	border: 0px;
+	width:25%;
+}
+.orglist li{
+	list-style-type:none;
+	float:left;
+	padding-left:0px;
+	padding-right:20px;
+	width: 20%;
+}
+.selOrg {
+	color: red;
+	text-decoration: none;
+}
+.unSelOrg {
+	color: #0000EE;
+	text-decoration: none;
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC
+"-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+"http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+<module name="Checker">
+
+
+		<module name="FileLength">
+			<property name="max" value="1500" />
+		</module>
+	
+	
+	<module name="TreeWalker">
+		<!-- 长度方面的检查 -->
+		<!-- 文件长度不超过1500行 -->
+		
+		<!-- 每行不超过120个字 -->
+		<module name="LineLength">
+			<property name="max" value="120" />
+		</module>
+		<!-- 方法不超过60行 -->
+		<module name="MethodLength">
+			<property name="tokens" value="METHOD_DEF" />
+			<property name="max" value="60" />
+		</module>
+		<!-- 命名方面的检查，它们都使用了Checkstyle默认的规则。 -->
+		<!-- 类名(class 或interface) 的检查 -->
+		<module name="TypeName" />
+		<!-- 方法名的检查 -->
+		<module name="MethodName" />
+		<!-- 常量名的检查 -->
+		<module name="ConstantName" />
+		<!-- 编码方面的检查 -->
+		<!-- 不能用魔法数 -->
+<!-- 		<module name="MagicNumber" /> -->
+		<!-- if最多嵌套3层 -->
+		<module name="NestedIfDepth">
+			<property name="max" value="3" />
+		</module>
+	</module>
+</module>

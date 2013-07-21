@@ -1,0 +1,265 @@
+=日志统计与监控系统安装指南（V1.0）=
+
+{{img/menual/log_calis.png}}\\
+**中国高等教育文献保障系统（CALIS）管理中心\\**
+**Administrative Center for China Academic Library & Information System\\**
+
+#toc
+
+==1  概述==
+===1.1 系统简介===
+	日志统计与检测系统（以下简称日志系统），用于对CALIS各个应用系统的访问量、资源查看等进行监控和分析，
+	
+日志系统的使用，可以为CALIS运行的各个应用系统发现问题、迅速响应并修复提供相关技术参考。
+
+===1.2 手册说明===
+	
+====1.2.1 目的====
+
+本手册提供日志统计与监测系统服务端的安装指导。根据此手册，可以完成服务端的安装、配置工作。
+	
+====1.2.2 读者对象====
+
+*项目实施组成员
+
+*测试培训人员
+	
+==2 名词解释==
+
+UAS：统一认证系统
+
+RCS：CALIS会员管理中心系统
+	
+	Java SE： Java平台标准版(英文：Java Platform, Standard Edition) 
+	
+	JDK：Java 开发工具包(英文：Java Development Kit)
+
+==3  安装前准备==
+
+	在安装本系统前，需要准备硬件环境、软件环境以及其他的环境要求。以下分别介绍。
+
+===3.1 硬件环境===
+
+本系统需要的硬件环境如下：
+
+	CPU：说明对CPU的要求
+	
+	内存：1 GB 以上
+		
+	网络：1000MB 网络环境
+	
+===3.2 软件环境===
+
+本系统需要的软件环境如下：
+
+	操作系统：能支持运行 Java SE 虚拟机的操作系统，推荐64位的Linux
+	
+	JDK		：Sun J2SE 1.6 以上版本
+	
+	数据库	：H2
+	
+	网络	：1000MB 网络环境
+	
+	IP		：需公网访问 
+	
+	域名	：需要有域名
+
+端口：需要提供两个端口
+		
+===3.3 其他环境要求===
+
+需要可用的统一认证系统（UAS）和CALIS会员管理中心系统（RCS）。
+	
+==4  基础组件安装==
+
+本系统需要的基础组件，包括JDK等。
+	
+===4.1 JDK===
+
+所需版本：Sun J2SE 1.6 以上版本，在64位平台下，必须安装对应的64位的JDK
+
+	下载地址：[[http://jdl.sun.com/webapps/getjava/BrowserRedirect?locale=zh_CN&host=java.com/|JDK6.0]]
+	
+	JDK(JRE)安装文档：[[http://www.oracle.com/technetwork/java/javase/index-137561.html|JDK(JRE)安装文档]]
+	
+	安装方法，分为Windows和Linux系统下的安装。
+	
+*Windows系统：略。
+
+*Linux系统：略。
+
+==5  数据库配置==
+
+本系统使用H2数据库，数据库为内置，不需要安装。但需要配置日志存放路径，详见[[6.2.2 日志数据存放配置|6.2.2 日志数据存放配置]]
+	
+==6  主程序安装配置与启动==
+
+该部分介绍本系统主程序的安装、配置以及如何启动本系统。
+	
+===6.1 主程序安装===
+	
+主程序文件为压缩的zip文件格式，需要解压。如下图。
+
+{{img/menual/log_zip.png}}
+
+解压后的目录结构如下。
+
+{{img/menual/log_unzip.png}}
+	
+===6.2 主程序配置===
+
+需要对下面的文件参数进行配置：
+
+(1) 解压目录下的conf文件夹，主要是var.properties配置文件。
+
+(2) 解压目录下的start.bat文件（对于Linux系统则为start.sh文件）。
+
+var.properties文件中系统中的各个参数信息。默认内容如下。
+
+{{code}}
+#Jmx
+jmx_host=127.0.0.1
+jmx_port=8990
+#web
+http_host=127.0.0.1
+http_port=8991
+http_minThread=2
+http_maxThread=300
+
+#logger服务对外的域名，务必配置和http host不同的域名
+logger_host=192.168.66.128
+logger_port=8992
+
+#日志数据存放目录~代表用户目录
+#真实部署时候建议部署在存储上，比如/var/data/h2dbs
+logpath=~/h2dbs
+
+#集成统一认证的配置
+uasHost=uas.dev.calis.edu.cn
+uasPort=8101
+
+##################
+########CI########
+##################
+#hudson ci build
+local.build_properties=ci-build.properties
+#eclipse locale build
+#local.build_properties=${local.root}/local-build.properties
+#remote test ftp server
+remoteTest.ftp.server=192.168.2.49
+remoteTest.ftp.userid=test
+remoteTest.dist.root=/
+#build drop table need
+db_driver=oracle.jdbc.OracleDriver
+db_url=dbc:oracle:thin:@192.168.2.177:1521:orcl
+#instance waiting time 
+#经过测试hudson上启动很慢。
+server.start.time=80
+cobertura.report.type=xml
+{{/code}}
+
+====6.2.1 服务参数配置====
+var.properties文件中，服务器端口的配置需要根据实际情况进行设定。默认的配置如下：
+{{code language="xml"}}
+#Jmx
+jmx_host=127.0.0.1
+jmx_port=8990
+#web
+http_host=127.0.0.1
+http_port=8991
+http_minThread=2
+http_maxThread=300
+
+#logger服务对外的域名，务必配置和http host不同的域名
+logger_host=192.168.66.128
+logger_port=8992
+	{{/code}}
+	
+其中，\\
+log服务为日志记录功能，用户在自己的应用系统中动态引入一段Javascript代码，该代码提供对用户操作的日志记录。
+
+web用于报表查看，以web网页中图表或表格的形式查看应用系统的报表数据。
+
+Jmx用于报表处理，简单管理和追踪报表处理流程，如生成报表等。
+
+http_minThread和http_maxThread分别表示服务器最小和最大线程数。
+
+默认情况下，最小线程数量为2，最大为300，实际部署时根据情况调整。
+
+**注意：**以上配置中的3个地址配置（"	jmx_host"，"http_host"，"logger_host"）中，必须保证"logger_host"和"http_host"对应不同的域名，目的是防止可能出现的会话干扰问题。
+
+====6.2.2 日志数据存放配置====
+
+默认情况下，日志存放在用户目录，如下。
+{{code}}
+#日志数据存放目录~代表用户目录
+#真实部署时候建议部署在存储上，比如/var/data/h2dbs
+logpath=~/h2dbs
+{{/code}}
+默认的路径，是当前用户的用户目录下，在windows7系统中如果当前用户为"administrator"，日志数据的路径为"C:\Users\Administrator\h2dbs"。
+
+建议实际应用时，存放在其他位置，如"/var/data/h2dbs"，该路径对应windows系统的"C:\var\data\h2dbs"目录。
+====6.2.3 运行参数配置====
+
+在解压后的根目录中，打开start.bat文件。
+
+里面包含对java命令路径的配置，需要将其修改为JDK安装目录下java.exe的完全路径。
+
+假设JDK的安装目录为：D:/Java/jdk1.6.0_07/，那么需要修改为如下：
+
+{{code}}
+...
+set java_cmd=D:/Java/jdk1.6.0_07/bin/java.exe
+...
+{{/code}}
+
+对于Linux系统，同样需要进行类似配置，此时打开的是同目录下的start.sh文件。修改后为：
+
+{{code}}
+java_cmd=D:/Java/jdk1.6.0_07/bin/java
+{{/code}}
+===6.3 集成安装配置===
+
+系统运行时，需要和其他多个应用系统进行集成，集成的参数也在var.properties文件里进行配置。
+
+部署时，根据实际情况可能需要调整的参数说明如下。
+
+====6.3.1  统一认证系统的集成参数====
+var.properties中，找到统一认证(UAS)集成配置。
+{{code}}
+#集成统一认证的配置 
+	uasHost=uas.dev.calis.edu.cn
+	uasPort=8101
+{{/code}}
+各个属性的说明如下：
+|=名称|=说明|
+|uasHost|统一认证服务器地址，尽可能为域名|
+|uasPort|统一认证服务端口号|
+===6.4 统一认证系统授权===
+====6.4.1 日志系统角色====
+
+日志系统当前需要2种用户角色，名称分别为："caluser"和"caladmin"，分别代表普通用户和系统管理员。
+
+====6.4.2 统一认证授权====
+
+由于日志系统用户交由统一认证(CALIS中心版本)管理，因此需要在统一认证中做如下操作：
+
+(1)确保统一认证中已经有了应用系统角色"caluser"、"caladmin"，均从RCS(会员注册中心系统)同步过来。
+
+(2)在统一认证中授权策略，将不同用户分配对应的角色。
+
+具体操作请参考统一认证用户手册。
+
+===6.5 启动系统===
+
+(如何启动、启动步骤等，此部分必须填写)
+
+解压后文件夹根目录下，运行start.bat(对于Linux系统，则为start.sh文件)，启动程序。
+
+{{img/menual/log_startup.png|系统启动}} 
+	
+系统完成启动后，打开浏览器访问地址"http://analytics.dev.calis.edu.cn:8991/report/analysis.htm"，
+
+出现下图表示已经部署完毕，之后可以登录系统，具体使用详见相应的用户手册。
+
+{{img/menual/log_init.png|系统首页}} 

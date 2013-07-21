@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Distribution Utilities Macros">
+
+	<macrodef name="release.lib">
+		<attribute name="name"/>
+		<attribute name="version"/>
+		<attribute name="server" default = "${ftp.server}"/>
+		<attribute name="userid" default = "${ftp.userid}"/>
+		<attribute name="password" default = "${ftp.password}"/>
+		<attribute name="remote.dist.root" default = "${remote.dist.root}"/>
+		<attribute name="deploy.root" default = "${deploy.root}"/>
+		<attribute name="target.platform.root" default = "${target.platform.root}"/>
+
+		<sequential>
+			<ftp server="@{server}"
+		    	action="mkdir"
+		    	userid="@{userid}"
+		    	password="@{password}"
+		    	passive="yes"
+			    		verbose="yes"
+		    	remotedir="@{remote.dist.root}/library/@{name}/versions/@{version}/ref">
+			</ftp>
+			<ftp server="@{server}"
+		    	action="put"
+		    	userid="@{userid}"
+		    	password="@{password}"
+		    	passive="yes"
+			    		verbose="yes"
+		    	remotedir="@{remote.dist.root}/library/@{name}/versions/@{version}">
+				<fileset dir="@{deploy.root}/bundle.jars">
+					<include name="**/*.jar"/>
+				</fileset>
+			</ftp>
+			<ftp server="@{server}"
+		    	action="put"
+		    	userid="@{userid}"
+		    	password="@{password}"
+		    	passive="yes"
+			    		verbose="yes"
+		    	remotedir="@{remote.dist.root}/library/@{name}/versions/@{version}/ref">
+				<fileset dir="@{target.platform.root}/thirdparty">
+					<include name="**/*.jar"/>
+				</fileset>
+			</ftp>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="dist.build">
+		<attribute name="name"/>
+		<attribute name="deploy.root" default = "${deploy.root}"/>
+		<attribute name="target.platform.root" default = "${target.platform.root}"/>
+		<attribute name="local.dist.root" default = "${local.dist.root}"/>
+
+		<sequential>
+			<property environment="env" />
+			<mkdir dir="@{local.dist.root}/library/@{name}/build/${env.BUILD_NUMBER}">
+			</mkdir>
+			<mkdir dir="@{local.dist.root}/library/@{name}/build/${env.BUILD_NUMBER}/ref">
+			</mkdir>
+			<copy todir="@{local.dist.root}/library/@{name}/build/${env.BUILD_NUMBER}">
+				<fileset dir="@{deploy.root}/bundle.jars">
+					<include name="**/*.jar"/>
+				</fileset>
+			</copy>
+			<copy todir="@{local.dist.root}/library/@{name}/build/${env.BUILD_NUMBER}/ref">
+				<fileset dir="@{target.platform.root}/thirdparty">
+					<include name="**/*.jar"/>
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="dist.last.integration">
+		<attribute name="name"/>
+		<attribute name="deploy.root" default = "${deploy.root}"/>
+		<attribute name="target.platform.root" default = "${target.platform.root}"/>
+		<attribute name="local.dist.root" default = "${local.dist.root}"/>
+
+		<sequential>
+			<property environment="env" />
+			<delete dir="@{local.dist.root}/library/@{name}/versions/last-integration" failonerror="false">
+			</delete>
+
+			<mkdir dir="@{local.dist.root}/library/@{name}/versions/last-integration">
+			</mkdir>
+			<copy todir="@{local.dist.root}/library/@{name}/versions/last-integration">
+				<fileset dir="@{local.dist.root}/library/@{name}/build/${env.BUILD_NUMBER}">
+					<include name="**/*"/>
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="es.archive">
+		<attribute name="product.name" default="${product.name}" />
+		<attribute name="product.version" default="${product.version}" />
+		<attribute name="init.memory" default="${init.memory}" />
+		<attribute name="max.memory" default="${max.memory}" />
+		<attribute name="is.client" default="${is.client}"/>
+		<attribute name="deploy.root" default="${deploy.root}"/>
+		<attribute name="application.config.path"/>
+		<attribute name="webstart.tool.dir" default="${target.platform.root}/deploy/webstart"/>
+		<attribute name="target.platform.root" default="${target.platform.root}"/>
+		<attribute name="es.config.path" default="${es.config.path}" />
+		<sequential>
+
+			<copy todir="@{deploy.root}/instance/cnebula/plugins" overwrite="true">
+				<fileset dir="@{deploy.root}/bundle.jars">
+				</fileset>
+			</copy>
+			<copy verbose="true" tofile="@{deploy.root}/instance/cnebula/BundleConfig.xml"
+        		file="@{es.config.path}/BundleConfig-deploy.xml" overwrite="true">
+			</copy>
+			<java fork="true" classname="com.cnebula.ci.tool.DeployTool" failonerror="false">
+				<jvmarg value="-DJAVA_INIT_MEMORY=@{init.memory}"/>
+				<jvmarg value="-DJAVA_MAX_MEMORY=@{max.memory}"/>
+				<jvmarg value="-DINSTANCE_ROOT=@{deploy.root}/instance"/>
+				<jvmarg value="-DINSTANCE_IS_CLIENT=@{is.client}"/>
+				<jvmarg value="-DAPPLICATION_CONFIG_PATH=@{application.config.path}"/>
+				<jvmarg value="-DWEBSTART_TOOL_DIR=@{webstart.tool.dir}"/>
+				<classpath>
+					<path>
+						<fileset dir="@{target.platform.root}/target/plugins">
+							<include name="**/*.jar"/>
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="@{target.platform.root}/ci/">
+							<include name="**/*.jar"/>
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="@{target.platform.root}/deploy/">
+							<include name="**/*.jar"/>
+						</fileset>
+					</path>
+				</classpath>
+			</java>
+			<tstamp>
+				<format property="zip.time" pattern="yyyyMMdd"
+	    	            unit="hour" locale="zh,CN"/>
+			</tstamp>
+			<property environment="env" />
+			<zip destfile="@{deploy.root}/archive/@{product.name}_@{product.version}_${env.BUILD_NUMBER}_${zip.time}.zip">
+				<fileset dir="@{deploy.root}/instance">
+				</fileset>
+			</zip>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="dist.product">
+		<attribute name="name"/>
+		<attribute name="deploy.root" default = "${deploy.root}"/>
+		<attribute name="target.platform.root" default = "${target.platform.root}"/>
+		<sequential>
+			<property environment="env"/>
+			<mkdir dir="${local.dist.root}/@{name}/build/${env.BUILD_NUMBER}">
+			</mkdir>
+			<copy todir="${local.dist.root}/@{name}/build/${env.BUILD_NUMBER}">
+				<fileset dir="@{deploy.root}/archive">
+					<include name="**/*.zip"/>
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+
+
+</project>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>refactor</title>
+<style type="text/css"><!--
+/* @group RESET */
+/* --------------------------------------------------------------
+
+  Reset.css
+  * Resets default browser CSS styles.
+
+  Created by Erik Meyer:
+  * meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/
+-------------------------------------------------------------- */
+
+* html {
+  overflow-y: auto;
+}
+html, body {
+    height: 100%;
+}
+--></style>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/zyxwiki.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shThemeDefault.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shCore.css"/>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCpp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCSharp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCss.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushGroovy.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJavaFX.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJScript.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPerl.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPhp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPlain.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPowerShell.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPython.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushRuby.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushScala.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushSql.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushVb.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushXml.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJava.js"></script>
+<script type="text/javascript">
+SyntaxHighlighter.config.clipboardSwf = '_cssAndJsDir_/clipboard.swf'
+SyntaxHighlighter.all();
+</script>
+  </head>
+  <body>
+
+<div id="xwikimaincontainer">
+<div id="xwikimaincontainerinner">
+
+<div class="xwikiToc"><ul>
+<li class="toc_level_2"><a href="#1_说明"><span class="toctext">1 说明</span></a></li>
+<li class="toc_level_2"><a href="#2_重构思想"><span class="toctext">2 重构思想</span></a></li>
+<li class="toc_level_2"><a href="#3_实体"><span class="toctext">3 实体</span></a></li>
+<li class="toc_level_3"><a href="#3.1_站点实体"><span class="toctext">3.1 站点实体</span></a></li>
+<li class="toc_level_3"><a href="#3.2_报告者实体"><span class="toctext">3.2 报告者实体</span></a></li>
+<li class="toc_level_2"><a href="#4_配置文件结构及相关服务"><span class="toctext">4 配置文件结构及相关服务</span></a></li>
+<li class="toc_level_2"><a href="#5_报告者服务"><span class="toctext">5 报告者服务</span></a></li>
+<li class="toc_level_2"><a href="#6_前台页面设计"><span class="toctext">6 前台页面设计</span></a></li>
+<li class="toc_level_3"><a href="#6.1_全局变量"><span class="toctext">6.1 全局变量</span></a></li>
+<li class="toc_level_3"><a href="#6.2_对象模块"><span class="toctext">6.2 对象模块</span></a></li>
+<li class="toc_level_4"><a href="#6.2.1_初始化对象模块"><span class="toctext">6.2.1 初始化对象模块</span></a></li>
+<li class="toc_level_4"><a href="#6.2.2_站点对象模块"><span class="toctext">6.2.2 站点对象模块</span></a></li>
+<li class="toc_level_4"><a href="#6.2.3_菜单对象模块"><span class="toctext">6.2.3 菜单对象模块</span></a></li>
+<li class="toc_level_4"><a href="#6.2.4_顶部功能选择对象模块"><span class="toctext">6.2.4 顶部功能选择对象模块</span></a></li>
+<li class="toc_level_4"><a href="#6.2.5_时间选择对象模块"><span class="toctext">6.2.5 时间选择对象模块</span></a></li>
+<li class="toc_level_4"><a href="#6.2.6_时间刻度对象模块"><span class="toctext">6.2.6 时间刻度对象模块</span></a></li>
+<li class="toc_level_4"><a href="#6.2.7_应用系统选择对象模块"><span class="toctext">6.2.7 应用系统选择对象模块</span></a></li>
+<li class="toc_level_4"><a href="#6.2.8_图表指标选择对象模块"><span class="toctext">6.2.8 图表指标选择对象模块</span></a></li>
+<li class="toc_level_4"><a href="#6.2.9_表格指标选择对象模块"><span class="toctext">6.2.9 表格指标选择对象模块</span></a></li>
+<li class="toc_level_4"><a href="#6.2.10_图表数据查询对象模块"><span class="toctext">6.2.10 图表数据查询对象模块</span></a></li>
+<li class="toc_level_4"><a href="#6.2.11_表格数据查询对象模块"><span class="toctext">6.2.11 表格数据查询对象模块</span></a></li>
+</ul>
+</div>
+
+<h2><span id="1_说明">1 说明</span></h2>
+<p>本文档用于说明日志系统build167以后版本的重构设计。<br/></p>
+<h2><span id="2_重构思想">2 重构思想</span></h2>
+<ul><li>为减少js的开发难度，将用户权限、菜单过滤、应用系统过滤的相关逻辑重构到java中实现， 后台服务返回一个根据用户角色过滤后，描述站点、菜单、应用系统相关信息的实体Reportor，这里我们统称为“报告者”，前台js只负责传递id值。<br/></li></ul>
+<ul><li>从可扩展、可维护的方面考虑，在后台的配置文件中增加以下配置点：</li></ul>
+<ol><li>chart的图表类型</li>
+<li>chart是否可用</li>
+<li>datatables是否可用</li>
+<li>日期控件是否可用</li>
+<li>chart的指标容器是否可用</li>
+<li>chart的指标变更是否要刷新datatables</li>
+<li>datatables的列排序。</li>
+<li>对于特殊数据转换（如学科），在配置文件中指定一个转换器。</li>
+<li>指定原型数据的初始化方法（原型数据指的是具有固定数据结构的报表数据，如13类学科的报表，我们明确知道这个报表是13行数据，不确定的是有几列数据，所需要组装的就是每个指标的统计值）</li></ol>
+<h2><span id="3_实体">3 实体</span></h2>
+<h3><span id="3.1_站点实体">3.1 站点实体</span></h3>
+<p><div class="code"><pre class="brush:java">
+
+public class Site {
+	String id;	//全站： all、中心站：calis、共享域：saas、成员馆：library，对于成员馆子站点id为各成员馆的馆代码
+	String pid; //父站点id，若为空则说明该站点为顶级站点
+	String filter;
+	List&lt;Site&gt; childSites = new ArrayList&lt;Site&gt;();//子站点
+
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getFilter() {
+		return filter;
+	}
+	public void setFilter(String filter) {
+		this.filter = filter;
+	}
+	public List&lt;Site&gt; getChildSite() {
+		return childSites;
+	}
+	public void setChildSite(List&lt;Site&gt; childSite) {
+		this.childSites = childSite;
+	}
+
+}
+</pre></div>
+</p>
+<h3><span id="3.2_报告者实体">3.2 报告者实体</span></h3>
+<p><div class="code"><pre class="brush:java">
+
+public class Reportor {
+
+	private List&lt;Site&gt; sites = new ArrayList&lt;Site&gt;();
+
+	//key: 站点id value： 该站点下的所有菜单
+	private Map&lt;String,List&lt;Menu&gt;&gt; menus = new HashMap&lt;String,List&lt;Menu&gt;&gt;();
+
+	public List&lt;Site&gt; getSites() {
+		return sites;
+	}
+
+	public void setSites(List&lt;Site&gt; sites) {
+		this.sites = sites;
+	}
+
+	public Map&lt;String, List&lt;Menu&gt;&gt; getMenus() {
+		return menus;
+	}
+
+	public void setMenus(Map&lt;String, List&lt;Menu&gt;&gt; menus) {
+		this.menus = menus;
+	}
+
+}
+</pre></div>
+</p>
+<h2><span id="4_配置文件结构及相关服务">4 配置文件结构及相关服务</span></h2>
+<ul><li>配置文件结构：</li></ul>
+<p><div class="code"><pre class="brush:java">
+
+&lt;reportorCfg&gt;
+
+&lt;menuCfg&gt;
+	&lt;menu id=&quot;trend&quot; name=&quot;趋势分析&quot; chartSize=&quot;2&quot; tableSize=&quot;-1&quot; chartShow=&quot;true&quot; tableShow=&quot;true&quot; processType=&quot;alone&quot; 
+		timeAp=&quot;true&quot; defaultOat=&quot;all&quot; metricName=&quot;指标：&quot; pid=&quot;wzfx&quot; supportedSite=&quot;all_calis_saas_library&quot; describe=&quot;&quot; loadPage=&quot;main.htm&quot; timeCorr=&quot;true&quot; general=&quot;true&quot;&gt;
+		&lt;conver key=&quot;oaten&quot; processor=&quot;com.cnebula.analytics.reportserver.util.OrgManager&quot; method=&quot;getCN&quot;&gt;&lt;/conver&gt;
+		&lt;protoData processor=&quot;&quot; method=&quot;&quot;&gt;&lt;/protoData&gt;
+	&lt;/menu&gt;
+&lt;/menuCfg&gt;
+
+&lt;appCfg&gt;
+	&lt;app id=&quot;all&quot;		name=&quot;全部&quot;			filter=&quot;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;eduChina&quot; 	name=&quot;eduChina&quot; 	filter=&quot;oat=&#39;eduChina&#39;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;yidu&quot; 		name=&quot;e读&quot; 			filter=&quot;oat=&#39;yidu&#39;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;ues&quot; 		name=&quot;统一交换&quot; 		filter=&quot;oat=&#39;ues&#39;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;aopac&quot; 	name=&quot;古籍文献&quot; 		filter=&quot;oat=&#39;aopac&#39;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;ccc&quot;  		name=&quot;ccc&quot; 			filter=&quot;oat=&#39;ccc&#39;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;uas&quot; 		name=&quot;统一认证&quot; 		filter=&quot;oat=&#39;uas&#39;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;opac&quot; 		name=&quot;opac&quot; 		filter=&quot;oat=&#39;opac&#39;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;ill&quot; 		name=&quot;馆际互借&quot; 		filter=&quot;oat=&#39;ill&#39;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;ztc&quot; 		name=&quot;直通车&quot; 		filter=&quot;oat=&#39;ztc&#39;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;nav&quot; 		name=&quot;导航&quot; 			filter=&quot;oat=&#39;nav&#39;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;ubs&quot; 		name=&quot;统一计费&quot; 		filter=&quot;oat=&#39;ubs&#39;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;nps&quot; 		name=&quot;个性化门户&quot; 		filter=&quot;oat=&#39;nps&#39;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;cvrs&quot;  	name=&quot;参考咨询&quot; 		filter=&quot;oat=&#39;cvrs&#39;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;auopac&quot;	name=&quot;auopac&quot; 		filter=&quot;oat=&#39;auopac&#39;&quot;&gt;&lt;/app&gt;
+	&lt;app id=&quot;iri&quot; 		name=&quot;教参&quot; 			filter=&quot;oat=&#39;iri&#39;&quot;&gt;&lt;/app&gt;
+&lt;/appCfg&gt;
+
+&lt;/reportorCfg&gt;
+</pre></div>
+</p>
+<ul><li>相关服务</li></ul>
+<p><div class="code"><pre class="brush:java">
+
+public interface IReportorCfgService {
+
+	//key： 站点id ，value： 该站点支持的菜单
+	public Map&lt;String,List&lt;Menu&gt;&gt; getMenuMap();
+
+	//key： 应用系统的代码 ，value：应用系统bean
+	public Map&lt;String,App&gt; getAppMap();
+}
+</pre></div>
+</p>
+<h2><span id="5_报告者服务">5 报告者服务</span></h2>
+<p>原则上我们只需对js暴露此接口即可。</p>
+<p><div class="code"><pre class="brush:java">
+
+public interface IReportorService {
+
+	public Reportor getReportor();
+}
+
+</pre></div>
+</p>
+<h2><span id="6_前台页面设计">6 前台页面设计</span></h2>
+<p>前台页面采用大闭包的形式，包含若干全局变量和若干对象模块。全局变量存储日志查询中的重要信息，对象模块处理日志页面中的相关处理。</p>
+<h3><span id="6.1_全局变量">6.1 全局变量</span></h3>
+<p><div class="code"><pre class="brush:java">
+
+/* 用户所属机构代码 */
+	var _userCode;
+	/*
+	 * 从后台返回的报告者对象
+	 * 程序的所有处理逻辑都依靠该对象
+	 * */
+	var _reportor;
+	/*
+	 *	当前选择的站点id 
+	 */
+	var _siteId = &quot;&quot;;
+	/*
+	 *	机构的过滤条件，可能的情况：
+	 * 	1.为空，表示查询全站；
+	 * 	2.包含oasc，表示查询共享域；
+	 * 	3.包含oaten，表示查询成员馆；
+	 * 	4.若_oatenListFilter不为空，则不使用_siteFilter，表示在共享域中过滤出部分成员馆，可以不使用共享域信息
+	 * 	重选站点时，该字段重新设置
+	 */
+	var _siteFilter = &quot;&quot;;
+	/*
+	 *	勾选多个成员馆时将过滤条件保存在该字段中
+	 *	重选功能时，该字段清空 
+	 */
+	var _oatenListFilter = &quot;&quot;;
+	/*
+	 * 当前选择的站点所拥有的所有应用系统
+	 * 
+	 */
+	var _siteApp = null;
+</pre></div>
+</p>
+<h3><span id="6.2_对象模块">6.2 对象模块</span></h3>
+<h4><span id="6.2.1_初始化对象模块">6.2.1 初始化对象模块</span></h4>
+<p>该模块完成用户信息的初始化，并根据用户信息从后台得到报告者对象，保存到_reportor</p>
+<h4><span id="6.2.2_站点对象模块">6.2.2 站点对象模块</span></h4>
+<p>得到报告者对象后，调用站点对象模块的初始化操作，该对象模块还包括子站点对象模块。
+该模块完成与站点选择相关的操作逻辑
+考虑是否预先一次性生成所有子站点，选择站点后，直接调用出子站点的信息，可以避免每次重新生成</p>
+<h4><span id="6.2.3_菜单对象模块">6.2.3 菜单对象模块</span></h4>
+<p>选择站点后，调用菜单对象模块的初始化操作，根据用户信息和站点信息生成菜单。
+该模块完成与菜单相关的操作逻辑</p>
+<h4><span id="6.2.4_顶部功能选择对象模块">6.2.4 顶部功能选择对象模块</span></h4>
+<p>该模块可以有多种具体实现，当前有系统环境为顶部功能（顶部功能，指该对象需要在以下的对象之前初始化
+完毕，因为下面部分对象模块的功能实现依靠该模块）</p>
+<h4><span id="6.2.5_时间选择对象模块">6.2.5 时间选择对象模块</span></h4>
+<h4><span id="6.2.6_时间刻度对象模块">6.2.6 时间刻度对象模块</span></h4>
+<h4><span id="6.2.7_应用系统选择对象模块">6.2.7 应用系统选择对象模块</span></h4>
+<h4><span id="6.2.8_图表指标选择对象模块">6.2.8 图表指标选择对象模块</span></h4>
+<h4><span id="6.2.9_表格指标选择对象模块">6.2.9 表格指标选择对象模块</span></h4>
+<h4><span id="6.2.10_图表数据查询对象模块">6.2.10 图表数据查询对象模块</span></h4>
+<h4><span id="6.2.11_表格数据查询对象模块">6.2.11 表格数据查询对象模块</span></h4>
+</div>
+</div>
+  </body>
+</html>

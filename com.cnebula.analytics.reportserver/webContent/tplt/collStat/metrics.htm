@@ -1,0 +1,37 @@
+<!--# if(oat == 'iri'){ #-->
+<label for="+-metricsItemName-+_01"> <input id="+-metricsItemName-+_01"
+	type="checkbox" title="登录人次" value="iri:op.l" 
+	name="+-metricsItemName-+" filter="op='l' and oaten<>oasc" metricsName="ops" 
+	dimensions="oaten" limits="10" chartType="pie" chartTitle="oaten" 
+	description="OATEN : '学校'" checked/> 
+	登录人次
+</label>
+<label for="+-metricsItemName-+_02"> <input id="+-metricsItemName-+_02"
+	type="checkbox" title="课程信息检索次数" value="iri:op.s:ort.c.c-n.c-f"
+	name="+-metricsItemName-+" filter="op='s' and ort in ('c', 'c-n', 'c-f') and oaten<>oasc" 
+	metricsName="ops" dimensions="oaten" limits="10" chartType="pie" chartTitle="oaten"
+	description="OATEN : '学校'"/> 
+	课程信息检索次数
+</label>
+<label for="+-metricsItemName-+_03"> <input id="+-metricsItemName-+_03"
+	type="checkbox" title="教参书检索次数" value="iri:op.s:ort.rf.rf-n.rf-f"
+	name="+-metricsItemName-+" filter="op='s' and ort in ('rf', 'rf-n', 'rf-f') and oaten<>oasc" 
+	metricsName="ops" dimensions="oaten" limits="10" chartType="pie" chartTitle="oaten"
+	description="OATEN : '学校'" /> 
+	教参书检索次数
+</label>
+<label for="+-metricsItemName-+_04"> <input id="+-metricsItemName-+_04"
+	type="checkbox" title="课程信息被访问量" value="iri:op.vw:ort.c.c-n.c-f"
+	name="+-metricsItemName-+" filter="op='vw' and ort in ('c', 'c-n', 'c-f') and oaten<>oasc" 
+	metricsName="ops" dimensions="oaten" limits="10" chartType="pie" chartTitle="oaten"
+	description="OATEN : '学校'" /> 
+	课程信息被访问量
+</label>
+<label for="+-metricsItemName-+_05"> <input id="+-metricsItemName-+_05"
+	type="checkbox" title="教参书全文访问量" value="iri:op.vw:ort.rf.rf-n.rf-f"
+	name="+-metricsItemName-+" filter="op='vw' and ort in ('rf', 'rf-n', 'rf-f') and oaten<>oasc" 
+	metricsName="ops" dimensions="oaten" limits="10" chartType="pie" chartTitle="oaten"
+	description="OATEN : '学校'" /> 
+	教参书全文访问量
+</label>
+<!--# } #-->

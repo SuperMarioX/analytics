@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RCSTable table="rcs_ip_db">
+	<columns>
+					<column colName="ips"   name="ipStart"           type="TEXT"    length="64" ></column>
+					<column colName="ipe"   name="ipEnd"            type="TEXT"    length="64"></column>
+					<column colName="nc"    name="nodeCode"          type="TEXT"    length="64"></column>
+	</columns>
+</RCSTable>

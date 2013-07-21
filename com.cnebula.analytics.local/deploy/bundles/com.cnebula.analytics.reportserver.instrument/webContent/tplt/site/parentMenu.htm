@@ -1,0 +1,11 @@
+<div class='control-bar site'>
+	<!--# if(userType == "calis") { #-->
+		<a id="all" class="site-selector site-selector-first" hasContainer="false" filter="">| 全站 |</a>
+		<a id="calis" class="site-selector" hasContainer="false"  filter="oasc='100000'" >| 中心站 |</a>
+		<a id="saas" class="site-selector" hasContainer="true">| 共享域 |</a>
+		<a id="library" class="site-selector" hasContainer="true">| 成员馆 |</a>
+	<!--# } if(userType == "saas") { #-->
+		<a id="saas" class="site-selector site-selector-first" hasContainer=false  filter="oasc='+-userCode-+'">| 共享域 |</a>
+		<a id="library" class="site-selector" hasContainer="true">| 成员馆 |</a>
+	<!--# } #--> 
+</div>

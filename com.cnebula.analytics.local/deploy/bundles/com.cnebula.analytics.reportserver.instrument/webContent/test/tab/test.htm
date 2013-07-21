@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Tab测试页面</title>
+<link type="text/css" rel="stylesheet" href="../../css/tab/tabs.css"></link>
+
+<script src="../../js/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="../../js/tab/easytabs.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+	
+$(document).ready(function(){
+	$('#tab-container').easytabs();
+})
+</script>
+</head>
+<body>
+	<div id="tab-container" class="tab-container">
+	  <ul class='etabs'>
+	    <li class='tab'><a href="#tabs1-html">HTML Markup</a></li>
+	    <li class='tab'><a href="#tabs1-js">Required JS</a></li>
+	    <li class='tab'><a href="#tabs1-css">Example CSS</a></li>
+	  </ul>
+	  <div class='panel-container'>
+	  <div id="tabs1-html">
+	    <h2>HTML Markup for these tabs</h2>
+	    <!-- content -->
+	  </div>
+	  <div id="tabs1-js">
+	    <h2>JS for these tabs</h2>
+	    <!-- content -->
+	  </div>
+	  <div id="tabs1-css">
+	    <h2>CSS Styles for these tabs</h2>
+	    <!-- content -->
+	  </div>
+	</div>
+	<div id="tabs-outer">
+	outer content
+	</div>
+</body>
+</html>

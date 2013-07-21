@@ -1,0 +1,75 @@
+#toc
+
+==1 说明==
+本文档用于说明日志系统1.1.0以后的版本（含1.1.0版本）中各个模板的说明。\\
+
+==2 站点模板==
+===2.1 主站点===
+代码样例：
+{{code}}
+<div class='control-bar site'>
+	<!--# if(userType == "calis") { #-->
+		<a id="all" class="site-selector site-selector-first" hasContainer="false" filter="" site="">| 全站 |</a>
+		<a id="calis" class="site-selector" hasContainer="false"  filter="oasc='100000'" site="100000">| 中心站 |</a>
+		<a id="saas" class="site-selector" hasContainer="true" filter="" site="">| 共享域 |</a>
+		<a id="library" class="site-selector" hasContainer="true">| 成员馆 |</a>
+	<!--# } if(userType == "saas") { #-->
+		<a id="saas" class="site-selector site-selector-first" hasContainer=false  filter="oasc='+-userCode-+'" site="+-userCode-+">| 共享域 |</a>
+		<a id="library" class="site-selector" hasContainer="true">| 成员馆 |</a>
+	<!--# } #--> 
+</div>
+{{/code}}
+===2.2 子站点===
+
+==3 指标模板==
+
+
+==4 菜单配置==
+菜单配置文件放置在com.cnebula.analytics.conf/menu下，当前所有菜单配置项放置在menu_config.xml中
+一个菜单配置项样例代码如下：
+{{code}}
+<menu funcId="trend" name="趋势分析" chartSize="2" tableSize="-1" chartShow="true" tableShow="true" processType="alone" 
+		timeAp="true" defaultOat="all" metricName="指标：" parentMenu="wzfx" supportedSite="all_calis_saas_library" describe="" loadPage="" timeCorr="true">
+		<support id="all"		></support>
+		<support id="eduChina" 	></support>
+		<support id="yidu" 		></support>
+		<support id="ues" 		></support>
+		<support id="aopac" 	></support>
+		<support id="ccc"  		></support>
+		<support id="uas" 		></support>
+		<support id="opac" 		></support>
+		<support id="ill" 		></support>
+		<support id="ztc" 		></support>
+		<support id="nav" 		></support>
+		<support id="ubs" 		></support>
+		<support id="nps" 		></support>
+		<support id="cvrs"  	></support>
+		<support id="auopac"	></support>
+		<support id="iri" 		></support>
+	</menu>
+{{/code}}
+
+菜单配置项结点<menu></menu>放置在父结点<menulist><menulist>下
+一个菜单配置项包含的属性有：
+|= 属性名称|=含义|=是否必备|=其他说明|
+| funcId| 功能id| 必备| 功能id必须唯一|
+| name| 功能名称| 必备| |
+| chartSize| 该功能支持的图标指标最大选择数目| 非必备| 使用趋势图展示的功能，通常最大选择数为2，排行图展示的功能，通常最大选择数为1|
+| tableSize| 该功能支持的表格指标最大选择数目| 非必备| 默认情况下，可选择任意多个。该值当前未利用，对于一个指标对应多列数据的情况，不使用自定义指标选择，和图表共用同一个指标选择控件|
+| chartShow| 是否显示图表| 非必备| 值设置为“ture”或者“false”，默认情况下为“true”|
+| tableShow| 是否显示表格| 非必备| 值设置为“ture”或者“false”，默认情况下为“true”|
+| processType| 图标和表格指标处理方式| 非必备| 值应为“alone”或“uniform”，“alone”表示图标和表格使用不同的指标选择控制，“uniform”表示使用同一个指标选择控件，当值为“uniform”时，chartSize必须为1，默认情况下为“alone”|
+| timeAp| 是否显示时间刻度| 非必备| 值设置为“ture”或者“false”，默认情况下为“true”|
+| defaultOat| 界面默认的应用系统类型| 非必备| 如不设置，则以第一个应用系统类型为默认类型|
+| metricName| 图标指标控件的提示文字| 必备| 当前系统有“指标：”和“排行榜：”两种类型|
+| parentMenu| 父菜单| 必备| 获得菜单父类节点ID 一级菜单的父类节点为topMenu|
+| supportedSite| 菜单支持的站点| 必备| all：全站，calis：中心站，saas：共享域，library：成员馆，站点之间用下划线连接|
+| describe| 功能描述| 非必备| 当前字段尚未利用  对于该页面的功能简单描述|
+| loadPage| 加载页面| 非必备| 当前字段尚未利用   左边加载页面|
+| procFunction| 数据处理函数| 非必备| 当前字段尚未利用|
+| timeCorr| 是否显示时间对比| 必备| 当前字段尚未利用     两个时间之间的对比 true为显示或者false不显示|
+一个菜单配置项下有若干个support子节点，表示该功能支持的应用系统类型，子节点的属性包括：
+|= 属性名称|=含义|=是否必备|=其他说明|
+| id| 应用系统id| 必备| |
+| name| 应用系统中文名称| 必备| 部分应用系统使用id进行显示|
+| filter| 应用系统过滤条件| 必备| 进行查询时的过滤条件|

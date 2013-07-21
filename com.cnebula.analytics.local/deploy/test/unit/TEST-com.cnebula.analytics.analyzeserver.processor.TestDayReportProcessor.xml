@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="1" failures="0" hostname="calis-PC" name="com.cnebula.analytics.analyzeserver.processor.TestDayReportProcessor" tests="0" time="0.223" timestamp="2013-03-20T09:55:38">
+  <properties>
+    <property name="env.VBOX_INSTALL_PATH" value="E:\Program Files\Oracle\VirtualBox\" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="env.PROMPT" value="$P$G" />
+    <property name="com.cnebula.analytics.reportserver_jar_output" value="" />
+    <property name="java.home" value="D:\Java\jdk1.6.0_25\jre" />
+    <property name="com.cnebula.analytics.logserver_copy_resource" value="copy 0 resource from ..//com.cnebula.analytics.logserver/ to ../com.cnebula.analytics.local/deploy/bundles/com.cnebula.analytics.logserver" />
+    <property name="err" value="" />
+    <property name="target.platform.root" value="../com.cnebula.analytics.local/dep" />
+    <property name="ws" value="win32" />
+    <property name="java.endorsed.dirs" value="D:\Java\jdk1.6.0_25\jre\lib\endorsed" />
+    <property name="env.USERNAME" value="calis" />
+    <property name="CNEBULA_ES_CFG_PATH" value="../com.cnebula.analytics.local/deploy/instance/conf/server.xml" />
+    <property name="product.version" value="1.1.0" />
+    <property name="sun.os.patch.level" value="" />
+    <property name="java.vendor.url" value="http://java.sun.com/" />
+    <property name="env.COMPUTERNAME" value="CALIS-PC" />
+    <property name="product.name" value="analytics" />
+    <property name="java.version" value="1.6.0_25" />
+    <property name="eclipse.pdebuild.home" value="/F:/eclipse-jee-indigo-SR1-win32/eclipse/plugins/org.eclipse.pde.build_3.7.0.v20110512-1320/./" />
+    <property name="com.cnebula.analytics.reportserver.srcslist" value="../com.cnebula.analytics.reportserver/src" />
+    <property name="com.cnebula.analytics.analyzeserver.bindir" value="bin" />
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi" />
+    <property name="env.USERPROFILE" value="C:\Users\calis" />
+    <property name="env.SystemRoot" value="C:\Windows" />
+    <property name="cobertura.report.type" value="xml" />
+    <property name="user.name" value="calis" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="env.PERL5LIB" value="E:\oracle\product\10.2.0\db_1\perl\5.8.3\lib\MSWin32-x86;E:\oracle\product\10.2.0\db_1\perl\5.8.3\lib;E:\oracle\product\10.2.0\db_1\perl\5.8.3\lib\MSWin32-x86;E:\oracle\product\10.2.0\db_1\perl\site\5.8.3;E:\oracle\product\10.2.0\db_1\perl\site\5.8.3\lib;E:\oracle\product\10.2.0\db_1\sysman\admin\scripts;" />
+    <property name="sun.jnu.encoding" value="GBK" />
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+    <property name="env.LOCALAPPDATA" value="C:\Users\calis\AppData\Local" />
+    <property name="com.cnebula.analytics.logserver_jar_output" value="" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="com.cnebula.analytics.unitest_copy_resource" value="copy 0 resource from ..//com.cnebula.analytics.unitest/ to ../com.cnebula.analytics.local/deploy/bundles/com.cnebula.analytics.unitest" />
+    <property name="user.timezone" value="" />
+    <property name="port" value="8991" />
+    <property name="path.separator" value=";" />
+    <property name="env.PROCESSOR_IDENTIFIER" value="x86 Family 6 Model 23 Stepping 10, GenuineIntel" />
+    <property name="uasPort" value="8101" />
+    <property name="local.root" value="../com.cnebula.analytics.local" />
+    <property name="file.encoding" value="GBK" />
+    <property name="com.cnebula.analytics.common_copy_resource" value="copy 0 resource from ..//com.cnebula.analytics.common/ to ../com.cnebula.analytics.local/deploy/bundles/com.cnebula.analytics.common" />
+    <property name="http_minThread" value="2" />
+    <property name="init.memory" value="128" />
+    <property name="server.start.time" value="80" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner com.cnebula.analytics.analyzeserver.processor.TestDayReportProcessor filtertrace=true haltOnError=false haltOnFailure=false showoutput=false outputtoformatters=true logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,F:\workspace\analytics\com.cnebula.analytics.local\deploy\test\unit\TEST-com.cnebula.analytics.analyzeserver.processor.TestDayReportProcessor.xml crashfile=F:\workspace\analytics\com.cnebula.analytics.ci\junitvmwatcher1037894176443653307.properties propsfile=F:\workspace\analytics\com.cnebula.analytics.ci\junit7313429550999486813.properties" />
+    <property name="env.NUMBER_OF_PROCESSORS" value="4" />
+    <property name="env.APPDATA" value="C:\Users\calis\AppData\Roaming" />
+    <property name="ant.file" value="F:\workspace\analytics\com.cnebula.analytics.ci\build.xml" />
+    <property name="workspace.root" value="../" />
+    <property name="env.1830B7BD-F7A3-4c4d-989B-C004DE465EDE" value="f8c:6299b80" />
+    <property name="es.config.path" value="../com.cnebula.analytics.conf" />
+    <property name="java.io.tmpdir" value="C:\Users\calis\AppData\Local\Temp\" />
+    <property name="logpath" value="~/h2dbs" />
+    <property name="TODAY" value="March 20 2013" />
+    <property name="user.language" value="zh" />
+    <property name="env.SystemDrive" value="C:" />
+    <property name="line.separator" value="
+" />
+    <property name="remoteTest.ftp.userid" value="test" />
+    <property name="com.cnebula.analytics.logserver.bindir" value="bin" />
+    <property name="java.vm.info" value="mixed mode" />
+    <property name="sun.desktop" value="windows" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="deploy.root" value="../com.cnebula.analytics.local/deploy" />
+    <property name="com.cnebula.analytics.comtest_copy_resource" value="copy 0 resource from ..//com.cnebula.analytics.comtest/ to ../com.cnebula.analytics.local/deploy/bundles/com.cnebula.analytics.comtest" />
+    <property name="env.PATHEXT" value=".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC" />
+    <property name="host" value="127.0.0.1" />
+    <property name="com.cnebula.analytics.unitest.srcslist" value="../com.cnebula.analytics.unitest/src" />
+    <property name="http_port" value="8991" />
+    <property name="uasHost" value="uas.dev.calis.edu.cn" />
+    <property name="env.LOGONSERVER" value="\\CALIS-PC" />
+    <property name="eclipse.pdebuild.templates" value="/F:/eclipse-jee-indigo-SR1-win32/eclipse/plugins/org.eclipse.pde.build_3.7.0.v20110512-1320/templates/" />
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
+    <property name="build.date" value="20130320" />
+    <property name="logger_port" value="8992" />
+    <property name="com.cnebula.analytics.comtest_jar_output" value="" />
+    <property name="project.code" value="analytics" />
+    <property name="env.PUBLIC" value="C:\Users\Public" />
+    <property name="ant.file.Build Util Macros" value="F:\workspace\analytics\com.cnebula.analytics.ci\build-util_1_0.xml" />
+    <property name="ant.version" value="Apache Ant version 1.7.1 compiled on June 27 2008" />
+    <property name="env.USERDOMAIN" value="calis-PC" />
+    <property name="com.cnebula.analytics.analyzeserver.instrument_jar_output" value="" />
+    <property name="com.cnebula.analytics.unitest_jar_output" value="" />
+    <property name="com.cnebula.analytics.reportserver_copy_resource" value="copy 0 resource from ..//com.cnebula.analytics.reportserver/ to ../com.cnebula.analytics.local/deploy/bundles/com.cnebula.analytics.reportserver" />
+    <property name="com.cnebula.analytics.common.srcslist" value="../com.cnebula.analytics.common/src" />
+    <property name="env.PROCESSOR_LEVEL" value="6" />
+    <property name="ant.file.Build Core" value="F:\workspace\analytics\com.cnebula.analytics.ci\build.xml" />
+    <property name="env.windir" value="C:\Windows" />
+    <property name="os.name" value="Windows 7" />
+    <property name="java.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="env.TMP" value="C:\Users\calis\AppData\Local\Temp" />
+    <property name="java.vm.name" value="Java HotSpot(TM) Client VM" />
+    <property name="env.ProgramData" value="C:\ProgramData" />
+    <property name="env.OS" value="Windows_NT" />
+    <property name="java.library.path" value="D:\Java\jdk1.6.0_25\jre\bin;.;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:/Java/jdk1.6.0_25/bin/../jre/bin/client;D:/Java/jdk1.6.0_25/bin/../jre/bin;D:/Java/jdk1.6.0_25/bin/../jre/lib/i386;F:\apache-ant-1.7.1/bin/;C:\Program Files\Common Files\NetSarang;D:\Java\jdk1.6.0_25\bin;E:\oracle\product\10.2.0\db_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Common Files\Thunder Network\KanKan\Codecs;C:\Program Files\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files\SSH Communications Security\SSH Secure Shell;e:\Program Files\OpenVPN\bin;F:\eclipse-jee-indigo-SR1-win32\eclipse;" />
+    <property name="eclipse.pdebuild.scripts" value="/F:/eclipse-jee-indigo-SR1-win32/eclipse/plugins/org.eclipse.pde.build_3.7.0.v20110512-1320/scripts/" />
+    <property name="ant.java.version" value="1.6" />
+    <property name="basedir" value="F:\workspace\analytics\com.cnebula.analytics.ci" />
+    <property name="java.class.version" value="50.0" />
+    <property name="com.cnebula.analytics.analyzeserver_jar_output" value="" />
+    <property name="ant.home" value="F:\apache-ant-1.7.1" />
+    <property name="env.Path" value="D:/Java/jdk1.6.0_25/bin/../jre/bin/client;D:/Java/jdk1.6.0_25/bin/../jre/bin;D:/Java/jdk1.6.0_25/bin/../jre/lib/i386;F:\apache-ant-1.7.1/bin/;C:\Program Files\Common Files\NetSarang;D:\Java\jdk1.6.0_25\bin;E:\oracle\product\10.2.0\db_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Common Files\Thunder Network\KanKan\Codecs;C:\Program Files\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files\SSH Communications Security\SSH Secure Shell;e:\Program Files\OpenVPN\bin;F:\eclipse-jee-indigo-SR1-win32\eclipse;" />
+    <property name="com.cnebula.analytics.reportserver.instrument_jar_output" value="" />
+    <property name="com.cnebula.analytics.logserver.instrument_jar_output" value="" />
+    <property name="http_host" value="127.0.0.1" />
+    <property name="env.HOMEDRIVE" value="C:" />
+    <property name="net.sourceforge.cobertura.datafile" value="F:\workspace\analytics\com.cnebula.analytics.local\deploy\cobertura\com.cnebula.analytics.analyzeserver.processor.ser" />
+    <property name="sun.boot.library.path" value="D:\Java\jdk1.6.0_25\jre\bin" />
+    <property name="db_url" value="dbc:oracle:thin:@192.168.2.177:1521:orcl" />
+    <property name="max.memory" value="512" />
+    <property name="env.PROCESSOR_REVISION" value="170a" />
+    <property name="com.cnebula.analytics.unitest.bindir" value="bin" />
+    <property name="sun.management.compiler" value="HotSpot Client Compiler" />
+    <property name="logger_host" value="192.168.2.93" />
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
+    <property name="user.variant" value="" />
+    <property name="http_maxThread" value="300" />
+    <property name="arch" value="x86" />
+    <property name="env.asl.log" value="Destination=file" />
+    <property name="ant.project.name" value="Build Core" />
+    <property name="db_driver" value="oracle.jdbc.OracleDriver" />
+    <property name="java.vm.specification.version" value="1.0" />
+    <property name="local.build_properties" value="ci-build.properties" />
+    <property name="os" value="win32" />
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
+    <property name="appId" value="app:100000.uas_000" />
+    <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86" />
+    <property name="java.ext.dirs" value="D:\Java\jdk1.6.0_25\jre\lib\ext;C:\Windows\Sun\Java\lib\ext" />
+    <property name="os.version" value="6.1" />
+    <property name="user.home" value="C:\Users\calis" />
+    <property name="relative.config.xml" value="server.xml" />
+    <property name="java.vm.vendor" value="Sun Microsystems Inc." />
+    <property name="env.JAVA_HOME" value="D:\Java\jdk1.6.0_25" />
+    <property name="env.__COMPAT_LAYER" value="RunAsAdmin" />
+    <property name="user.dir" value="F:\workspace\analytics\com.cnebula.analytics.ci" />
+    <property name="com.cnebula.analytics.comtest.srcslist" value="../com.cnebula.analytics.comtest/src" />
+    <property name="com.cnebula.analytics.common.instrument_jar_output" value="" />
+    <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
+    <property name="env.FP_NO_HOST_CHECK" value="NO" />
+    <property name="rcsPort" value="80" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="jmx_port" value="8990" />
+    <property name="env.ALLUSERSPROFILE" value="C:\ProgramData" />
+    <property name="fail.unit.test" value="true" />
+    <property name="com.cnebula.analytics.comtest.bindir" value="bin" />
+    <property name="env.PROCESSOR_ARCHITECTURE" value="x86" />
+    <property name="java.vm.version" value="20.0-b11" />
+    <property name="java.class.path" value="F:\workspace\analytics\com.cnebula.analytics.local\dep\ci\cobertura\cobertura.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\ci\cobertura\lib\asm-3.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\ci\cobertura\lib\asm-tree-3.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\ci\cobertura\lib\jakarta-oro-2.0.8.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\ci\cobertura\lib\log4j-1.2.9.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\lib\connector-1_5.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\lib\toplink-essentials.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\instrumented\com.cnebula.analytics.analyzeserver_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\instrumented\com.cnebula.analytics.common_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\instrumented\com.cnebula.analytics.logserver_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\instrumented\com.cnebula.analytics.reportserver_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundle.jars\com.cnebula.analytics.analyzeserver_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundle.jars\com.cnebula.analytics.common_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundle.jars\com.cnebula.analytics.logserver_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundle.jars\com.cnebula.analytics.reportserver_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.common.instrument\lib\UserAgentUtils-1.5.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.common.instrument\lib\pinyin4j-2.5.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.common\lib\UserAgentUtils-1.5.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.common\lib\pinyin4j-2.5.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\apache-mime4j-0.6.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\bsh-1.3.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\cglib-nodep-2.1_3.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\commons-beanutils-1.8.3.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\commons-codec-1.6.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\commons-collections-3.2.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\commons-exec-1.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\commons-io-2.0.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\commons-jxpath-1.3.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\commons-lang-2.6.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\commons-logging-1.1.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\cssparser-0.9.5.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\ezmorph-1.0.6.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\guava-12.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\hamcrest-core-1.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\hamcrest-library-1.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\htmlunit-2.9.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\htmlunit-core-js-2.9.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\httpclient-4.1.3.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\httpcore-4.1.3.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\httpmime-4.1.3.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\ini4j-0.5.2.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\jcommander-1.13.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\jna-3.4.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\jna-platform-3.4.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\json-20080701.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\json-lib-2.4-jdk15.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\junit-dep-4.10.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\nekohtml-1.9.15.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\netty-3.2.7.Final.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\operadriver-0.14.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\protobuf-java-2.4.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\sac-1.3.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\selenium-java-2.25.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\serializer-2.7.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\testng-6.0.1-nobsh-noguice.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\webbit-0.4.8-SNAPSHOT.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\xalan-2.7.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\xercesImpl-2.9.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.comtest\lib\xml-apis-1.3.04.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.logserver.instrument\lib\h2-1.3.164-sources.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.logserver.instrument\lib\javolution-5.5.1-sources.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.logserver.instrument\lib\javolution-5.5.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.logserver.instrument\lib\netty-3.3.1.Final-sources.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.logserver\lib\h2-1.3.164-sources.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.logserver\lib\javolution-5.5.1-sources.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.logserver\lib\javolution-5.5.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.logserver\lib\netty-3.3.1.Final-sources.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.reportserver.instrument\lib\jxl.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.reportserver.instrument\lib\org.json.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.reportserver\lib\jxl.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.reportserver\lib\org.json.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\checkstyle-5.6-all.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\cobertura_1.9.2.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.caucho.hessian_3.1.6.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.client.update_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.conf.impl_1.0.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.db_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.dio_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.ejb.impl_1.1.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.ejb.lucene.imp_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.ejb.lucene.ui_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.ejb.lucene_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.ejb.manage_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.facelets_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.i18n.impl_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.log.impl_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.mail.service_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.management.impl_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.remote.comtest_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.remote.core.unittest_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.remote.core_1.0.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.remote.ejb.io_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.remote.ws_1.0.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.servlet.impl_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.servlet.jsf.example_1.1.6.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.servlet.jsf.imp_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.servlet.jsf.simpleexample_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.servlet.jsp.imp_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.tomcat.server_5.5.35.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.common.xml.impl_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.ehcache.provider_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.facelets.example_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.junit_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.limit_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.platform.admin_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.rcs_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.solr.service.imp_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.um.client.ui_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.um.ejb_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.um.service.imp_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.um.service_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.um.simple.permission.imp_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.um.simple.permission_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.cnebula.um.task.syn_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\com.sun.facelets_1.1.13.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\httpunit_1.6.2.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\javax.persistence_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\javax.servlet.jsp.jstl_1.1.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\javax.servlet.jsp_2.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\javax.servlet_2.5.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.apache.common.lang_2.3.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.apache.commons.collections_1.0.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.apache.commons.el_1.0.0.200901081027.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.apache.commons.logging_1.0.4.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.apache.jasper_5.5.17.ES.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.apache.lucene_3.3.0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.apache.myfaces.tomahawk_1.1.6.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.apache.myfaces_1.1.5.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.eclipse.equinox.event_1.0.100.v20070516.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.eclipse.equinox.http.jetty_1.0.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.eclipse.equinox.http.servlet_1.0.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.eclipse.equinox.log_1.0.1.R32x_v20060717.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.eclipse.osgi.services_3.1.200.ES.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.eclipse.osgi_3.3.0.ES_1_0.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.h2_1.3.164-sources.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.h2_1.3.164.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.jboss.netty_3.3.1-sources.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.jboss.netty_3.3.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.junit4_4.1.0.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.knopflerfish.bundle.component_2.0.1.jar;F:\workspace\analytics\com.cnebula.analytics.local\dep\target\plugins\org.mortbay.jetty_6.1.6.jar;F:\workspace\analytics\com.cnebula.analytics.local\deploy\bundles\com.cnebula.analytics.unitest\bin;F:\apache-ant-1.7.1\lib\ant-launcher.jar;F:\apache-ant-1.7.1\lib\ant.jar;F:\apache-ant-1.7.1\lib\ant-junit.jar;../com.cnebula.analytics.local/deploy/instance/cnebula/cnebula_cft_1.0.0.jar" />
+    <property name="env.HOMEPATH" value="\Users\calis" />
+    <property name="DSTAMP" value="20130320" />
+    <property name="env.VS100COMNTOOLS" value="E:\Program Files\Microsoft Visual Studio 10.0\Common7\Tools\" />
+    <property name="mlog.level" value="ERROR" />
+    <property name="com.cnebula.analytics.analyzeserver_copy_resource" value="copy 0 resource from ..//com.cnebula.analytics.analyzeserver/ to ../com.cnebula.analytics.local/deploy/bundles/com.cnebula.analytics.analyzeserver" />
+    <property name="ant.library.dir" value="F:\apache-ant-1.7.1\lib" />
+    <property name="os.arch" value="x86" />
+    <property name="remoteTest.ftp.server" value="192.168.2.49" />
+    <property name="env.SESSIONNAME" value="Console" />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="cobertura.report.root" value="../com.cnebula.analytics.local/deploy/cobertura/report" />
+    <property name="env.CommonProgramFiles" value="C:\Program Files\Common Files" />
+    <property name="ant.core.lib" value="F:\apache-ant-1.7.1\lib\ant.jar" />
+    <property name="env.ProgramFiles" value="C:\Program Files" />
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="TSTAMP" value="1755" />
+    <property name="file.separator" value="\" />
+    <property name="java.runtime.version" value="1.6.0_25-b06" />
+    <property name="com.cnebula.analytics.common_jar_output" value="" />
+    <property name="sun.boot.class.path" value="D:\Java\jdk1.6.0_25\jre\lib\resources.jar;D:\Java\jdk1.6.0_25\jre\lib\rt.jar;D:\Java\jdk1.6.0_25\jre\lib\sunrsasign.jar;D:\Java\jdk1.6.0_25\jre\lib\jsse.jar;D:\Java\jdk1.6.0_25\jre\lib\jce.jar;D:\Java\jdk1.6.0_25\jre\lib\charsets.jar;D:\Java\jdk1.6.0_25\jre\lib\modules\jdk.boot.jar;D:\Java\jdk1.6.0_25\jre\classes" />
+    <property name="env.ComSpec" value="C:\Windows\system32\cmd.exe" />
+    <property name="remoteTest.dist.root" value="/" />
+    <property name="com.cnebula.analytics.analyzeserver.srcslist" value="../com.cnebula.analytics.analyzeserver/src" />
+    <property name="env.TEMP" value="C:\Users\calis\AppData\Local\Temp" />
+    <property name="env.ANT_HOME" value="F:\apache-ant-1.7.1" />
+    <property name="is.client" value="false" />
+    <property name="user.country" value="CN" />
+    <property name="java.vendor" value="Sun Microsystems Inc." />
+    <property name="runtime.build" value="../com.cnebula.analytics.local/build" />
+    <property name="com.cnebula.analytics.logserver.srcslist" value="../com.cnebula.analytics.logserver/src" />
+    <property name="com.cnebula.analytics.reportserver.bindir" value="bin" />
+    <property name="env.PSModulePath" value="C:\Windows\system32\WindowsPowerShell\v1.0\Modules\" />
+    <property name="jmx_host" value="127.0.0.1" />
+    <property name="rcsHost" value="rcs.calis.edu.cn" />
+    <property name="java.specification.version" value="1.6" />
+    <property name="sun.arch.data.model" value="32" />
+    <property name="com.cnebula.analytics.common.bindir" value="bin" />
+  </properties>
+  <testcase classname="junit.framework.TestSuite" name="com.cnebula.analytics.analyzeserver.processor.TestDayReportProcessor" time="0.0010">
+    <error message="Invalid byte 2 of 2-byte UTF-8 sequence." type="com.cnebula.common.xml.XMLParseException">com.cnebula.common.xml.XMLParseException: Invalid byte 2 of 2-byte UTF-8 sequence.
+	at com.cnebula.common.xml.impl.EasyObjectXMLTransformerImpl.parse(EasyObjectXMLTransformerImpl.java:158)
+	at com.cnebula.common.xml.impl.EasyObjectXMLTransformerImpl.parse(EasyObjectXMLTransformerImpl.java:166)
+	at com.cnebula.common.xml.impl.EasyObjectXMLTransformerImpl.parse(EasyObjectXMLTransformerImpl.java:193)
+	at com.cnebula.analytics.analyzeserver.processor.TestDayReportProcessor.beforeClass(TestDayReportProcessor.java:76)
+Caused by: org.apache.xerces.impl.io.MalformedByteSequenceException: Invalid byte 2 of 2-byte UTF-8 sequence.
+	at org.apache.xerces.util.ErrorHandlerWrapper.createSAXParseException(Unknown Source)
+	at org.apache.xerces.util.ErrorHandlerWrapper.fatalError(Unknown Source)
+	at org.apache.xerces.impl.XMLErrorReporter.reportError(Unknown Source)
+	at org.apache.xerces.impl.XMLErrorReporter.reportError(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:198)
+	at com.cnebula.common.xml.impl.EasyObjectXMLTransformerImpl.parse(EasyObjectXMLTransformerImpl.java:144)
+Caused by: org.apache.xerces.impl.io.MalformedByteSequenceException: Invalid byte 2 of 2-byte UTF-8 sequence.
+	at org.apache.xerces.impl.io.UTF8Reader.invalidByte(Unknown Source)
+	at org.apache.xerces.impl.io.UTF8Reader.read(Unknown Source)
+	at org.apache.xerces.impl.XMLEntityScanner.load(Unknown Source)
+	at org.apache.xerces.impl.XMLEntityScanner.scanLiteral(Unknown Source)
+	at org.apache.xerces.impl.XMLScanner.scanAttributeValue(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanAttribute(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl$NSContentDispatcher.scanRootElementHook(Unknown Source)
+</error>
+  </testcase>
+  <system-out><![CDATA[2013-03-20 17:55:38[INFO]:[com.cnebula.osgi.es.util.EasyServiceManagerImp.<clinit>]:there's no system bundle maybe we're in mock model
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

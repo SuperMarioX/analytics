@@ -1,0 +1,270 @@
+#toc
+
+==1 说明==
+本文档用于说明CALIS各个应用系统（如ILL、CCC、E读等）与CALIS日志系统（**下面简称CAL**）的集成方法。\\
+==2 集成步骤==
+集成CAL系统的目的在于使用其能够跟踪应用系统的访问情况。\\
+集成方式主要是在需要跟踪的网页上（如ILL的首页）嵌入一段javascript代码（下面称之为跟踪代码）。\\
+嵌入跟踪代码的作用：是用户访问页面时，以异步方式将CAL中用于跟踪的javascript代码放入用户本地，执行跟踪的功能。
+===2.1 嵌入跟踪代码===
+在要跟踪的每个网页上，将代码段复制并粘贴到网页底部的 </body> 标记之前，且紧邻该标记。\\
+跟踪代码的嵌入示例形如\\
+{{code}}
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<title>ILL首页</title>
+	<meta content="text/html; charset=utf-8" http-equiv=content-type>
+</head>
+<body>
+	<!-- 
+		嵌入跟踪代码之前，
+		上面为网站自己页面代码：
+		可以包括html代码、jsp等
+	 -->
+	 
+	<!-- 以下进行跟踪代码的嵌入 -->
+	<script type=text/javascript>
+		var _olc = _olc || [];
+		(function (){		
+			var log = {
+				'oaid' : 'app:265010.ill_001' //新疆大学ill的应用ID，各个属性具体含详见3 json对象说明
+			};
+			_olc.push(log);
+					
+			var d = document,
+			_g = d.createElement('script');
+			_s = d.getElementsByTagName('script')[0];
+			_g.type = 'text/javascript';
+			_g.defer = true;
+			_g.async = true;
+			_g.src = "http://st-analytics.dev.calis.edu.cn:8992/calis.cal_0.01.js";
+			_s.parentNode.insertBefore(_g,_s);	
+		})();		
+	</script>
+</body>
+</html>
+{{/code}}
+
+**注意**
+*代码必须嵌入到网页底部的 </body> 标记之前，且紧邻</body>标记** \\
+*代码中定义的json变量名称为"log"，实际开发时可以为任意名称，但必须是json格式，同时需要与"_olc.push(log)"里面保持一致\\
+*代码中定义的json变量里面可以包含形如"oaid"的多个对象属性，各个属性的含义详见[[3 json对象说明|"json对象说明"]] \\
+*代码中的"oaid"代表应用系统ID，每次进行日志请求时必须包含。
+*代码中的地址"http://www.calislog.com:8992"为CAL的域名和端口号，需要根据实际的CAL域名进行更改\\
+*json属性的值如果为中文不需要编码。如本例中的"中文图书"、"数字信号处理"等，直接使用中文即可，不能使用js的编码函数进行编码。
+*需要注意如果加载页面时需要连续进行日志跟踪（连续调用push方法），不可使用同一个的json变量。例如下例是错误的!!!
+{{code}}
+	//html代码，略
+	<script type=text/javascript>
+		var _olc = _olc || [];
+		(function (){		
+			var log = {
+				'oaid' : 'app:265010.ill_001', //新疆大学ill的应用ID，各个属性具体含详见3 json对象说明
+				'oln':'en-US'
+			};
+			_olc.push(log);//此处连续2此push同一个json，是错误的
+			_olc.push(log);
+			var d = document,
+			_g = d.createElement('script');
+			_s = d.getElementsByTagName('script')[0];
+			_g.type = 'text/javascript';
+			_g.defer = true;
+			_g.async = true;
+			_g.src = "http://st-analytics.dev.calis.edu.cn:8992/calis.cal_0.01.js";
+			_s.parentNode.insertBefore(_g,_s);	
+		})();		
+	</script>
+	//html代码，略
+{{/code}}
+正确的代码格式是
+{{code}}
+//html代码，略
+<script type=text/javascript>
+	var _olc = _olc || [];
+	(function (){		
+		var log = {
+			'oaid' : 'app:265010.ill_001'， //新疆大学ill的应用ID，各个属性具体含详见3 json对象说明
+			'oln':'en-US'
+		};
+		//以下重新定义1个变量，取值与前面的变量log相同
+		var log1 = {
+			'oaid' : 'app:265010.ill_001'， //新疆大学ill的应用ID，各个属性具体含详见3 json对象说明
+			'oln':'en-US'
+		};
+		_olc.push(log);
+		_olc.push(log1);
+		var d = document,
+		_g = d.createElement('script');
+		_s = d.getElementsByTagName('script')[0];
+		_g.type = 'text/javascript';
+		_g.defer = true;
+		_g.async = true;
+		_g.src = "http://st-analytics.dev.calis.edu.cn:8992/calis.cal_0.01.js";
+		_s.parentNode.insertBefore(_g,_s);	
+	})();		
+</script>
+//html代码，略
+{{/code}}
+===2.2 API说明===
+*跟踪代码在嵌入以后，主要初始化了一个"_olc"全局变量，该变量名称不允许更改。
+*"_olc"变量仅提供一个名称为"push"的方法，用于网页跟踪。
+===2.3 页面中的点击跟踪===
+在初始化追踪代码后，若需要记录某页面个动作，如页面中的某个按钮为"查看资源"\\
+如果想在CAL中记录该动作，可以添加它的"onclick"事件处理函数，如下例中的"trackResource"函数。\\
+完整的示例代码如下：
+{{code}}
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<title>ILL首页</title>
+	<meta content="text/html; charset=utf-8" http-equiv=content-type>
+	<script type="text/javascript">
+		function trackResource(){
+			var log = {
+				oaid : 'app:265010.ill_001',
+				op: 'vw', //vw表示view查看
+				ort: '中文图书',
+				orid: '/cnbooks/mybook.pdf',
+				ocrt: '奥本海姆',
+				osub: '数字信号处理',
+				opub: '中国电子工业出版社',
+				odt:  '1987',
+				oct:  'pdf',
+				ofmt: 'ofmt',
+				osrc: '方正电子图书'
+			};
+			_olc.push(log);
+		}
+	</script>
+</head>
+<body>
+	<!-- 
+		嵌入跟踪代码之前，
+		上面为网站自己页面代码：
+		可以包括html代码、jsp等
+	 -->
+	 
+	<button onclick="trackResource();">查看资源</button>
+	 
+	<!-- 以下进行跟踪代码的嵌入 -->
+	<script type=text/javascript>
+		var _olc = _olc || [];
+		(function (){		
+			var log = {
+				oaid: 'oaid' : 'app:265010.ill_001' //新疆大学ill的应用ID，各个属性具体含详见3 json对象说明
+			};
+			_olc.push(log);
+					
+			var d = document,
+			_g = d.createElement('script');
+			_s = d.getElementsByTagName('script')[0];
+			_g.type = 'text/javascript';
+			_g.defer = true;
+			_g.async = true;
+			_g.src = "http://st-analytics.dev.calis.edu.cn:8992/calis.cal_0.01.js";
+			_s.parentNode.insertBefore(_g,_s);	
+		})();		
+	</script>
+</body>
+</html>
+{{/code}}
+其中，"trackResource"方法中重新定义了json对象，并通过接口方法"_olc.push"进行跟踪。\\
+**注意 **
+*代码中的"oaid"同样必须包含
+==3 json对象说明==
+#op为v（调用者不提供时默认为v）的时候称为浏览日志，其他为操作日志。
+#json对象中的各个属性说明如下(除了op外，其他首字母:s指Subject主体， o指Object客体, r 指Result结果)：
+
+|= 属性名称|=含义|=是否必备|=其他说明|
+|lfrm|location( from ) 访问途径|可选|浏览日志默认为上次页面url，否则默认为本页url，可由调用者覆盖 |
+| sorg| subject organization 登录用户所在的学校/单位代码| 用户登录后有则必备| 字符长度超过20将会被截断|
+| sten| subject tenant 登录用户的所属租客| 用户登录后有则必备| 字符长度超过20将会被截断|
+| sid| subject id 登录用户的身份ID| 用户登录后必备| 字符长度超过20将会被截断|
+| st| subject type 用户类型，学生、教师...等| 用户登录后有则必备| 字符长度超过20将会被截断|
+| op| operation 动作，枚举值：访问、检索等| 可选| 不提供则默认为v，表示浏览日志，可以覆盖。字符长度超过20将会被截断|
+| oaid| object app id 应用系统ID| 必备| 字符长度超过32将会被截断|
+| ort| object resource type 所访问的资源类型，枚举值：页面，服务，图书...|操作日志必备|浏览日志默认为p（表示page)，可以覆盖
+| orid|object resource id 所访问的资源ID|操作日志必备|浏览日志默认为当前url(不含host port)，可由调用者提供覆盖。字符长度超过1024将会被截断|
+|otil|object title标题|操作日志必备|浏览日志默认为本页title|
+| ocrt	| object creator 所访问的资源对应的作者，可为多值| 有则必备| 字符长度超过20将会被截断|
+| osub	| object subject 所访问的资源主题| 有则必备| 字符长度超过20将会被截断|
+| opub	| object publisher 所访问的资源出版者| 有则必备| 字符长度超过50将会被截断|
+| ocor| 	object contributor 所访问资源的其他贡献人| 有则必备| 字符长度超过20将会被截断|
+| odt| object date 所访问的资源的出版日期，当前仅支持年| 有则必备| 字符长度超过20将会被截断|
+| ofmt	 | object format 所访问的资源 格式| 有则必备| 字符长度超过20将会被截断|
+| osrc	| object source 所访问的资源来源| 有则必备| 字符长度超过20将会被截断|
+| oln	| object language 所访问的资源语言| 有则必备| 字符长度超过20将会被截断|
+| orel|object relation 所访问资源的相关资源，比如期刊论文此处可放期刊| 有则必备| 字符长度超过50将会被截断|
+| rrs	| result response status响应状态，枚举值：成功,失败,恶意访问等等 | 有则必备| 字符长度超过20将会被截断|
+
+
+
+**必备的属性说明如下：**
+*oaid：应用系统的ID，该属性必须包含，并且在嵌入页面时必须设定。如[[2.1 嵌入跟踪代码|"2.1 嵌入跟踪代码"]]所示。\\其值需要从RCS（CALIS会员注册系统）中查出。
+*op：动作。默认为"v"，可以根据实际业务自定义覆盖默认值。
+*ort：资源类型。默认为"p",可以根据实际业务自定义覆盖默认值。例如可以为"中文图书"、"外文期刊"等等。
+*orid：资源ID。默认为资源的url(不包含域名和端口)，可以根据实际业务自定义覆盖默认值。例如，填写当前资源的地址为"/cnbooks/mybook.pdf"。
+==4 集成示例==
+为方便说明，以下假定日志系统域名为"analytics.dev.calis.edu.cn"，对应的IP地址为"192.168.2.233"。\\
+* 嵌入代码里使用的地址： st-analytics.dev.calis.edu.cn
+* 嵌入代码里使用的端口：8992
+* 报表系统访问地址（web地址）：analytics.dev.calis.edu.cn
+* 报表系统使用的端口：8991
+* 日志系统JMX地址：192.168.2.233，与域名名称分开是为了防止会话干扰
+* 日志系统JMX端口：8990
+
+其中，嵌入代码使用的是日志记录服务，地址也就是集成时需要动态引入的js代码地址；报表系统（也就是CAL）用来查看日志统计信息，日志系统的JMX用来简单管理和追踪报表处理流程，如生成报表等。\\
+同时假定，访问CAL的用户关心新疆共享域下馆际互借系统(ill)的数据信息，当前的访问日期是2012年3月29日。\\
+===4.1 嵌入代码的集成===
+详见[[2.1 嵌入跟踪代码|2.1 嵌入跟踪代码]]。\\
+**注：**根据实际的域名，修改代码中的相应地址。\\
+===4.2 使用CAL系统===
+====4.2.1 CAL页面UI概述====  
+使用CAL系统，需要首先登陆。根据假定，打开浏览器输入地址"http://analytics.dev.calis.edu.cn:8991/report/analysis.htm"，\\
+转到该页面以后弹出窗口需要登陆，如下图所示：\\
+{{img/jsAPI/cal_login.png|登录}}\\
+输入用户名密码，如用户名为"caladmin"，密码为"111111"，登陆成功后的页面如下。\\
+{{img/jsAPI/cal_loginAndView.png|登录成功}}\\
+页面中左边为应用系统树，以树形结构显示了CALIS下属（包括CALIS中心）的各个共享域，以及各共享域下的应用系统类型。\\
+页面中右边为报表数据，从上到下依次显示浏览量访问量信息、资源类型排行信息、实时访问信息、实时常规操作信息等，以折线图、柱状图和图标的方式展现。由于当前没有数据，所以页面右半边为空白。\\
+页面右上角的"小时统计 日统计 月统计"链接为日期查询条件。\\
+
+用户依次点击左边应用系统树的"CALIS新疆维吾尔自治区文献信息服务中心"和"ill"节点。如下图所示。\\
+{{img/jsAPI/cal_selectIll.png|选取节点}}\\
+====4.2.2 实时监控====
+=====4.2.2.1 通过table查看实时数据=====
+#不关闭已经打开的浏览器。建议单独打开另一个浏览器（与4.2.1不同的浏览器，用以实现访问的同时也可以查看实时数据系信息），访问新疆共享域下馆际互借系统(ill)的相关页面，假定页面代码如[[2.1 嵌入跟踪代码|2.1 嵌入跟踪代码]]所示。\\
+#进入页面1次，即进行了一次页面访问。\\
+之后，需要在CAL中查看是否对访问进行了记录。浏览器切换到4.2.1中所述已经打开的浏览器，可以看到，已经有实时数据记录。如下图所示。\\
+{{img/jsAPI/cal_realtime.png|实时数据}}\\
+=====4.2.2.2 查看请求的页面参数=====
+可以通过页面中的测试页面，查看应用系统在CAL中的日志信息。
+通过页面访问地址：http:/analytics.dev.calis.edu.cn:8991/report/test/realtime.htm，初始页面打开为空白，保持此tab页面不关闭。
+单独打开浏览器的新tab页面（或者重新打开新的浏览器），同[[4.2.1 CAL页面UI概述|4.2.1 CAL页面UI概述]]相似，访问新疆共享域下馆际互借系统(ill)的相关页面，假定页面代码如[[2.1 嵌入跟踪代码|2.1 嵌入跟踪代码]]所示。
+进入应用系统页面后，切换回上述的"http:/analytics.dev.calis.edu.cn:8991/report/test/realtime.htm"所在的tab页面，即可看到如下效果。
+{{img/jsAPI/cal_realtime_test.png|实时数据测试查看结果页面}}
+
+====4.2.3 手动生成某天报表并查看====
+=====4.2.3.1 查看浏览量数据=====
+CAL系统中，CAL系统后台不会生成当天的报表。因此，浏览量数据不会展现出来，只能通过手动操作在后台生成后才能查看。步骤如下。\\
+打开CAL中的JMX系统，地址形如"http://192.168.2.233:8990",按下图中所示打开相应的界面。\\
+{{img/jsAPI/cal_jmx_init.png|JMX初始化}}\\
+在图中所示位置输入"pv_v_pure_report"和"20120329"(当前日期)，之后点击图中所示的"invoke"按钮，成功后出现如下图所示界面。\\
+{{img/jsAPI/cal_jmx_createPv.png|生成pv报表}}\\
+**注意：**，填入的数据不能错误，其中的"pv_v_pure_report"参数标识用来生成浏览量访问量报表数据，"20120329"表示当前日期。\\
+切换到4.2.1部分的浏览器，选中左边树中的根节点"calis"，可以看到全域的浏览量访问量折线图和表格数据。如下图所示。
+{{img/jsAPI/cal_global_day_pv.png|全局浏览量}}\\
+依次点击左边应用系统树的"CALIS新疆维吾尔自治区文献信息服务中心"和"ill"节点后，点击右上角的"小时统计"链接，可以看到浏览量访问量图标如下图所示。\\
+{{img/jsAPI/cal_apptype_hour_pv.png|小时流量}}\\
+由图中还可以看出，用户是在17-18点之间进行的访问。\\
+=====4.2.3.2 查看资源访问数据=====
+与[[4.2.2.1 查看实时数据|4.2.2.1 查看实时数据]]操作相似，查看资源需要用户进行资源访问操作。如[[2.3 页面中的点击跟踪|2.3 页面中的点击跟踪]]中页面代码相同，\\
+用户点击"查看资源"按钮，即进行了一次资源查看。\\
+CAL系统中，当天的资源访问数据不会展现出来。只能通过手动生成后才能查看。步骤如下。\\
+与[[4.2.2.2 查看浏览量数据|4.2.2.2 查看浏览量数据]]操作相似，打开JMX系统，在界面中输入如下。\\
+{{img/jsAPI/cal_jmx_createRes.png|生成资源报表}}\\
+之后在CAL中查看到的浏览量访问量图表结果如下。\\
+{{img/jsAPI/cal_res.png|资源流量报表}}\\
+
+

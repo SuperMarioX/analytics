@@ -1,0 +1,115 @@
+<center>
+	<span style="font-size: 16px;font-weight: bold;">MBeanName: +-mbname-+</span><br/>
+	<span style="font-size: 16px;font-weight: bold;">className: +-className-+</span>
+</center>
+<table class="h-table">
+<caption>Values</caption>
+<tr>
+	<th>attribute name</th>
+	<th>attribute value</th>
+</tr>
+<!--#
+	for(var i=0;i<attrnames.length;i++){
+		var an = attrnames[i];
+		var av = attrvalues[i];
+		if(i%2 == 0){
+#-->		
+		<tr style="background-color: #EFEFEF;">
+<!--#
+		}else{
+#-->
+		<tr>
+<!--#
+		}
+#-->
+			<td><span style="cursor: pointer;text-decoration: underline;" onclick="Monitor.add('+-mbname-+','+-an-+');" title="monitor this attribute">+-an-+&nbsp;</span></td>
+			<td>+-av-+&nbsp;</td>
+		</tr>
+<!--#
+	}
+#-->
+</table>
+
+<table class="h-table">
+<caption>Attributes</caption>
+<tr>
+	<th>name</th>
+	<th>type</th>
+	<th>readable</th>
+	<th>description</th>
+</tr>
+<!--#
+	for(var i=0;i<attributes.size();i++){
+		var attr = attributes.get(i);
+		if(i%2 == 0){
+#-->		
+		<tr style="background-color: #EFEFEF;">
+<!--#
+		}else{
+#-->
+		<tr>
+<!--#
+		}
+#-->
+			<td>+-attr.name-+&nbsp;</td>
+			<td>+-attr.type-+&nbsp;</td>
+			<td>+-attr.readable-+&nbsp;</td>
+			<td>+-attr.description-+&nbsp;</td>
+		</tr>
+<!--#
+	}
+#-->
+</table>
+
+<table class="h-table">
+<caption>Operations</caption>
+<tr>
+	<th>returnType</th>
+	<th>name</th>
+	<th>impact</th>
+	<th>description</th>
+</tr>
+<!--#
+	for(var i=0;i<operations.size();i++){
+		var op = operations.get(i);
+		if(i%2 == 0){
+#-->		
+		<tr style="background-color: #EFEFEF;">
+<!--#
+		}else{
+#-->
+		<tr>
+<!--#
+		}
+#-->
+			<td>+-op.returnType-+&nbsp;</td>
+			<td>+-op.name-+&nbsp;</td>
+			<td>+-op.impact-+&nbsp;</td>
+			<td>+-op.description-+&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="4" style="background-color: olive;">
+				<form action="/" onsubmit="invoke('+-mbname-+','+-op.name-+',this); return false;">
+				(
+				<!--#
+				var ss = op.signature;
+				for(var j=0;j<ss.size();j++){
+					var s = ss.get(j);
+					#-->
+					+-s.type-+ &nbsp;<input type="text" value="+-s.name-+"/>
+					<!--#
+					if( j != ss.size() - 1 ){
+					#-->
+						,
+					<!--#
+					}
+				}
+				#-->
+				)
+				<input type="submit" value="invoke"></input>
+				</form>
+			</td>
+		</tr>
+<!--#
+	}
+#-->

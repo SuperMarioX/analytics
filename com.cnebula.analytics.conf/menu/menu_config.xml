@@ -1,0 +1,305 @@
+<menulist>
+
+	<menu funcId="wzfx" name="网站分析"  parentMenu="topMenu" supportedSite="all_calis_saas_library" general="false">
+		<support id="all"		></support>
+		<support id="eduChina" 	></support>
+		<support id="yidu" 		></support>
+		<support id="ues" 		></support>
+		<support id="aopac" 	></support>
+		<support id="ccc"  		></support>
+		<support id="uas" 		></support>
+		<support id="opac" 		></support>
+		<support id="ill" 		></support>
+		<support id="ztc" 		></support>
+		<support id="nav" 		></support>
+		<!-- <support id="cal" ></support> -->
+		<support id="ubs" 		></support>
+		<support id="nps" 		></support>
+		<support id="cvrs"  	></support>
+		<support id="auopac"	></support>
+		<support id="iri" 		></support>
+	</menu>
+	
+	
+
+	<menu funcId="trend" name="趋势分析" chartSize="2" tableSize="-1" chartShow="true" tableShow="true" processType="alone" 
+		timeAp="true" defaultOat="all" metricName="指标：" parentMenu="wzfx" supportedSite="all_calis_saas_library" describe="" loadPage="main.htm" timeCorr="true" general="true">
+		<support id="all"		></support>
+		<support id="eduChina" 	></support>
+		<support id="yidu" 		></support>
+		<support id="ues" 		></support>
+		<support id="aopac" 	></support>
+		<support id="ccc"  		></support>
+		<support id="uas" 		></support>
+		<support id="opac" 		></support>
+		<support id="ill" 		></support>
+		<support id="ztc" 		></support>
+		<support id="nav" 		></support>
+		<!-- <support id="cal" ></support> -->
+		<support id="ubs" 		></support>
+		<support id="nps" 		></support>
+		<support id="cvrs"  	></support>
+		<support id="auopac"	></support>
+		<support id="iri" 		></support>
+	</menu>
+	
+	<menu funcId="realTime" name="实时分析" chartSize="1" tableSize="-1" chartShow="true" tableShow="false" processType="alone"
+		timeAp="false" defaultOat="all" metricName="指标" parentMenu="wzfx" supportedSite="all_calis_saas_library" describe="" loadPage="realtime.htm" timeCorr="false" general="false">
+		<support id="all"		></support>
+		<support id="eduChina" 	></support>
+		<support id="yidu" 		></support>
+		<support id="ues" 		></support>
+		<support id="aopac" 	></support>
+		<support id="ccc"  		></support>
+		<support id="uas" 		></support>
+		<support id="opac" 		></support>
+		<support id="ill" 		></support>
+		<support id="ztc" 		></support>
+		<support id="nav" 		></support>
+		<!-- <support id="cal" ></support> -->
+		<support id="ubs" 		></support>
+		<support id="nps" 		></support>
+		<support id="cvrs"  	></support>
+		<support id="auopac"	></support>
+		<support id="iri" 		></support>
+	</menu>
+	
+	<menu funcId="todayData" name="今日统计" chartSize="1" tableSize="-1" chartShow="true" tableShow="false" processType="alone"
+		timeAp="false" defaultOat="all" metricName="指标" parentMenu="wzfx" supportedSite="all_calis_saas_library" describe="" loadPage="todayData.htm" timeCorr="false" general="false">
+		<support id="all"		></support>
+		<support id="eduChina" 	></support>
+		<support id="yidu" 		></support>
+		<support id="ues" 		></support>
+		<support id="aopac" 	></support>
+		<support id="ccc"  		></support>
+		<support id="uas" 		></support>
+		<support id="opac" 		></support>
+		<support id="ill" 		></support>
+		<support id="ztc" 		></support>
+		<support id="nav" 		></support>
+		<support id="ubs" 		></support>
+		<support id="nps" 		></support>
+		<support id="cvrs"  	></support>
+		<support id="auopac"	></support>
+		<support id="iri" 		></support>
+	</menu>
+
+	<menu funcId="dzfx" name="业务分析" parentMenu="topMenu" supportedSite="all_calis_saas_library" general="false">
+		<support id="iri"		></support>
+	</menu>
+	
+	<menu funcId="individual_iri" name="教参" parentMenu="dzfx" supportedSite="all_calis_saas_library" general="false">
+		<support id="iri" 		></support>
+	</menu>
+		
+	<menu funcId="collStat" name="高校统计" chartSize="1" tableSize="-1" chartShow="true" tableShow="true" processType="alone" 
+		timeAp="false" defaultOat="iri" metricName="指标：" parentMenu="individual_iri" supportedSite="all_calis_saas" describe="" loadPage="main.htm" timeCorr="true" general="false">
+		<support id="iri" 		></support>
+	</menu>
+			
+	<menu funcId="subStat" name="学科统计" chartSize="1" tableSize="-1" chartShow="true" tableShow="true" processType="alone"
+		timeAp="false" defaultOat="iri" metricName="指标：" parentMenu="individual_iri" supportedSite="calis_saas" describe="" loadPage="main.htm" procFunction="suppDataOfSub" timeCorr="true" general="false">
+		<support id="iri" 		></support>
+	</menu>
+	
+	<menu funcId="pageview" name="访问量统计" chartSize="2" tableSize="-1" chartShow="true" tableShow="true" processType="alone" 
+		timeAp="true" defaultOat="iri" metricName="指标：" parentMenu="individual_iri" supportedSite="all_calis_saas_library" describe="" loadPage="main.htm" timeCorr="true" general="false">
+		<support id="iri" 		></support>
+	</menu>
+	
+	<menu funcId="ranking" name="排行榜" chartSize="1" tableSize="-1" chartShow="true" tableShow="true" processType="uniform" 
+		timeAp="false" defaultOat="iri" metricName="排行榜：" parentMenu="dzfx" supportedSite="all_calis_saas_library" describe="" loadPage="main.htm" timeCorr="true" general="false">
+		<support id="iri" 		></support>
+	</menu>
+	
+	
+	<menu funcId="ymfx" name="页面分析" parentMenu="topMenu" supportedSite="all_calis_saas_library" general="false">
+		<support id="all"		></support>
+		<support id="eduChina" 	></support>
+		<support id="yidu" 		></support>
+		<support id="ues" 		></support>
+		<support id="aopac" 	></support>
+		<support id="ccc"  		></support>
+		<support id="uas" 		></support>
+		<support id="opac" 		></support>
+		<support id="ill" 		></support>
+		<support id="ztc" 		></support>
+		<support id="nav" 		></support>
+		<!-- <support id="cal" ></support> -->
+		<support id="ubs" 		></support>
+		<support id="nps" 		></support>
+		<support id="cvrs"  	></support>
+		<support id="auopac"	></support>
+		<support id="iri" 		></support>
+	</menu>
+	
+	<menu funcId="webvisit" name="受访页面" chartSize="0" tableSize="-1" chartShow="false" tableShow="true" processType="alone" 
+		timeAp="false" defaultOat="all" metricName="指标：" parentMenu="ymfx" supportedSite="all_calis_saas_library" describe="" loadPage="main.htm" timeCorr="true" general="false">
+		 <support id="all"		></support>
+		<support id="eduChina" 	></support>
+		<support id="yidu" 		></support>
+		<support id="ues" 		></support>
+		<support id="aopac" 	></support>
+		<support id="ccc"  		></support>
+		<support id="uas" 		></support>
+		<support id="opac" 		></support>
+		<support id="ill" 		></support>
+		<support id="ztc" 		></support>
+		<support id="nav" 		></support>
+		<!-- <support id="cal" ></support> -->
+		<support id="ubs" 		></support>
+		<support id="nps" 		></support>
+		<support id="cvrs"  	></support>
+		<support id="auopac"	></support>
+		<support id="iri" 		></support>
+		</menu>
+	
+	<menu funcId="fkfx" name="访客分析" parentMenu="topMenu" supportedSite="all_calis_saas_library" general="false">
+		<support id="all"		></support>
+		<support id="eduChina" 	></support>
+		<support id="yidu" 		></support>
+		<support id="ues" 		></support>
+		<support id="aopac" 	></support>
+		<support id="ccc"  		></support>
+		<support id="uas" 		></support>
+		<support id="opac" 		></support>
+		<support id="ill" 		></support>
+		<support id="ztc" 		></support>
+		<support id="nav" 		></support>
+		<!-- <support id="cal" ></support> -->
+		<support id="ubs" 		></support>
+		<support id="nps" 		></support>
+		<support id="cvrs"  	></support>
+		<support id="auopac"	></support>
+		<support id="iri" 		></support>
+	</menu>
+	
+	<menu funcId="systemenv" name="系统环境" chartSize="1" tableSize="-1" chartShow="true" tableShow="true" processType="alone" 
+		timeAp="false" defaultOat="all" metricName="指标：" parentMenu="fkfx" supportedSite="all_calis_saas_library" describe="" loadPage="main.htm" timeCorr="true" general="false">
+		 	<support id="all"		></support>
+		<support id="eduChina" 	></support>
+		<support id="yidu" 		></support>
+		<support id="ues" 		></support>
+		<support id="aopac" 	></support>
+		<support id="ccc"  		></support>
+		<support id="uas" 		></support>
+		<support id="opac" 		></support>
+		<support id="ill" 		></support>
+		<support id="ztc" 		></support>
+		<support id="nav" 		></support>
+		<!-- <support id="cal" ></support> -->
+		<support id="ubs" 		></support>
+		<support id="nps" 		></support>
+		<support id="cvrs"  	></support>
+		<support id="auopac"	></support>
+		<support id="iri" 		></support>
+	</menu>
+	
+	<menu funcId="lyfx" name="来源分析" parentMenu="topMenu" supportedSite="all_calis_saas_library" general="false">
+		<support id="all"		></support>
+		<support id="eduChina" 	></support>
+		<support id="yidu" 		></support>
+		<support id="ues" 		></support>
+		<support id="aopac" 	></support>
+		<support id="ccc"  		></support>
+		<support id="uas" 		></support>
+		<support id="opac" 		></support>
+		<support id="ill" 		></support>
+		<support id="ztc" 		></support>
+		<support id="nav" 		></support>
+		<!-- <support id="cal" ></support> -->
+		<support id="ubs" 		></support>
+		<support id="nps" 		></support>
+		<support id="cvrs"  	></support>
+		<support id="auopac"	></support>
+		<support id="iri" 		></support>
+	</menu>
+
+	<menu funcId="IPSource" name="IP来源" chartSize="1" tableSize="-1" chartShow="true" tableShow="true" processType="alone" 
+		timeAp="false" defaultOat="all" metricName="指标：" parentMenu="lyfx" supportedSite="all_calis_saas_library" describe="" loadPage="main.htm" timeCorr="true" general="false">
+			<support id="all"		></support>
+		<support id="eduChina" 	></support>
+		<support id="yidu" 		></support>
+		<support id="ues" 		></support>
+		<support id="aopac" 	></support>
+		<support id="ccc"  		></support>
+		<support id="uas" 		></support>
+		<support id="opac" 		></support>
+		<support id="ill" 		></support>
+		<support id="ztc" 		></support>
+		<support id="nav" 		></support>
+		<!-- <support id="cal" ></support> -->
+		<support id="ubs" 		></support>
+		<support id="nps" 		></support>
+		<support id="cvrs"  	></support>
+		<support id="auopac"	></support>
+		<support id="iri" 		></support>
+	</menu>
+		
+	<menu funcId="allSource" name="全部来源" chartSize="1" tableSize="-1" chartShow="true" tableShow="true" processType="alone" 
+		timeAp="false" defaultOat="all" metricName="指标：" parentMenu="lyfx" supportedSite="all_calis_saas_library" describe="" loadPage="main.htm" timeCorr="true" general="false">
+		<support id="all"		></support>
+		<support id="eduChina" 	></support>
+		<support id="yidu" 		></support>
+		<support id="ues" 		></support>
+		<support id="aopac" 	></support>
+		<support id="ccc"  		></support>
+		<support id="uas" 		></support>
+		<support id="opac" 		></support>
+		<support id="ill" 		></support>
+		<support id="ztc" 		></support>
+		<support id="nav" 		></support>
+		<!-- <support id="cal" ></support> -->
+		<support id="ubs" 		></support>
+		<support id="nps" 		></support>
+		<support id="cvrs"  	></support>
+		<support id="auopac"	></support>
+		<support id="iri" 		></support>
+	</menu>
+		
+	<menu funcId="outLinkSource" name="外部链接" chartSize="1" tableSize="-1" chartShow="true" tableShow="true" processType="alone" 
+		timeAp="false" defaultOat="all" metricName="指标：" parentMenu="lyfx" supportedSite="all_calis_saas_library" describe="" loadPage="main.htm" timeCorr="true" general="false">
+		<support id="all"		></support>
+		<support id="eduChina" 	></support>
+		<support id="yidu" 		></support>
+		<support id="ues" 		></support>
+		<support id="aopac" 	></support>
+		<support id="ccc"  		></support>
+		<support id="uas" 		></support>
+		<support id="opac" 		></support>
+		<support id="ill" 		></support>
+		<support id="ztc" 		></support>
+		<support id="nav" 		></support>
+		<!-- <support id="cal" ></support> -->
+		<support id="ubs" 		></support>
+		<support id="nps" 		></support>
+		<support id="cvrs"  	></support>
+		<support id="auopac"	></support>
+		<support id="iri" 		></support>
+	</menu>
+
+	<menu funcId="termAnalysis" name="检索词" chartSize="0" tableSize="-1" chartShow="true" tableShow="true" processType="alone" 
+		timeAp="false" defaultOat="iri" metricName="指标：" parentMenu="lyfx" supportedSite="all_calis_saas_library" describe="" loadPage="main.htm" timeCorr="true" general="false">
+		<support id="iri" 		></support>
+	</menu>
+		
+	<oat id="all"		name="全部"			filter=""></oat>
+	<oat id="eduChina" 	name="eduChina" 	filter="oat='eduChina'"></oat>
+	<oat id="yidu" 		name="e读" 			filter="oat='yidu'"></oat>
+	<oat id="ues" 		name="统一交换" 			filter="oat='ues'"></oat>
+	<oat id="aopac" 	name="古籍文献" 		filter="oat='aopac'"></oat>
+	<oat id="ccc"  		name="ccc" 			filter="oat='ccc'"></oat>
+	<oat id="uas" 		name="统一认证" 			filter="oat='uas'"></oat>
+	<oat id="opac" 		name="opac" 		filter="oat='opac'"></oat>
+	<oat id="ill" 		name="馆际互借" 			filter="oat='ill'"></oat>
+	<oat id="ztc" 		name="直通车" 			filter="oat='ztc'"></oat>
+	<oat id="nav" 		name="导航" 			filter="oat='nav'"></oat>
+	<!-- <support id="cal" name="cal" filter="oat='cal'"></oat> -->
+	<oat id="ubs" 		name="统一计费" 			filter="oat='ubs'"></oat>
+	<oat id="nps" 		name="个性化门户" 			filter="oat='nps'"></oat>
+	<oat id="cvrs"  	name="参考咨询" 		filter="oat='cvrs'"></oat>
+	<oat id="auopac"	name="auopac" 		filter="oat='auopac'"></oat>
+	<oat id="iri" 		name="教参" 			filter="oat='iri'"></oat>
+	
+
+</menulist>

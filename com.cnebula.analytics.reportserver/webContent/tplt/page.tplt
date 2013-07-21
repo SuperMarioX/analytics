@@ -1,0 +1,89 @@
+<!--#
+	if(pageClass){
+#-->
+		<ul class="+-pageClass-+">
+<!--#
+	}else{
+#-->
+		<ul>
+<!--#
+	}
+#-->
+	<li onclick="calis.report.readerPager('+-tpltUrl-+','+-container-+',+-rowCount-+,+-perPageRowNum-+,1,'+-pageClass-+','+-valueId-+','+-printTable-+','+-download-+')"
+	    style="float:left;padding-left:15px;list-style-type:none;text-decoration:underline;color:blue;cursor:pointer">
+	          首页
+	</li>
+<!--#
+	/*只显示当前页的前后5页，共显示11个页标；
+	 *若当前页前不够5页，则用当前页后面页补够总共11个页标；
+	 *若当前页后不够5页，则用当前页前面页补够总共11个页标；
+	 *也就是，如果当前页码在前后都可以凑满5个页标时，当前
+	 *页的页标在正中间。
+	 */
+	var beforeCount = curPage - 5;
+	var aferCount = pageCount - curPage - 5;
+	var beginIndex = curPage;
+	var endIndex = curPage;
+	if(beforeCount <= 0){
+		beginIndex = 1;
+		aferCount = aferCount - Math.abs(beforeCount);
+	}else{
+		beginIndex = beforeCount;
+	}
+	if(aferCount <= 0){
+		endIndex = pageCount;
+		if(beforeCount > 0){
+			var bc = beforeCount - Math.abs(aferCount);
+			if(bc > 0){
+				beginIndex = beginIndex - Math.abs(aferCount);
+			}
+			if(bc == 0){
+				beginIndex = 1;
+			}
+		}
+	}else{
+		if(beforeCount <= 0){
+			endIndex = curPage + 5 + Math.abs(beforeCount);
+		}else{
+			endIndex = curPage + 5;
+		}
+	}
+	for(var i=beginIndex;i<=endIndex;i++){
+		if(i == curPage){
+#-->
+			<li style="float:left;padding-left:15px;list-style-type:none;text-decoration:none;color:red;">+-i-+</li>
+<!--#		
+		}else{
+#-->
+			<li onclick="calis.report.readerPager('+-tpltUrl-+','+-container-+',+-rowCount-+,+-perPageRowNum-+,+-i-+,'+-pageClass-+','+-valueId-+','+-printTable-+','+-download-+')"
+				style="float:left;padding-left:15px;list-style-type:none;text-decoration:underline;color:blue;cursor:pointer">+-i-+</li>
+<!--#	
+		}	
+	}
+#-->
+	<li onclick="calis.report.readerPager('+-tpltUrl-+','+-container-+',+-rowCount-+,+-perPageRowNum-+,+-pageCount-+,'+-pageClass-+','+-valueId-+','+-printTable-+','+-download-+')"
+		style="float:left;padding-left:15px;list-style-type:none;text-decoration:underline;color:blue;cursor:pointer">尾页</li>
+	
+	<li style="float:left;padding-left:15px;list-style-type:none;">每页：+-perPageRowNum-+条,</li>
+	<li style="float:left;padding-left:5px;list-style-type:none;">总共：+-pageCount-+页,</li>
+	<li style="float:left;padding-left:5px;list-style-type:none;">总共：+-rowCount-+条记录</li>
+
+<!--#	
+	if(printTable){
+#-->
+	<li onclick="calis.report.downloadTableData('+-valueId-+');"
+	 style="float:left;padding-left:15px;list-style-type:none;text-decoration:underline;color:blue;cursor:pointer">下载</li>
+<!--#					
+	}
+#-->
+<!--#	
+	if(download){
+#-->
+	<li onclick="calis.report.printTableData('+-valueId-+');"
+	style="float:left;padding-left:15px;list-style-type:none;text-decoration:underline;color:blue;cursor:pointer">打印</li>
+<!--#					
+	}
+#-->
+</ul>
+
+	

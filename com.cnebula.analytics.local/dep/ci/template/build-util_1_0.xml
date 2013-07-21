@@ -1,0 +1,1014 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Build Util Macros">
+
+	<!--
+	 global properties that should be set
+	 
+	 1: workspace.root
+	 2: nebula binary distribute root
+	 3: deploy root
+	-->
+
+	<macrodef name="init.cobertura">
+		<attribute name="cobertura.root" default="${target.platform.root}/ci/cobertura" />
+		<sequential>
+			<path id="cobertura.classpath">
+				<fileset dir="@{cobertura.root}">
+					<include name="cobertura.jar" />
+					<include name="lib/**/*.jar" />
+				</fileset>
+			</path>
+			<taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="init.deploy.root">
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<sequential>
+			<delete includeemptydirs="true">
+				<fileset dir="@{deploy.root}" includes="**/*">
+				</fileset>
+			</delete>
+			<mkdir dir="@{deploy.root}/bundles" />
+			<mkdir dir="@{deploy.root}/bundle.jars" />
+			<mkdir dir="@{deploy.root}/bundle.unittest.jars" />
+			<mkdir dir="@{deploy.root}/bundle.esunittest.jars" />
+			<mkdir dir="@{deploy.root}/bundle.comtest.jars" />
+			<mkdir dir="@{deploy.root}/console" />
+			<mkdir dir="@{deploy.root}/archive" />
+			<mkdir dir="@{deploy.root}/instrumented" />
+			<mkdir dir="@{deploy.root}/cobertura" />
+			<mkdir dir="@{deploy.root}/cobertura/report" />
+
+			<mkdir dir="@{deploy.root}/test" />
+			<mkdir dir="@{deploy.root}/test/esunit" />
+			<mkdir dir="@{deploy.root}/test/unit" />
+			<mkdir dir="@{deploy.root}/test/component" />
+			<mkdir dir="@{deploy.root}/test/integrate" />
+
+		</sequential>
+	</macrodef>
+
+
+	<macrodef name="get.bundle.srclist">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="bundle.name" />
+		<attribute name="outproperty" default="@{bundle.name}.srcslist" />
+		<sequential>
+			<java fork="true"  outputproperty="@{outproperty}" errorproperty="err"  classname="com.cnebula.ci.tool.BundleSrcsGetter" failonerror="false">
+				<arg value="@{workspace.root}/@{bundle.name}/"/>
+				<classpath>
+					<path>
+						<fileset dir="${target.platform.root}/target/plugins">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="${target.platform.root}/ci/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="${target.platform.root}/deploy/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+			</java>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="get.bundle.bindir">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="bundle.name" />
+		<attribute name="outproperty" default="@{bundle.name}.bindir" />
+		<sequential>
+			<java fork="true"  outputproperty="@{outproperty}" errorproperty="err"  classname="com.cnebula.ci.tool.BundleBinDirGetter" failonerror="false">
+				<arg value="@{workspace.root}/@{bundle.name}/"/>
+				<classpath>
+					<path>
+						<fileset dir="${target.platform.root}/target/plugins">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="${target.platform.root}/ci/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="${target.platform.root}/deploy/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+			</java>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="copy.bundle.resource">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="bundle.name" />
+		<attribute name="copy.to.dir"/>
+		<attribute name="verbose" default="false" />
+		<sequential>
+			<java fork="true"  outputproperty="@{bundle.name}_copy_resource"  classname="com.cnebula.ci.tool.BundleResourceCopyTool" failonerror="false">
+				<jvmarg value="-DDEBUG_TAG=@{verbose}"/>
+				<arg value="@{workspace.root}/@{bundle.name}/"/>
+				<arg value="@{copy.to.dir}"/>
+				<classpath>
+					<path>
+						<fileset dir="${target.platform.root}/target/plugins">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="${target.platform.root}/ci/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="${target.platform.root}/deploy/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+			</java>
+			<echo>${@{bundle.name}_copy_resource}</echo>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="compile.bundle">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="bundle.name" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="target.plugins.root" default="${target.platform.root}/target/plugins" />
+		<attribute name="bootstrap.jars.root" default="${target.platform.root}/target" />
+		<sequential>
+			<echo>compile.bundle @{bundle.name}  to  @{deploy.root}/bundles/@{bundle.name}</echo>
+			<get.bundle.bindir bundle.name="@{bundle.name}"/>
+			<mkdir dir="@{deploy.root}/bundles/@{bundle.name}" />
+			<mkdir dir="@{deploy.root}/bundles/@{bundle.name}/${@{bundle.name}.bindir}" />
+			<copy.bundle.resource  bundle.name="@{bundle.name}" copy.to.dir="@{deploy.root}/bundles/@{bundle.name}"/>
+			<get.bundle.srclist bundle.name="@{bundle.name}"/>
+			<echo>get src list: ${@{bundle.name}.srcslist} from @{deploy.root}/bundles/@{bundle.name}</echo>
+			<javac source="1.6" debug="true" srcdir="${@{bundle.name}.srcslist}"  destdir="@{deploy.root}/bundles/@{bundle.name}/${@{bundle.name}.bindir}" target="1.6">
+				<classpath>
+					<path>
+						<fileset dir="@{workspace.root}/@{bundle.name}">
+							<patternset includes="**/*lib/*.jar">
+							</patternset>
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path>
+						<fileset dir="@{deploy.root}/bundle.jars">
+							<include name="*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path>
+						<fileset dir="@{deploy.root}/bundles/" includes="**/lib/*.jar">
+							<depth min="2" />
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path>
+						<fileset dir="@{target.plugins.root}">
+							<include name="*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path>
+						<fileset dir="@{bootstrap.jars.root}">
+							<include name="*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+				<compilerarg line="-warn:none -encoding utf-8" compiler="org.eclipse.jdt.core.JDTCompilerAdapter" />
+			</javac>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="compile.instrument.bundle">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="bundle.name" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="target.plugins.root" default="${target.platform.root}/target/plugins" />
+		<attribute name="bootstrap.jars.root" default="${target.platform.root}/target" />
+		<sequential>
+			<get.bundle.bindir bundle.name="@{bundle.name}"/>
+			<mkdir dir="@{deploy.root}/bundles/@{bundle.name}.instrument" />
+			<mkdir dir="@{deploy.root}/bundles/@{bundle.name}.instrument/${@{bundle.name}.bindir}" />
+			<copy.bundle.resource  bundle.name="@{bundle.name}" copy.to.dir="@{deploy.root}/bundles/@{bundle.name}.instrument"/>
+			<get.bundle.srclist bundle.name="@{bundle.name}"/>
+			<echo>get src list: ${@{bundle.name}.srcslist} from @{deploy.root}/bundles/@{bundle.name}</echo>
+			<javac source="1.6"  debug="true"  srcdir="${@{bundle.name}.srcslist}"  destdir="@{deploy.root}/bundles/@{bundle.name}.instrument/${@{bundle.name}.bindir}" target="1.6">
+				<classpath>
+					<path>
+						<fileset dir="@{workspace.root}/@{bundle.name}">
+							<patternset includes="**/*lib/*.jar">
+							</patternset>
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path>
+						<fileset dir="@{deploy.root}/bundle.jars">
+							<include name="*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path>
+						<fileset dir="@{deploy.root}/bundles/" includes="**/lib/*.jar">
+							<depth min="2" />
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path>
+						<fileset dir="@{target.plugins.root}">
+							<include name="*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path>
+						<fileset dir="@{bootstrap.jars.root}">
+							<include name="*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+				<compilerarg line="-warn:none -encoding utf-8" compiler="org.eclipse.jdt.core.JDTCompilerAdapter" />
+			</javac>
+		</sequential>
+	</macrodef>
+
+
+	<macrodef name="jar.bundle">
+		<attribute name="bundle.name" />
+		<attribute name="jar.target" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="verbose" default="false" />
+		<sequential>
+			<echo>do jar bundle java @{deploy.root}/bundles/@{bundle.name} @{jar.target}/</echo>
+			<java fork="true" outputproperty="@{bundle.name}_jar_output"  classname="com.cnebula.ci.tool.JarBundleTool" failonerror="true">
+				<jvmarg value="-DDEBUG_TAG=@{verbose}"/>
+				<arg value="@{deploy.root}/bundles/@{bundle.name}"/>
+				<arg value="@{jar.target}/"/>
+				<classpath>
+					<path>
+						<fileset dir="${target.platform.root}/target/plugins">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="${target.platform.root}/ci/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="${target.platform.root}/deploy/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+			</java>
+			<echo>jar bundle output:</echo>
+			<echo>${@{bundle.name}_jar_output}</echo>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="jar.instrumented.bundle">
+		<attribute name="bundle.name" />
+		<attribute name="jar.target" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="verbose" default="false" />
+		<sequential>
+			<jar.bundle bundle.name="@{bundle.name}.instrument" jar.target="@{jar.target}" verbose="@{verbose}"/>
+			<!--
+			<jar manifest="@{deploy.root}/bundles/@{bundle.name}.instrument/META-INF/MANIFEST.MF" destfile="@{jar.target}/@{bundle.name}_@{version}.jar">
+				<fileset dir="@{deploy.root}/bundles/@{bundle.name}.instrument">
+				</fileset>
+			</jar>
+			-->
+		</sequential>
+	</macrodef>
+
+	<!-- = = = = = = = = = = = = = = = = =
+	          macrodef: name          
+	         = = = = = = = = = = = = = = = = = -->
+
+
+	<macrodef name="merge.cobertura.bundles">
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<sequential>
+			<cobertura-merge datafile="${deploy.root}/cobertura/cobertura.ser">
+				<fileset dir="${deploy.root}/cobertura">
+					<include name="**/*.ser" />
+				</fileset>
+			</cobertura-merge>
+		</sequential>
+	</macrodef>
+
+
+	<macrodef name="build.bundle">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="bundle.name" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="target.plugins.root" default="${target.platform.root}/target/plugins" />
+		<sequential>
+			<echo>build.bundle: @{bundle.name} </echo>
+			<compile.bundle bundle.name="@{bundle.name}" deploy.root="@{deploy.root}" target.plugins.root="@{target.plugins.root}" workspace.root="@{workspace.root}" />
+			<echo>jar bundle "@{bundle.name}" to "@{deploy.root}/bundle.jars" </echo>
+			<jar.bundle bundle.name="@{bundle.name}" jar.target="@{deploy.root}/bundle.jars" />
+			<echo>finish jar bundle "@{bundle.name}" to "@{deploy.root}/bundle.jars"===================== </echo>
+		</sequential>
+	</macrodef>
+
+
+	<macrodef name="build.unittest.bundle">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="bundle.name" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="target.plugins.root" default="${target.platform.root}/target/plugins" />
+		<sequential>
+			<compile.bundle bundle.name="@{bundle.name}" deploy.root="@{deploy.root}" target.plugins.root="@{target.plugins.root}" workspace.root="@{workspace.root}" />
+			<jar.bundle bundle.name="@{bundle.name}" jar.target="@{deploy.root}/bundle.unittest.jars"/>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="build.esunittest.bundle">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="bundle.name" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="target.plugins.root" default="${target.platform.root}/target/plugins" />
+		<sequential>
+			<compile.bundle bundle.name="@{bundle.name}" deploy.root="@{deploy.root}" target.plugins.root="@{target.plugins.root}" workspace.root="@{workspace.root}" />
+			<jar.bundle bundle.name="@{bundle.name}" jar.target="@{deploy.root}/bundle.esunittest.jars" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="build.comtest.bundle">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="bundle.name" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="target.plugins.root" default="${target.platform.root}/target/plugins" />
+		<sequential>
+			<compile.bundle bundle.name="@{bundle.name}" deploy.root="@{deploy.root}" target.plugins.root="@{target.plugins.root}" workspace.root="@{workspace.root}" />
+			<jar.bundle bundle.name="@{bundle.name}" jar.target="@{deploy.root}/bundle.comtest.jars" />
+		</sequential>
+	</macrodef>
+
+
+	<macrodef name="cobertura.bundle">
+		<attribute name="bundle.name" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="class.root" default="${deploy.root}/bundles/@{bundle.name}.instrument/${@{bundle.name}.bindir}" />
+		<sequential>
+			<cobertura-instrument datafile="@{deploy.root}/cobertura/@{bundle.name}.ser" todir="@{deploy.root}/bundles/@{bundle.name}.instrument/${@{bundle.name}.bindir}">
+				<fileset dir="@{class.root}">
+					<include name="**/*.class" />
+				</fileset>
+			</cobertura-instrument>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="cobertura.meta.import">
+		<attribute name="bundle.name" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="target.platform.root" default="${target.platform.root}" />
+		<sequential>
+			<java fork="true" classname="com.cnebula.ci.tool.CoberturaAppender" failonerror="true">
+				<jvmarg value="-DBUNDLE_ROOT=@{deploy.root}/bundles/@{bundle.name}.instrument" />
+				<classpath>
+					<path>
+						<fileset dir="@{target.platform.root}/ci/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="@{target.platform.root}/target">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+			</java>
+		</sequential>
+	</macrodef>
+
+
+	<macrodef name="build.cobertura.bundle">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="bundle.name" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="target.plugins.root" default="${target.platform.root}/target/plugins" />
+		<sequential>
+			<compile.instrument.bundle bundle.name="@{bundle.name}" deploy.root="@{deploy.root}"  target.plugins.root="@{target.plugins.root}" workspace.root="@{workspace.root}" />
+			<cobertura.bundle bundle.name="@{bundle.name}" deploy.root="@{deploy.root}" />
+			<cobertura.meta.import bundle.name="@{bundle.name}" deploy.root="@{deploy.root}" />
+			<jar.instrumented.bundle bundle.name="@{bundle.name}" jar.target="@{deploy.root}/instrumented" />
+		</sequential>
+	</macrodef>
+
+
+	<!-- = = = = = = = = = = = = = = = = =
+	          macrodef: deploy.bundle.jars          
+	         = = = = = = = = = = = = = = = = = -->
+	<macrodef name="deploy.runtime">
+		<attribute name="target.platform.root" default="${target.platform.root}" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="es.config.path" default="${es.config.path}" />
+		<sequential>
+			<mkdir dir="@{deploy.root}/instance/cnebula" />
+			<copy file="${local.build_properties}" tofile="@{deploy.root}/instance/conf/var.properties">
+			</copy>
+			<copy todir="@{deploy.root}/instance/cnebula">
+				<fileset dir="@{target.platform.root}/target">
+				</fileset>
+			</copy>
+			<copy todir="@{deploy.root}/instance/cnebula">
+				<fileset dir="@{target.platform.root}/deploy">
+					<include name="config.tpl" />
+					<include name="run*.jar" />
+					<include name="org.eclipse.equinox.launcher*.jar" />
+				</fileset>
+			</copy>
+			<copy todir="@{deploy.root}/instance/cnebula/plugins">
+				<fileset dir="${deploy.root}/bundle.jars">
+					<include name="*.jar" />
+				</fileset>
+			</copy>
+			<copy todir="@{deploy.root}/instance/cnebula/plugins">
+				<fileset dir="${deploy.root}/bundle.esunittest.jars">
+					<include name="*.jar" />
+				</fileset>
+			</copy>
+			<copy todir="@{deploy.root}/instance/cnebula/plugins" overwrite="true">
+				<fileset dir="${deploy.root}/instrumented">
+					<include name="*.jar" />
+				</fileset>
+			</copy>
+			<copy verbose="true" tofile="@{deploy.root}/instance/cnebula/BundleConfig.xml" file="@{es.config.path}/BundleConfig-ci.xml" overwrite="true">
+			</copy>
+			<!--
+	        	<copy todir="@{deploy.root}/instance/cnebula">
+	        		<fileset dir="@{es.config.path}">
+	        			<include name="BundleConfig.xml"/>
+	        		</fileset>
+	        	</copy>
+	        	-->
+			<mkdir dir="@{deploy.root}/instance/conf" />
+			<copy todir="@{deploy.root}/instance/conf">
+				<fileset dir="@{es.config.path}">
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+
+
+	<macrodef name="deploy.cleanruntime">
+		<attribute name="product.name" default="${product.name}" />
+		<attribute name="product.version" default="${product.version}" />
+		<attribute name="init.memory" default="${init.memory}" />
+		<attribute name="max.memory" default="${max.memory}" />
+		<attribute name="is.client" default="true" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="instance.root" default="@{deploy.root}/instance" />
+		<attribute name="application.config.path" />
+		<attribute name="webstart.tool.dir" default="${target.platform.root}/deploy/webstart" />
+		<attribute name="target.platform.root" default="${target.platform.root}" />
+		<attribute name="es.config.path" default="${es.config.path}" />
+		<sequential>
+
+
+			<mkdir dir="@{deploy.root}/instance/cnebula" />
+
+			<copy file="${local.build_properties}" tofile="@{instance.root}/conf/var.properties">
+			</copy>
+			<copy todir="@{instance.root}/cnebula">
+				<fileset dir="@{target.platform.root}/target">
+				</fileset>
+			</copy>
+			<copy todir="@{instance.root}/cnebula">
+				<fileset dir="@{target.platform.root}/deploy">
+					<include name="config.tpl" />
+					<include name="run*.jar" />
+					<include name="org.eclipse.equinox.launcher*.jar" />
+				</fileset>
+			</copy>
+			<copy todir="@{instance.root}/cnebula/plugins">
+				<fileset dir="${deploy.root}/bundle.jars">
+					<include name="*.jar" />
+				</fileset>
+			</copy>
+			<copy todir="@{instance.root}/cnebula/plugins">
+				<fileset dir="${deploy.root}/bundle.esunittest.jars">
+					<include name="*.jar" />
+				</fileset>
+			</copy>
+			<copy todir="@{instance.root}/cnebula/plugins" overwrite="true">
+				<fileset dir="${deploy.root}/instrumented">
+					<include name="*.jar" />
+				</fileset>
+			</copy>
+			<copy verbose="true" tofile="@{instance.root}/cnebula/BundleConfig.xml" file="@{es.config.path}/BundleConfig-ci.xml" overwrite="true">
+			</copy>
+
+			<mkdir dir="@{instance.root}/conf" />
+			<copy todir="@{instance.root}/conf">
+				<fileset dir="@{es.config.path}">
+				</fileset>
+			</copy>
+			<copy verbose="true" tofile="@{instance.root}/icon.png" file="@{es.config.path}/icon.png" overwrite="true" />
+
+
+			<copy todir="@{instance.root}/cnebula/plugins" overwrite="true">
+				<fileset dir="@{deploy.root}/bundle.jars">
+				</fileset>
+			</copy>
+			<copy verbose="true" tofile="@{instance.root}/cnebula/BundleConfig.xml" file="@{es.config.path}/BundleConfig-deploy.xml" overwrite="true">
+			</copy>
+			<echo>@{instance.root}</echo>
+			<echo>@{application.config.path}</echo>
+			<java fork="true" classname="com.cnebula.ci.tool.DeployTool" failonerror="false">
+				<jvmarg value="-DJAVA_INIT_MEMORY=@{init.memory}" />
+				<jvmarg value="-DJAVA_MAX_MEMORY=@{max.memory}" />
+				<jvmarg value="-DINSTANCE_ROOT=@{instance.root}" />
+				<jvmarg value="-DINSTANCE_IS_CLIENT=@{is.client}" />
+				<jvmarg value="-DAPPLICATION_CONFIG_PATH=@{application.config.path}" />
+				<jvmarg value="-DWEBSTART_TOOL_DIR=@{webstart.tool.dir}" />
+				<classpath>
+					<path>
+						<fileset dir="@{target.platform.root}/target/plugins">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="@{target.platform.root}/ci/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="@{target.platform.root}/deploy/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+			</java>
+		</sequential>
+	</macrodef>
+
+	<!-- = = = = = = = = = = = = = = = = =
+	          macrodef: start.instance          
+	         = = = = = = = = = = = = = = = = = -->
+	<macrodef name="start.instance">
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="init.memory" default="${init.memory}" />
+		<attribute name="max.memory" default="${max.memory}" />
+		<attribute name="os" default="${os}" />
+		<attribute name="ws" default="${ws}" />
+		<attribute name="arch" default="${arch}" />
+		<attribute name="relative.config.xml" default="${relative.config.xml}" />
+		<attribute name="mlog.level" default="${mlog.level}" />
+		<attribute name="osgi.console.dir" default="${deploy.root}/console" />
+		<attribute name="systemBundleVersion" default="3.3.0.ES" />
+		<sequential>
+			<echo>osgi starting...</echo>
+
+			<java fork="true" spawn="true" classname="com.cnebula.easyservice.run.EasyServiceFwkStarter">
+
+				<jvmarg value="-Xbootclasspath/p:@{deploy.root}/instance/cnebula/cnebula_security_patch_1.0.0.jar" />
+
+				<jvmarg value="-javaagent:@{deploy.root}/instance/cnebula/cnebula_cft_1.0.0.jar" />
+
+				<classpath>
+					<path location="@{deploy.root}/instance/cnebula/org.eclipse.equinox.launcher_1.0.1.R33x_v20070828.jar">
+					</path>
+					<path location="@{deploy.root}/instance/cnebula/plugins/org.eclipse.osgi_@{systemBundleVersion}.jar">
+					</path>
+					<path>
+						<fileset dir="@{deploy.root}/instance/cnebula/">
+							<include name="run*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+
+				<arg value="-os" />
+				<arg value="@{os}" />
+				<arg value="-ws" />
+				<arg value="@{ws}" />
+				<arg value="-arch" />
+				<arg value="@{arch}" />
+				<arg value="-console" />
+				<arg value="-configuration" />
+				<arg value="@{deploy.root}/instance/cnebula" />
+
+				<jvmarg value="-Xms@{init.memory}m" />
+				<jvmarg value="-Xmx@{max.memory}m" />
+				<jvmarg value="-Dorg.osgi.framework.bootdelegation=sun.*,com.sun.*,javax.*" />
+				<jvmarg value="-Dosgi.contextClassLoaderParent=app" />
+				<jvmarg value="-Dosgi.parentClassloader=app" />
+				<jvmarg value="-Declipse.ignoreApp=true" />
+				<jvmarg value="-DCNEBULA_MLOG=@{mlog.level}" />
+				<jvmarg value="-Dosgi.noShutdown=true" />
+				<jvmarg value="-DCNEBULA_ES_CFG_PATH=@{deploy.root}/instance/conf/@{relative.config.xml}" />
+				<jvmarg value="-DOSGI_CONSOLE_DIR=@{osgi.console.dir}" />
+				<jvmarg value="-Dnet.sourceforge.cobertura.datafile=@{deploy.root}/cobertura/cobertura.ser" />
+
+			</java>
+			<echo>osgi instance started.</echo>
+		</sequential>
+	</macrodef>
+
+	<!-- = = = = = = = = = = = = = = = = =
+	          macrodef: checkStatus          
+	         = = = = = = = = = = = = = = = = = -->
+	<macrodef name="es.check.status">
+		<attribute name="host" default="${host}" />
+		<attribute name="port" default="${port}" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="check.xml.path" default="${es.config.path}/frameworkInfo.xml" />
+		<attribute name="target.platform.root" default="${target.platform.root}" />
+		<sequential>
+			<!--
+		        	<waitfor checkevery="60" checkeveryunit="second" maxwait="240" maxwaitunit="second">
+		        		<available  classname="" property="">
+		        			<fileset dir="${deploy.root}/console">
+							    <contains text="platform_status_service_start" casesensitive="false"/>
+							</fileset>
+		        		</available>
+		        	</waitfor>
+		        	-->
+			<sleep seconds="15" />
+			<java fork="true" classname="com.cnebula.ci.tool.PlatformStatusServiceClient" failonerror="true">
+				<jvmarg value="-DES_INSTANCE_HOST=@{host}" />
+				<jvmarg value="-DES_INSTANCE_PORT=@{port}" />
+				<jvmarg value="-DFRAMEWORK_CHECK_INFO_PATH=@{check.xml.path}" />
+				<classpath>
+					<path>
+						<fileset dir="@{target.platform.root}/ci/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<!--
+		        			<path>
+		        				<fileset dir="@{nebula.build.enviroment}/rsi/">
+		        					<include name="**/*.jar"/>
+		        				</fileset>	
+		        			</path>
+		        			-->
+					<path>
+						<fileset dir="@{target.platform.root}/target">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+			</java>
+			<echo>Easy service check status complete</echo>
+		</sequential>
+	</macrodef>
+
+
+	<!-- = = = = = = = = = = = = = = = = =
+	          macrodef: es.junit          
+	         = = = = = = = = = = = = = = = = = -->
+	<macrodef name="es.junit">
+		<attribute name="host" default="${host}" />
+		<attribute name="port" default="${port}" />
+		<attribute name="result.dir" default="${deploy.root}/test/esunit/" />
+		<attribute name="bundles" default="${unit.test.bundles}" />
+		<attribute name="target.platform.root" default="${target.platform.root}" />
+		<sequential>
+			<!--
+	        	<waitfor checkevery="60" checkeveryunit="second" maxwait="240" maxwaitunit="second">
+	        		<socket server="@{host}" port="@{port}"/>
+	        	</waitfor>
+	        	-->
+			<java fork="true" classname="com.cnebula.ci.tool.EasyServiceJunitRemoteClient" failonerror="true">
+				<jvmarg value="-DES_UNIT_TEST_HOST=@{host}" />
+				<jvmarg value="-DES_UNIT_TEST_PORT=@{port}" />
+				<jvmarg value="-DES_UNIT_TEST_RESULT_DIR=@{result.dir}" />
+				<jvmarg value="-DES_UNIT_TEST_BUNDLES=@{bundles}" />
+				<classpath>
+					<path>
+						<fileset dir="@{target.platform.root}/ci/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<!-- modify rsi to target -->
+					<path>
+						<fileset dir="@{target.platform.root}/target/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+			</java>
+			<echo>Easy Service Unit Test of Bundles @{bundles} complete</echo>
+		</sequential>
+	</macrodef>
+
+	<!-- = = = = = = = = = = = = = = = = =
+	          macrodef: es.junit.report          
+	         = = = = = = = = = = = = = = = = = -->
+	<macrodef name="es.junit.report">
+		<attribute name="result.dir" default="${deploy.root}/test/esunit/" />
+		<attribute name="report.dir" default="${deploy.root}/test/esunit/report" />
+		<sequential>
+			<junitreport todir="@{result.dir}">
+				<fileset dir="@{result.dir}">
+					<include name="**/TEST-*.xml" />
+				</fileset>
+				<report format="frames" todir="@{report.dir}" />
+			</junitreport>
+		</sequential>
+	</macrodef>
+
+	<!-- = = = = = = = = = = = = = = = = =
+	          macrodef: es.jcomponent          
+	         = = = = = = = = = = = = = = = = = -->
+	<macrodef name="es.comtest">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="bundle.name" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="target.plugins.root" default="${target.platform.root}/target/plugins" />
+		<attribute name="fail.property" />
+		<sequential>
+			<junit fork="true" printsummary="false" errorProperty="@{fail.property}" failureProperty="@{fail.property}" haltonerror="false">
+				<classpath>
+					<path>
+						<fileset dir="@{deploy.root}/bundle.jars">
+							<include name="*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path>
+						<fileset dir="@{deploy.root}/bundles/" includes="**/lib/*.jar">
+							<depth min="2" />
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path>
+						<fileset dir="@{target.plugins.root}">
+							<include name="*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path location="@{deploy.root}/bundles/@{bundle.name}/${@{bundle.name}.bindir}">
+					</path>
+				</classpath>
+				<classpath>
+					<path>
+						<fileset dir="${target.platform.root}/ci/httpunit">
+							<include name="*.jar"/>
+						</fileset>
+					</path>
+				</classpath>
+				<formatter type="brief" usefile="false" />
+				<formatter type="xml" />
+				<batchtest todir="@{deploy.root}/test/component/">
+					<fileset dir="@{deploy.root}/bundles/@{bundle.name}/${@{bundle.name}.bindir}" includes="**/Test*.class" excludes="**/*$*.class"/>
+					<fileset dir="@{deploy.root}/bundles/@{bundle.name}/${@{bundle.name}.bindir}" includes="**/*Test.class" excludes="**/*$*.class"/>
+				</batchtest>
+			</junit>
+		</sequential>
+	</macrodef>
+
+
+	<macrodef name="general.junit">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="tested.bundle" />
+		<attribute name="bundle.name" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="target.plugins.root" default="${target.platform.root}/target/plugins" />
+		<attribute name="fail.property" />
+		<sequential>
+			<compile.bundle bundle.name="@{bundle.name}" deploy.root="@{deploy.root}" target.plugins.root="@{target.plugins.root}" workspace.root="@{workspace.root}" />
+
+			<junit fork="true" printsummary="false" errorProperty="@{fail.property}" failureProperty="@{fail.property}" haltonerror="false">
+				<sysproperty key="net.sourceforge.cobertura.datafile" file="@{deploy.root}/cobertura/@{tested.bundle}.ser" />
+				<classpath refid="cobertura.classpath" />
+				<classpath>
+					<path>
+						<fileset dir="@{deploy.root}/instrumented">
+							<include name="*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path>
+						<fileset dir="@{deploy.root}/bundle.jars">
+							<include name="*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path>
+						<fileset dir="@{deploy.root}/bundles/" includes="**/lib/*.jar">
+							<depth min="2" />
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path>
+						<fileset dir="@{target.plugins.root}">
+							<include name="*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+				<classpath>
+					<path location="@{deploy.root}/bundles/@{bundle.name}/${@{bundle.name}.bindir}">
+					</path>
+				</classpath>
+
+				<formatter type="brief" usefile="false" />
+				<formatter type="xml" />
+				<batchtest todir="@{deploy.root}/test/unit/">
+					<fileset dir="@{deploy.root}/bundles/@{bundle.name}/${@{bundle.name}.bindir}">
+						<include name="**/Test*.class" />
+						<include name="**/*Test.class" />
+						<exclude name="**/*$*.class" />
+					</fileset>
+				</batchtest>
+			</junit>
+		</sequential>
+	</macrodef>
+
+	<!-- = = = = = = = = = = = = = = = = =
+	          macrodef: es.component.test.report          
+	         = = = = = = = = = = = = = = = = = -->
+	<macrodef name="es.comtest.report">
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<sequential>
+			<junitreport todir="@{deploy.root}/test/component/">
+				<fileset dir="@{deploy.root}/test/component/">
+					<include name="TEST-*.xml" />
+				</fileset>
+				<report format="frames" todir="@{deploy.root}/test/component/report" />
+			</junitreport>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="general.junit.report">
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<sequential>
+			<junitreport todir="@{deploy.root}/test/unit/">
+				<fileset dir="@{deploy.root}/test/unit/">
+					<include name="TEST-*.xml" />
+				</fileset>
+				<report format="frames" todir="@{deploy.root}/test/unit/report" />
+			</junitreport>
+		</sequential>
+	</macrodef>
+
+
+	<!-- = = = = = = = = = = = = = = = = =
+	          macrodef: name          
+	         = = = = = = = = = = = = = = = = = -->
+	<macrodef name="es.archive">
+		<attribute name="product.name" default="${product.name}" />
+		<attribute name="product.version" default="${product.version}" />
+		<attribute name="init.memory" default="${init.memory}" />
+		<attribute name="max.memory" default="${max.memory}" />
+		<attribute name="is.client" default="${is.client}" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<attribute name="application.config.path" />
+		<attribute name="webstart.tool.dir" default="${target.platform.root}/deploy/webstart" />
+		<attribute name="target.platform.root" default="${target.platform.root}" />
+		<attribute name="es.config.path" default="${es.config.path}" />
+		<sequential>
+
+			<copy todir="@{deploy.root}/instance/cnebula/plugins" overwrite="true">
+				<fileset dir="@{deploy.root}/bundle.jars">
+				</fileset>
+			</copy>
+			<copy verbose="true" tofile="@{deploy.root}/instance/cnebula/BundleConfig.xml" file="@{es.config.path}/BundleConfig-deploy.xml" overwrite="true">
+			</copy>
+			<java fork="true" classname="com.cnebula.ci.tool.DeployTool" failonerror="false">
+				<jvmarg value="-DJAVA_INIT_MEMORY=@{init.memory}" />
+				<jvmarg value="-DJAVA_MAX_MEMORY=@{max.memory}" />
+				<jvmarg value="-DINSTANCE_ROOT=@{deploy.root}/instance" />
+				<jvmarg value="-DINSTANCE_IS_CLIENT=@{is.client}" />
+				<jvmarg value="-DAPPLICATION_CONFIG_PATH=@{application.config.path}" />
+				<jvmarg value="-DWEBSTART_TOOL_DIR=@{webstart.tool.dir}" />
+				<classpath>
+					<path>
+						<fileset dir="@{target.platform.root}/target/plugins">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="@{target.platform.root}/ci/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="@{target.platform.root}/deploy/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+			</java>
+			<tstamp>
+				<format property="zip.time" pattern="yyyyMMdd" unit="hour" locale="zh,CN" />
+			</tstamp>
+			<property environment="env" />
+			<zip destfile="@{deploy.root}/archive/@{product.name}_@{product.version}_${env.BUILD_NUMBER}_${zip.time}.zip">
+				<fileset dir="@{deploy.root}/instance">
+				</fileset>
+			</zip>
+		</sequential>
+	</macrodef>
+
+
+	<macrodef name="es.close">
+		<attribute name="host" default="${host}" />
+		<attribute name="port" default="${port}" />
+		<attribute name="target.platform.root" default="${target.platform.root}" />
+		<sequential>
+			<java fork="true" classname="com.cnebula.ci.tool.EasyServiceFrameworkCloser" failonerror="false">
+				<jvmarg value="-DES_INSTANCE_HOST=localhost" />
+				<jvmarg value="-DES_INSTANCE_PORT=@{port}" />
+				<classpath>
+					<path>
+						<fileset dir="@{target.platform.root}/ci/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+					<path>
+						<fileset dir="@{target.platform.root}/target/">
+							<include name="**/*.jar" />
+						</fileset>
+					</path>
+				</classpath>
+			</java>
+			<mkdir dir="" />
+		</sequential>
+	</macrodef>
+
+	<!-- = = = = = = = = = = = = = = = = =
+	          macrodef: distribute.ftp          
+	         = = = = = = = = = = = = = = = = = -->
+	<macrodef name="distribute.ftp">
+		<attribute name="server" default="${ftp.server}" />
+		<attribute name="userid" default="${ftp.userid}" />
+		<attribute name="password" default="${ftp.password}" />
+		<attribute name="remotedir" default="${ftp.remotedir}" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<sequential>
+			<ftp server="@{server}" action="put" userid="@{userid}" password="@{password}" passive="yes" verbose="yes" remotedir="@{remotedir}">
+				<fileset dir="${deploy.root}/archive">
+					<include name="**/*.zip" />
+				</fileset>
+			</ftp>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="merge.source">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="bundle.name" />
+		<attribute name="source.path" />
+		<attribute name="target.root" default="@{workspace.root}/@{bundle.name}/@SRC" />
+		<sequential>
+			<copy todir="@{target.root}">
+				<fileset dir="@{workspace.root}/@{bundle.name}/@{source.path}">
+					<include name="**/*.java" />
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="copy.otherthan.source">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="bundle.name" />
+		<attribute name="source.path" />
+		<attribute name="deploy.root" default="${deploy.root}" />
+		<sequential>
+			<copy todir="@{deploy.root}/bundles/@{bundle.name}">
+				<fileset dir="@{workspace.root}/@{bundle.name}/@{source.path}">
+					<exclude name="**/*.java" />
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="clean.source">
+		<attribute name="workspace.root" default="${workspace.root}" />
+		<attribute name="bundle.name" />
+		<attribute name="target.root" default="@{workspace.root}/@{bundle.name}/@SRC" />
+		<sequential>
+			<delete dir="@{target.root}">
+			</delete>
+		</sequential>
+	</macrodef>
+
+
+</project>

@@ -1,0 +1,41 @@
+<table class='layer-table'><tr><td>
+<span style="font-size: 20px; color: red;">Click MBean's "attribute name" add some concerned monitoring items.</span><br/>
+Time Interval : <input id="timeInterval" value="20000"/><button onclick="Monitor.confirmTimeInterval();">confirm</button><br/>
+<table class="h-table">
+	<caption>Monitor</caption>
+	<tr>
+		<th>mbean name</th>
+		<th>attribute name</th>
+		<th>attribute value</th>
+	</tr>
+	<!--#
+		var mbnames = mbnvaluemap.keySet();
+		for(var i=0;i<mbnames.length;i++){
+			var mbname = mbnames[i];
+			var attrns = mbnattrmap.get(mbname);
+			var values = mbnvaluemap.get(mbname);
+			for(var j=0;j<attrns.length;j++){
+				var an = attrns[j];
+				var av = values[j];
+				if(j%2 == 0){
+		#-->		
+				<tr style="background-color: #EFEFEF;">
+		<!--#
+				}else{
+		#-->
+				<tr>
+		<!--#
+				}
+		#-->
+					<td>+-mbname-+&nbsp;</td>
+					<td><span style="cursor: pointer;text-decoration: underline;" title="remove from monitor"
+							  onclick="Monitor.remove('+-mbname-+','+-an-+');return false;">+-an-+&nbsp;</span>
+					</td>
+					<td>+-av-+&nbsp;</td>
+				</tr>
+		<!--#
+			}
+		}
+	#-->
+</table>
+</td></tr></table>

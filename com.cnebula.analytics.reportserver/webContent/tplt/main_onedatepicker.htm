@@ -1,0 +1,78 @@
+<div class="content">
+	<div class="title-bar">
+		<h1>趋势分析</h1>
+	</div>
+	<div class="control-bar-wrapper" id="dateBar">
+		<div class="control-bar">
+			<div id="DateSelectBar" class="l date-select-bar">
+				<a class="date-bar-single-day" href="#" id='bsnMdelYesterday'>昨天</a> 
+				<a class="date-bar-single-day" href="#" id='bsnMdelLastMonth'>上月</a>
+			</div>
+			<div id="DateSelect" class="l">
+				<div id="date-range-field">
+				  	<span>'自定义开始日期'</span>
+				    <a href="#" >&#9660;</a>
+				  </div>
+				  <div id="datepicker-calendar" ></div>
+			</div>
+			<div id="TimeSpan" class="l time-span clearfix">
+				<a id="ByHour" class="l first" href="javascript:void(0)">按时</a>
+				<a id="ByDay" class="l" href="javascript:void(0)">按日</a>
+				<a id="ByMonth" class="l last" href="javascript:void(0)">按月</a>
+			</div>
+		</div>
+	</div>
+	
+	<div id="chartMetricsIndicator" class="chart-metrics-indicator">
+			<div id="chartMetricsIndicatorWrapper"
+				class="chart-metrics-indicator-wrapper">
+				指标：<a><span id="chartMetricsIndicatorText"
+					class="chart-metrics-indicator-text"></span></a>
+			</div>
+		</div>
+		<div id="chartMetricsOptionContainer"
+			class="chart-metrics-indicator-container layer">
+			<div id="chartMetricsOptionIndicator">
+				<label for="chartMetrics-gpv"> <input id="chartMetrics-01"
+					type="checkbox" title="浏览量(PV)" value="gpv" name="chartMetrics" checked filter="" metricsName="gPageView"/>
+					浏览量(PV)
+				</label>
+				<label for="chartMetrics-gv"> <input id="chartMetrics-02"
+					type="checkbox" title="访问次数" value="gv" name="chartMetrics" filter="" metricsName="gVisits"/>
+					访问次数
+				</label>
+			</div>
+		</div>
+	
+	
+
+	<div id="chart" class="chart-indicator" style="height: 400px;"></div>
+
+	<div class="nav" id="advfilterBar">
+		<div class="tabs filter-tabs" id="filterTabs">
+			<ul class="clearfix">
+				<li><a href="#customMetrics">自定义指标</a></li>
+				<!-- <li><a href="#advanced-filters">高级筛选</a></li> -->
+			</ul>
+			<div>
+				<div id="customMetrics" class="tab-contents group">
+					<div id="customMetricsOptionIndicator">
+						<label for="customMetrics01"> <input id="customMetrics01"
+							type="checkbox" title="浏览量(PV)" value="gpv" name="customMetrics"
+							checked filter="" metricsName="gPageView" /> 浏览量(PV)
+						</label> <label for="customMetrics02"> <input id="customMetrics02"
+							type="checkbox" title="访问次数" value="gv" name="customMetrics"
+							filter="" metricsName="gVisits" /> 访问次数
+						</label>
+					</div>
+					<input type="button" id="btn1"
+						onclick="reportModel.doDataTablesReport();" value="查看报表" />
+				</div>
+				<!-- <div id="advanced-filters" class="tab-contents">这里添加机构的过滤</div> -->
+			</div>
+		</div>
+	</div>
+
+	<div id="datetables" class="datatables-indicator" style="height: 400px;"></div>
+
+</div>

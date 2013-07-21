@@ -1,0 +1,48 @@
+检查run.jar的位置和时间戳
+run.jar : F:\workspace\analytics\com.cnebula.analytics.local\deploy\instance\cnebula\run_20130117.jar 20130320_17_55_17
+runjar比 osgiTmpDir要新，清空osgiTmpDir
+
+osgi> [信息]2013-03-20 17:57:09		启动datasourcejdbc/logds, url=jdbc:h2:~/h2dbs/calog;CACHE_SIZE=40960
+[信息]2013-03-20 17:57:09		启动datasourcejdbc/analyticsds, url=jdbc:h2:~/h2dbs/caan;CACHE_SIZE=40960
+[信息]2013-03-20 17:57:09		启动菜单数据同步定时器
+[信息]2013-03-20 17:57:10		启动数据库自定义函数
+[信息]2013-03-20 17:57:10		Template SQL task service is started.
+[信息]2013-03-20 17:57:10		启动CNebula EJB 3.0容器
+[信息]2013-03-20 17:57:10		JMX Transport Service listen at : 127.0.0.1:8990
+[信息]2013-03-20 17:57:10		启动Http服务在地址:null:8991
+[信息]2013-03-20 17:57:10		WEB ACCESS LOG已被禁用
+[信息]2013-03-20 17:57:11		加载了 6个报表配置文件
+[信息]2013-03-20 17:57:11		启动Complex报表查询服务成功
+[信息]2013-03-20 17:57:11		启动DataExportRequestManager成功
+[信息]2013-03-20 17:57:11		启动报表查询服务成功
+[信息]2013-03-20 17:57:12		启动定时RD数据同步任务。
+[信息]2013-03-20 17:57:12		启动RD数据同步定时器
+[信息]2013-03-20 17:57:12		启动ProcRealTimeData 实时数据处理
+[信息]2013-03-20 17:57:12		RD服务第1次尝试获取RCS的数据。
+[信息]2013-03-20 17:57:12		启动菜单数据同步定时器--------------------new
+[信息]2013-03-20 17:57:12		启动Site数据同步定时器
+[信息]2013-03-20 17:57:12		菜单服务更新菜单信息成功
+[信息]2013-03-20 17:57:12		注册/report成功
+[信息]2013-03-20 17:57:12		注册h2 db控制台/h2c成功
+[信息]2013-03-20 17:57:12		绑定远程EasyService通道到Servlet路径模式:/easyservice
+[信息]2013-03-20 17:57:12		绑定人机区分服务EasyCaptcha到Servlet路径模式:/easycaptcha
+[调试]2013-03-20 17:57:25		hessian: expected 'java.util.List' at '' (java.util.HashMap)
+[信息]2013-03-20 17:57:26		RD服务获取了 3679 条原始记录。
+[信息]2013-03-20 17:57:26		RD服务与RCS通讯耗时： 14070 毫秒
+[信息]2013-03-20 17:57:32		RD服务重新缓存了 39条共享域信息记录。
+[信息]2013-03-20 17:57:32		RD服务缓存的共享域信息中有 2条虚拟共享域信息
+[信息]2013-03-20 17:57:32		RD服务重新缓存了 984条成员馆信息记录。
+[信息]2013-03-20 17:57:32		RD服务重新缓存了 菜单配置项
+[信息]2013-03-20 17:57:32		RD服务此次同步共耗时: 20077 毫秒
+[信息]2013-03-20 17:57:35		实时统计数据初始化完毕
+[信息]2013-03-20 17:58:49		Site服务重新更新Site信息
+[信息]2013-03-20 17:59:32		实时统计数据更新加载完毕
+[调试]2013-03-20 18:00:02		hessian: expected 'java.util.List' at '' (java.util.HashMap)
+[调试]2013-03-20 18:00:02		hessian: expected 'java.util.List' at '' (java.util.HashMap)
+2013-3-20 18:00:26 IAdminService prepare to send shudown event
+2013-3-20 18:00:26 IAdminService return
+[信息]2013-03-20 18:00:29		JMX Transport Service stopped
+[信息]2013-03-20 18:00:29		停止Http服务在地址:8991
+[信息]2013-03-20 18:00:29		停止CNebula EJB 3.0容器
+Cobertura: Loaded information on 147 classes.
+Cobertura: Saved information on 147 classes.

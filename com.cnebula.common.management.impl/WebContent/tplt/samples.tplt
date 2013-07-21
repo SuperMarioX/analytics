@@ -1,0 +1,174 @@
+<table  class='layer-table'><tr><td>
+<div id="jvm" style="background-color: #EEEEEE;">
+<h3>JVM</h3>
+	<table width="100%">
+		<tr>
+			<td>
+				<table>
+					<tr><td>操作系统</td><td>+-os.Name-+</td></tr>
+					<tr><td>可用处理器个数</td><td>+-os.AvailableProcessors-+</td></tr>
+					<tr><td>总物理内存</td><td>+-os.TotalPhysicalMemorySize/(1024*1024)-+ MB</td></tr>
+					<tr><td>总交换空间</td><td>+-os.TotalSwapSpaceSize/(1024*1024)-+ MB</td></tr>
+					<tr><td>剩余物理内存</td><td>+-os.FreePhysicalMemorySize/(1024*1024)-+ MB</td></tr>
+					<tr><td>剩余交换空间</td><td>+-os.FreeSwapSpaceSize/(1024*1024)-+ MB</td></tr>
+				</table>
+			</td>
+			<td>
+				<table>
+					<tr><td>堆内存初始</td><td>+-memery.heapInit/(1024*1024)-+ MB</td></tr>
+					<tr><td>堆内存最大</td><td>+-memery.heapMax/(1024*1024)-+ MB</td></tr>
+					<tr><td>堆内存使用</td><td>+-memery.heapUse/(1024*1024)-+ MB</td></tr>
+					<tr><td>非堆内存初始</td><td>+-memery.noneHeapInit/(1024*1024)-+ MB</td></tr>
+					<tr><td>非堆内存最大</td><td>+-memery.noneHeapMax/(1024*1024)-+ MB</td></tr>
+					<tr><td>非堆内存使用</td><td>+-memery.noneHeapUse/(1024*1024)-+ MB</td></tr>
+				</table>			
+			</td>
+		</tr>
+	</table>
+</div>
+<div id="jetty" style="background-color: #EEEEEE;">
+	<h3>Jetty connections、thread、session</h3>
+	<table width="100%">
+		<tr>
+			<td>
+				<h4>Session</h4><br/>
+				<div id="session-g" style="width:450px;height:150px;"></div><br/>
+				<h4>Connection</h4><br/>
+				<div id="connection-g" style="width:450px;height:150px;"></div>
+			</td>
+			<td>
+				<table class="h-table">
+				<!--#
+				for(var k in jetty){
+				#-->
+					<tr>
+						<td align="center">+-k-+</td>
+						<td align="center">+-jetty[k]-+</td>
+					</tr>
+				<!--#
+				}
+				#-->
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+<div id="pool" style="background-color: #EEEEEE;">
+	<h3>DataBase Connection Pool</h3>
+	<table width="100%">
+		<tr>
+			<td align="center">
+				<div id="pool-g" style="width:450px;height:180px;"></div>
+			</td>
+			<td align="center">
+				<table width="450px height="180px" class="h-table">
+					<tr>
+						<td>连接池总数</td>
+						<td>+-pool.totalSize-+</td>
+					</tr>
+					<tr>
+						<td>连接池可使用的连接</td>
+						<td>+-pool.availableSize-+</td>
+					</tr>
+					<tr>
+						<td>正在使用的连接</td>
+						<td>+-pool.connections-+</td>
+					</tr>
+					<tr>
+						<td>活跃的事务数</td>
+						<td>+-pool.transactions-+</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+<div id="remote" style="background-color: #EEEEEE;">
+	<h3>Remote Call</h3>
+	<table>
+	<tr>
+		<td>未结<br/>束的<br/>线程</td>
+		<td>
+			<table class="h-table">
+				<tr>
+					<th>线程ID</th>
+					<th>线程开始时间</th>
+					<th>方法名</th>
+					<th>远程客户端IP</th>
+				</tr>
+				<!--#
+				var threads = remote.runningThreads;
+				for(var t=0; t<threads.length;t++){
+					var entry = threads[t];
+					var tId = entry.key;
+					var tInfo = entry.value;
+					var tInfoSegs = tInfo.split(/\s+/);
+					var tStartTime = tInfoSegs[1];
+					var tMethod = tInfoSegs[4]+'.'+tInfoSegs[5];
+					var tClient = tInfoSegs[6];
+				#-->
+					<tr>
+						<td><span style="text-decoration: underline; cursor: pointer;" onclick="invoke('com.cnebula.common.remote.jmx:type=RemoteCallMBean','dumpRunningThreadTrace',['+-tId-+']); return false;">+-tId-+<span></td>
+						<td>+-tStartTime-+</td>
+						<td>+-tMethod-+</td>
+						<td>+-tClient-+</td>
+					</tr>
+				<!--#
+				}
+				#-->
+			</table>
+		<td>
+	</tr>
+	<tr>
+		<td>调用<br/>时间</td>
+		<td>
+			<table class="h-table">
+			<tr>
+				<th>方法名</th>
+				<th>totalCost(ms)/totalCalls(次数)=avgCost(ms)<br/> sorted By avgCost</th>
+			</tr>
+			<!--#
+			for( var i = remote.avgcosts.length - 1; i >= 0 ; i--){
+				var entry = remote.avgcosts[i];
+				var key = entry.key;
+				var value = entry.value;
+				var total = remote.costs.get(key);
+				var time = remote.times.get(key);
+			#-->
+			<tr>
+				<td>+-key-+</td>
+				<td style='text-align:center'>+-total-+/+-time-+=+-value-+</td>
+			</tr>
+			<!--#
+			}
+			#-->
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>客户<br/>访问<br/>次数<br/></td>
+		<td>
+			<table class="h-table">
+			<tr>
+				<th>远程客户端地址</th>
+				<th>次数</th>
+			</tr>
+			<!--#
+			for(var j = remote.clients.length - 1; j >= 0; j--){
+				var entry = remote.clients[j];
+				var key = entry.key;
+				var value = entry.value;
+			#-->
+			<tr>
+				<td style='text-align:center;'>+-key-+</td>
+				<td style='text-align:center;'>+-value-+</td>
+			</tr>
+			<!--#
+			}
+			#-->
+			</table>
+		</td>
+	</tr>
+	</table>
+</div>
+</td></tr></table>

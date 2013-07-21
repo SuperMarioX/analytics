@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RedirectPage</title>
+<script type="text/javascript"
+	src="/easyservice-util/EasyServiceClientFullZ.js"></script>
+</head>
+<body>
+</body>
+<script>
+	var ctx = ejs.initContext();
+	var artifact = ctx.param['artifact'];
+	if (artifact != null) {
+		if (window.parent != null) {
+			window.parent.location = "http://" + window.location.host + "/report/welcome.htm?artifact=" + artifact;
+		}
+	} else {
+		var UAS_DOMAIN = ctx.param['uas'];
+		window.location = UAS_DOMAIN + "/amconsole/AuthServices/?verb=login&forcelogin=true&goto=http://" + window.location.host + "/report/uas.htm";
+	}
+</script>
+</html>

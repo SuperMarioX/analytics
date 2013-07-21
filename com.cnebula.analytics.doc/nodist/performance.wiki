@@ -1,0 +1,18 @@
+=类型转换=
+
+c = 10000
+
+|String->int |  16ms|
+|String->Date|256ms|
+|Date.setTime|16ms|
+
+=h2入库类型差异=
+
+c = 10000
+表: create table testtype (tstr varchar(20), tint int, tdate date);
+由h2自动转换
+
+|String|2153ms|
+|Object|2620ms|
+|StringReader|33000ms|
+

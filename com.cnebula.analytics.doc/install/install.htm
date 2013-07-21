@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>install</title>
+<style type="text/css"><!--
+/* @group RESET */
+/* --------------------------------------------------------------
+
+  Reset.css
+  * Resets default browser CSS styles.
+
+  Created by Erik Meyer:
+  * meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/
+-------------------------------------------------------------- */
+
+* html {
+  overflow-y: auto;
+}
+html, body {
+    height: 100%;
+}
+--></style>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/zyxwiki.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shThemeDefault.css"/>
+<link type="text/css" rel="stylesheet" href="_cssAndJsDir_/shCore.css"/>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shCore.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCpp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCSharp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushCss.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushGroovy.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJavaFX.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJScript.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPerl.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPhp.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPlain.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPowerShell.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushPython.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushRuby.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushScala.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushSql.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushVb.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushXml.js"></script>
+<script type="text/javascript" src="_cssAndJsDir_/shBrushJava.js"></script>
+<script type="text/javascript">
+SyntaxHighlighter.config.clipboardSwf = '_cssAndJsDir_/clipboard.swf'
+SyntaxHighlighter.all();
+</script>
+  </head>
+  <body>
+
+<div id="xwikimaincontainer">
+<div id="xwikimaincontainerinner">
+<h1><span id="日志统计与监控系统安装指南_(V1.1.0)">日志统计与监控系统安装指南 (V1.1.0)</span></h1>
+<p><strong>中国高等教育文献保障系统（CALIS）管理中心<br/></strong>
+<strong>Administrative Center for China Academic Library &amp; Information System<br/></strong></p>
+
+<hr/>
+
+<div class="xwikiToc"><ul>
+<li class="toc_level_1"><a href="#日志统计与监控系统安装指南_(V1.1.0)"><span class="toctext">日志统计与监控系统安装指南 (V1.1.0)</span></a></li>
+<li class="toc_level_2"><a href="#1__前言"><span class="toctext">1  前言</span></a></li>
+<li class="toc_level_3"><a href="#1.1_系统简介"><span class="toctext">1.1 系统简介</span></a></li>
+<li class="toc_level_4"><a href="#1.1.1_关于本系统"><span class="toctext">1.1.1 关于本系统</span></a></li>
+<li class="toc_level_4"><a href="#1.1.2_系统特点"><span class="toctext">1.1.2 系统特点</span></a></li>
+<li class="toc_level_3"><a href="#1.2_手册说明"><span class="toctext">1.2 手册说明</span></a></li>
+<li class="toc_level_4"><a href="#1.2.1_目的"><span class="toctext">1.2.1 目的</span></a></li>
+<li class="toc_level_4"><a href="#1.2.2_读者对象"><span class="toctext">1.2.2 读者对象</span></a></li>
+<li class="toc_level_2"><a href="#2_名词解释"><span class="toctext">2 名词解释</span></a></li>
+<li class="toc_level_2"><a href="#3__安装前准备"><span class="toctext">3  安装前准备</span></a></li>
+<li class="toc_level_3"><a href="#3.1_人员要求"><span class="toctext">3.1 人员要求</span></a></li>
+<li class="toc_level_3"><a href="#3.2_硬件环境要求"><span class="toctext">3.2 硬件环境要求</span></a></li>
+<li class="toc_level_3"><a href="#3.3_软件环境要求"><span class="toctext">3.3 软件环境要求</span></a></li>
+<li class="toc_level_2"><a href="#4_JAVA运行环境的安装"><span class="toctext">4 JAVA运行环境的安装</span></a></li>
+<li class="toc_level_3"><a href="#4.1_JDK(或JRE)"><span class="toctext">4.1 JDK(或JRE)</span></a></li>
+<li class="toc_level_2"><a href="#5__数据库配置"><span class="toctext">5  数据库配置</span></a></li>
+<li class="toc_level_3"><a href="#5.1_H2C安装"><span class="toctext">5.1 H2C安装</span></a></li>
+<li class="toc_level_2"><a href="#6__“日志统计与监控”系统安装、基本配置与服务启动"><span class="toctext">6  “日志统计与监控”系统安装、基本配置与服务启动</span></a></li>
+<li class="toc_level_3"><a href="#6.1_“日志统计与监控”安装"><span class="toctext">6.1 “日志统计与监控”安装</span></a></li>
+<li class="toc_level_3"><a href="#6.2_简单配置“日志统计与监控”"><span class="toctext">6.2 简单配置“日志统计与监控”</span></a></li>
+<li class="toc_level_4"><a href="#6.2.1_修改var.properties中的相关参数"><span class="toctext">6.2.1 修改var.properties中的相关参数</span></a></li>
+<li class="toc_level_4"><a href="#6.2.3_启动“日志统计与监控”系统"><span class="toctext">6.2.3 启动“日志统计与监控”系统</span></a></li>
+<li class="toc_level_4"><a href="#6.2.3_停止“日志统计与监控”"><span class="toctext">6.2.3 停止“日志统计与监控”</span></a></li>
+</ul>
+</div>
+
+<h2><span id="1__前言">1  前言</span></h2>
+<h3><span id="1.1_系统简介">1.1 系统简介</span></h3>
+<h4><span id="1.1.1_关于本系统">1.1.1 关于本系统</span></h4>
+<p>日志统计与监控系统主要提供对各个集成的应用系统的统计与监控功能。</p>
+<h4><span id="1.1.2_系统特点">1.1.2 系统特点</span></h4>
+<p>当前CALIS的各个高校存在多个应用系统（统一用户认证系统、参考咨询系统、资源调度系统、馆际互借系统和统一检索系统等），且各个应用系统进行了不同的集成，如与统一认证进行的集成。
+为保障各个应用系统安全稳定的运行，需要单独一个日志统计与检测系统，可以对各个应用系统的访问量、资源查看等进行监控和分析，这样有助于应用系统长期稳定地运行，同时也为应用系统发现问题时迅速响应并修复提供相关技术参考。</p>
+<h3><span id="1.2_手册说明">1.2 手册说明</span></h3>
+<h4><span id="1.2.1_目的">1.2.1 目的</span></h4>
+<p>本手册提供“日志统计与监控”系统的安装指导。根据此手册，可以完成“日志统计与监控”系统的安装、配置工作。</p>
+<h4><span id="1.2.2_读者对象">1.2.2 读者对象</span></h4>
+<ul><li>测试培训人员</li></ul>
+<ul><li>项目实施人员</li></ul>
+<ul><li>各个需集成“日志统计与监控”系统的项目负责人</li></ul>
+<h2><span id="2_名词解释">2 名词解释</span></h2>
+<p>该部分对系统中使用到的名词进行解释。</p>
+<p><strong>浏览量(PV)：</strong>页面被查看的次数或用户多次打开或刷新同一个页面的累加次数总和。</p>
+<p><strong>访问次数：</strong>一段时间内网站或系统被访问的总人次，也就是网站或系统的所有访问者发起的具体会话次数。</p>
+<p><strong>全局访问次数：</strong>一段时间内CALIS域被访问的总人次，也就是CALIS域所有访问者发起的具体会话次数。如果访问者在会话期间即访问了CALIS的馆际互借系统、又访问了CALIS的虚拟参考咨询系统，但对CALIS域来说只记一次访问。</p>
+<p><strong>唯一新增用户数：</strong>选择的报告日期范围内每个访问者只被计算一次。如果在选定的日期范围内访问者 A来过网站 5次，访问者B 只来过网站一次。那么你有2个绝对唯一访问者人数。</p>
+<p><strong>全局唯一新增用户数：</strong>选择的报告日期范围内每个访问者只被计算一次。如果在选定的日期范围内访问者 A来过CALIS域5次，访问者B 只来过CALIS域一次。那么你有2个绝对唯一访问者人数。</p>
+<p><strong>访客数(UV)：</strong>访客数就是指一天之内到底有多少不同的用户访问了你的网站，00:00-24:00内相同的客户端只被计算一次。</p>
+<p><strong>维度：</strong>对报告和数据进行细分的类别，例如：时间、资源名称、所属学校等等。是对指标数据的描述。</p>
+<p><strong>指标：</strong>报告中的具体数值或数字。例如:浏览量，访问量，访客数等等。这部分信息是通过对维度信息的计算产生的，同时也有部分信息是记录在cookie里的。</p>
+<p><strong>Java SE：</strong>Java平台标准版(英文：Java Platform, Standard Edition) </p>
+<p><strong>JDK：</strong>Java 开发工具包(英文：Java Development Kit)</p>
+<p><strong>JRE：</strong>Java 运行环境(英文：Java Runtime Environment)</p>
+<h2><span id="3__安装前准备">3  安装前准备</span></h2>
+<p>在安装本系统前，需要准备硬件设备、软件支撑环境。</p>
+<h3><span id="3.1_人员要求">3.1 人员要求 </span></h3>
+<ul><li>一个认真负责的人</li></ul>
+<ul><li>基本理解上述名词解释含义的人</li></ul>
+<ul><li>一个熟悉将要安装“日志统计与监控”系统的目标软件环境的人</li></ul>
+<h3><span id="3.2_硬件环境要求">3.2 硬件环境要求</span></h3>
+<p>本系统需要的硬件环境如下：</p>
+<p>内存：2  GB以上</p>
+<h3><span id="3.3_软件环境要求">3.3 软件环境要求</span></h3>
+<p>本系统需要的软件环境如下：</p>
+<p>操作系统：能支持运行<strong> Java SE </strong>虚拟机的操作系统</p>
+<p>JRE(或JDK)		：满足操作系统要求的JRE(或JDK) <strong>6</strong> 或以上版本</p>
+<p>浏览器：Firefox4.0或以上版本\Chrome10或以上版本</p>
+<p>IP		：需要公网IP地址</p>
+<p>域名	：需要配置logger域名</p>
+<h2><span id="4_JAVA运行环境的安装">4 JAVA运行环境的安装</span></h2>
+<h3><span id="4.1_JDK(或JRE)">4.1 JDK(或JRE)</span></h3>
+<p>下载地址：<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" rel="nofollow">JDK(JRE)下载</a><br/></p>
+<p>JDK(JRE)安装文档：<a href="http://www.oracle.com/technetwork/java/javase/index-137561.html" rel="nofollow">JDK(JRE)安装文档</a></p>
+<h2><span id="5__数据库配置">5  数据库配置</span></h2>
+<h3><span id="5.1_H2C安装">5.1 H2C安装</span></h3>
+<p>安装：已经由日志统计与监控系统自动安装集成。</p>
+<h2><span id="6__“日志统计与监控”系统安装、基本配置与服务启动">6  “日志统计与监控”系统安装、基本配置与服务启动</span></h2>
+<p>该部分介绍本系统主程序的安装、配置以及如何启动本系统。</p>
+<h3><span id="6.1_“日志统计与监控”安装">6.1 “日志统计与监控”安装</span></h3>
+<ul><li>“日志统计与监控”的安装文件是一个以zip方式压缩的压缩包，如下图：<br/>
+<img src="analytics.png" alt="" title="" /></li></ul>
+<ul><li>解压该文件，如下图：<br/>
+Windosw系统直接使用解压缩软件进行解压<br/>
+unix系统使用unzip命令，如unzip analytics_0.1.0_95_20121026<br/></li></ul>
+<ul><li>将解压后的文件夹放在一个你期望放置的地方后，便结束了安装。</li></ul>
+<h3><span id="6.2_简单配置“日志统计与监控”">6.2 简单配置“日志统计与监控”</span></h3>
+<p>设${path_to_your_analytics}是“日志统计与监控”系统安装目录的全路径。则，${path_to_your_analytics}/conf/var.properties是
+您关心的主要配置文件，如下图：<br/></p>
+<h4><span id="6.2.1_修改var.properties中的相关参数">6.2.1 修改var.properties中的相关参数</span></h4>
+<p><strong>var.properties中的内容是由UTF-8编码储存的，请使用支持UTF-8编码的编辑器(如,windows的notepad,linux的vi，在windows中请不要使用写字板打开此文件)打开此文件，否则会导致登录页信息乱码或配置不正确</strong><br/></p>
+<p>var.properties中的原始内容，如下图：<br/>
+<div class="code"><pre class="brush:java">
+
+#Jmx
+jmx_host=127.0.0.1
+jmx_port=8990
+#web
+#http_host=192.168.2.148
+http_port=8991
+http_minThread=2
+http_maxThread=300
+
+#logger服务对外的域名，务必配置和http host不同的域名
+logger_host=st-analytics.dev.calis.edu.cn
+logger_port=8992
+
+#日志数据存放目录~代表用户目录
+#真实部署时候建议部署在存储上，比如/var/data/h2dbs
+logpath=~/h2dbs
+
+#集成统一认证的配置
+uasHost=uas.dev.calis.edu.cn
+uasPort=8101
+
+#从RCS获取信息的配置
+rcsHost=rcs.calis.edu.cn
+rcsPort=80
+#rcs中获取信息需提供的订阅者ID，目前正式环境可用calis中心uas的ID
+appId=app:100000.uas_000
+
+##################
+########CI########
+##################
+#hudson ci build
+local.build_properties=ci-build.properties
+#eclipse locale build
+#local.build_properties=${local.root}/local-build.properties
+#remote test ftp server
+remoteTest.ftp.server=192.168.2.49
+remoteTest.ftp.userid=test
+remoteTest.dist.root=/
+#build drop table need
+db_driver=oracle.jdbc.OracleDriver
+db_url=dbc:oracle:thin:@192.168.2.177:1521:orcl
+#instance waiting time 
+#经过测试hudson上启动很慢。
+server.start.time=80
+cobertura.report.type=xml
+
+</pre></div>
+</p>
+<p>该文件中大部分配置项都有详细说明，这些带有详细说明的需要用户认真仔细地配置。</p>
+<ul><li>web相关的配置<ul><li>包含如下几项：<br/>
+<div class="code"><pre class="brush:java">
+
+#Jmx
+jmx_host=127.0.0.1
+jmx_port=8990
+#web
+#http_host=192.168.2.148
+http_port=8991
+http_minThread=2
+http_maxThread=300
+
+#logger服务对外的域名，务必配置和http host不同的域名
+logger_host=st-analytics.dev.calis.edu.cn
+logger_port=8992
+</pre></div>
+</li>
+<li>JMX来监控系统的运行状态或管理系统，一般情况下不需要修改。</li>
+<li>web来配置日志系统访问地址和端口号。其中，minThread和maxThread分别代表服务器最小线程数和最大线程数。默认情况下，最小线程数量为3，最大为5。实际部署时，根据服务器实际情进行调整。</li>
+<li>logger用来配置对外服务的内容，需要配置为域名，而不是IP地址，并且将其添加到hosts文件中，Windows系统hosts文件位于C:\Windows\System32\drivers\etc\hosts，修改这个文件需要管理员权限。unix系统hosts文件位于/etc/hosts。</li></ul>
+</li></ul>
+<ul><li>日志数据相关设置
+<div class="code"><pre class="brush:java">
+
+#日志数据存放目录~代表用户目录
+#真实部署时候建议部署在存储上，比如/var/data/h2dbs
+logpath=~/h2dbs
+ ** 这里存放到用户目录下的h2dbs文件夹中。	
+</pre></div>
+</li>
+<li>其他参数的配置
+<div class="code"><pre class="brush:java">
+
+#集成统一认证的配置
+uasHost=uas.dev.calis.edu.cn
+uasPort=8101
+
+#从RCS获取信息的配置
+rcsHost=rcs.calis.edu.cn
+rcsPort=80
+#rcs中获取信息需提供的订阅者ID，目前正式环境可用calis中心uas的ID
+appId=app:100000.uas_000
+</pre></div>
+</li></ul>
+<h4><span id="6.2.3_启动“日志统计与监控”系统">6.2.3 启动“日志统计与监控”系统</span></h4>
+<p>设${path_to_your_analytics}是“日志统计与监控”系统安装目录的全路径。在该目录下，如下图：<br/></p>
+<ul><li>其中以.sh后缀名结尾的文件是为类Unix系统所准备的启动脚本<ul><li>文件名中含有demon字样的文件是为类Unix系统准备的后台守护进程启动脚本。用这种方式启动，analytics将不占用终端。</li>
+<li>同时，您需要给*.sh文件添加可执行权限，并以root用户身份执行这些脚本。可以使用root权限执行chmod +x *.sh 来将所有.sh文件加上可执行的权限。</li></ul>
+</li>
+<li>以.bat后缀名结尾的文件是为windows平台所准备的启动脚本</li></ul>
+<ul><li>当您确保可执行命令java在操作系统的环境变量中时，您可以不做任何修改地运行start.sh(或start.bat)脚本来启动““日志统计与监控”系统。<strong></strong></li></ul>
+<ul><li>当您发现java不在操作系统的环境变量中时，请检查您的java运行环境是否正确安装和配置，请看4.1节。</li></ul>
+<h4><span id="6.2.3_停止“日志统计与监控”">6.2.3 停止“日志统计与监控”</span></h4>
+<p>可以使用stop.sh(unix-like使用stop.sh,windows使用stop.bat)来停止“日志统计与监控”系统，执行该脚本时需要用户输入用户名密码，这里的用户名和密码请输入日志统计与监控系统超级管理员的。</p>
+</div>
+</div>
+  </body>
+</html>

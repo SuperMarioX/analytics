@@ -1,0 +1,178 @@
+<HTML>
+<head>
+<title>测试calis log JS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="text/html; charset=utf-8" http-equiv=content-type>
+	<script src="/easyservice-util/EasyServiceClientFull.js"></script>
+	<script src="/easyservice-util/TestCaseRuntime.js"></script>
+	<script type="text/javascript">
+	/*测试用例使用详见：
+		http://192.168.2.93:8101/easyservice-util/TestCaseRuntime.js;
+		http://192.168.2.212/viewvc/cnebula/com.cnebula.common.remote.ws/util/TestCaseRuntime.js?revision=1.3
+	*/
+	var _caam_key = "_caam",
+		_casn_key = "_casn",
+		_casc_key = "_casc";
+	var _configCookiePath;
+	var _configCookieDomain;
+	
+	function _setCookie(cookieName, value, msToExpire, path, domain, secure) {
+		var expiryDate;
+		if (msToExpire) {
+			expiryDate = new Date();
+			expiryDate.setTime(expiryDate.getTime() + msToExpire);
+		}
+
+		document.cookie = cookieName + '=' + encodeURIComponent(value) +
+			(msToExpire ? ';expires=' + expiryDate.toGMTString() : '') +
+			';path=' + (path || '/') +
+			(domain ? ';domain=' + domain : '') +
+			(secure ? ';secure' : '');
+	}
+	
+	function _getCookie(cookieName) {
+		var cookiePattern = new RegExp('(^|;)[ ]*' + cookieName + '=([^;]*)'),
+
+			cookieMatch = cookiePattern.exec(document.cookie);
+
+		return cookieMatch ? decodeURIComponent(cookieMatch[2]) : 0;
+	}
+	
+	function _getOrid(){
+		var pathname = window.location.pathname;
+		if(!pathname){
+			return "/";
+		}
+		return pathname + (window.location.search ? window.location.search : ""); 
+	}
+	
+	function clearCookie(){
+		_setCookie(_caam_key, '', -1, _configCookiePath, _configCookieDomain);
+		_setCookie(_casn_key, '', -1, _configCookiePath, _configCookieDomain);
+		_setCookie(_casc_key, '', -1, _configCookiePath, _configCookieDomain);
+	}
+	
+	function createOverflowLength(len){
+		var rt = "";
+		for(var i = 0; i <= len; i++){
+			rt += "1";
+		}
+		
+		return rt;
+	}
+	
+	//根据请求字符串获取参数的k、v放在对象中
+	function getReqObj(reqStr){
+		var rt = {};
+		var arr = reqStr.split('&');
+		for(var i = 0; i < arr.length; i++){
+			var tmpArr = arr[i].split('=');
+			rt[tmpArr[0]] = tmpArr[1];
+		}
+		
+		return rt;
+	}
+	
+	/********测试**********/
+	function testCntParams(){
+		clearCookie();
+		var reqString = calis.cal.getAsyncTracker().getCollectionInfo();
+		assertEquals(reqString.indexOf('rnc=1') >= 0, true);
+		assertEquals(reqString.indexOf('rsc=1') >= 0, true);
+		reqString = calis.cal.getAsyncTracker().getCollectionInfo('',{});
+		assertEquals(reqString.indexOf('rnc=0') >= 0, true);
+		assertEquals(reqString.indexOf('rsc=0') >= 0, true);
+		_setCookie(_casc_key, '', -1, _configCookiePath, _configCookieDomain);
+		reqString = calis.cal.getAsyncTracker().getCollectionInfo('',{});
+		assertEquals(reqString.indexOf('rnc=0') >= 0, true);
+		assertEquals(reqString.indexOf('rsc=1') >= 0, true);
+		clearCookie();
+	}
+	
+	function testDefaultOp(){
+		clearCookie();
+		var json = {
+			'oaid' : 'app:600300.uas_000'
+		};
+		var reqString = calis.cal.getAsyncTracker().getCollectionInfo('',json);
+		assertEquals(reqString.indexOf('ort=p') >= 0, true);
+		assertEquals(reqString.indexOf('orid=' + encodeURIComponent(_getOrid())) >= 0,true);
+		assertEquals(reqString.indexOf('otil=' + encodeURIComponent(document.title)) >= 0,true);
+		
+		clearCookie();
+	}
+	
+	function testNotDefaultOp(){
+		clearCookie();
+		var json = {
+			'op' : '下载',
+			'ort':'外文图书',
+			'orid':'资源ID001',
+			'otil':'Java编程思想'
+		};
+		var reqString = calis.cal.getAsyncTracker().getCollectionInfo('',json);
+		assertEquals(reqString.indexOf('ort=' + encodeURIComponent('外文图书')) >= 0, true);
+		assertEquals(reqString.indexOf('orid=' + encodeURIComponent('资源ID001')) >= 0,true);
+		assertEquals(reqString.indexOf('otil=' + encodeURIComponent('Java编程思想')) >= 0,true);
+		clearCookie();
+	}
+	
+	function testCaam(){
+		clearCookie();
+		var json = {
+			'oaid' : 'app:600300.uas_000'
+		};
+		var reqString = calis.cal.getAsyncTracker().getCollectionInfo('',json);
+		var caamArr = _getCookie(_caam_key).split('.');
+		var v1 = caamArr[1];
+		var v2 = caamArr[2];
+		var v3 = caamArr[3];
+		assertEquals(v1 == v2, true);
+		assertEquals(v2 == v3, true);
+		clearCookie();
+	}
+	
+	function testCut(){
+		clearCookie();
+		var json = {
+			'oaid' : 'app:600300.uas_000',
+			'op' : '下载',
+			'ort':'外文图书',
+			'orid':'资源ID001',
+			'otil':'Javascript Definitive Guide Fifth Edition',
+			'opub':'中华人民共和国广东省广州百花洲文艺出版社',//最长50个字符，当前20个字符
+			'osub' : '中华人民共和国IT教育丛书Java系列丛书'//最长20个字符，当前21个字符
+		};
+		var reqString = calis.cal.getAsyncTracker().getCollectionInfo('',json);
+		assertEquals(reqString.indexOf('opub=' + encodeURIComponent('中华人民共和国广东省广州百花洲文艺出版社')) >= 0,true);
+		assertEquals(reqString.indexOf('osub=' + encodeURIComponent('中华人民共和国IT教育丛书Java系列丛书')) == -1,true);
+		assertEquals(reqString.indexOf('osub=' + encodeURIComponent('中华人民共和国IT教育丛书Java系列丛')) >= 0,true);
+		
+		//与以上3行的功能相同
+		var obj = getReqObj(reqString);
+		assertEquals(decodeURIComponent(obj.opub).length == 20, true);
+		assertEquals(decodeURIComponent(obj.osub).length == 20, true);
+		
+		var json2 = {
+				'oaid' : 'app:600300.uas_000',
+				'op' : '搜索',
+				'ort':'Edu搜索',
+				'orid':createOverflowLength(1025),//最长1024个字符，当前1025个字符
+				'otil':'mytitle'
+			};
+		var reqString2 = calis.cal.getAsyncTracker().getCollectionInfo('',json2);
+		var obj2 = getReqObj(reqString2);
+		assertEquals(obj2.orid.length == 1024, true );
+		
+		clearCookie();
+	}
+	
+	
+	
+	
+	</script>
+</head>
+<body onload="runAllTestCase();">
+<script src="js/calis.cal_0.01_clone.js"></script>
+</body>
+</HTML>
